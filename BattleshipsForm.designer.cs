@@ -265,7 +265,7 @@
         	this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         	this.BackColor = System.Drawing.Color.White;
-        	this.BackgroundImage = global::Battleships.Properties.Resources.Battleshipsv8;
+        	this.BackgroundImage = global::Battleships.Properties.Resources.Battleships_v9;
         	this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
         	this.ClientSize = new System.Drawing.Size(794, 592);
         	this.Controls.Add(this.label2);
