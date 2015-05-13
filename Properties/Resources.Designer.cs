@@ -73,30 +73,10 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap aoe {
+		internal static System.Drawing.Bitmap Battleships {
 			get {
-				object obj = ResourceManager.GetObject("aoe", resourceCulture);
+				object obj = ResourceManager.GetObject("Battleships", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized resource of type System.Drawing.Bitmap.
-		/// </summary>
-		internal static System.Drawing.Bitmap battleships_icon {
-			get {
-				object obj = ResourceManager.GetObject("battleships_icon", resourceCulture);
-				return ((System.Drawing.Bitmap)(obj));
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-		/// </summary>
-		internal static System.Drawing.Icon battleships_icon_small {
-			get {
-				object obj = ResourceManager.GetObject("battleships_icon_small", resourceCulture);
-				return ((System.Drawing.Icon)(obj));
 			}
 		}
 		
@@ -113,9 +93,9 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap Battleshipsv8 {
+		internal static System.Drawing.Bitmap Battleships_v1 {
 			get {
-				object obj = ResourceManager.GetObject("Battleshipsv8", resourceCulture);
+				object obj = ResourceManager.GetObject("Battleships_v1", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -123,9 +103,39 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
-		internal static System.Drawing.Bitmap boat_dmg {
+		internal static System.Drawing.Bitmap Battleships_v3 {
 			get {
-				object obj = ResourceManager.GetObject("boat_dmg", resourceCulture);
+				object obj = ResourceManager.GetObject("Battleships_v3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap Battleshipsv6 {
+			get {
+				object obj = ResourceManager.GetObject("Battleshipsv6", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap Battleshipsv7 {
+			get {
+				object obj = ResourceManager.GetObject("Battleshipsv7", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap Battleshipsv8 {
+			get {
+				object obj = ResourceManager.GetObject("Battleshipsv8", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -273,6 +283,16 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap btn_cruiser_click2 {
+			get {
+				object obj = ResourceManager.GetObject("btn_cruiser_click2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap btn_cruiser_disable {
 			get {
 				object obj = ResourceManager.GetObject("btn_cruiser_disable", resourceCulture);
@@ -326,6 +346,46 @@ namespace Battleships.Properties {
 		internal static System.Drawing.Bitmap btn_galley_enter {
 			get {
 				object obj = ResourceManager.GetObject("btn_galley_enter", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap btn_uboot {
+			get {
+				object obj = ResourceManager.GetObject("btn_uboot", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap btn_uboot_click {
+			get {
+				object obj = ResourceManager.GetObject("btn_uboot_click", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap btn_uboot_disable {
+			get {
+				object obj = ResourceManager.GetObject("btn_uboot_disable", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap btn_uboot_enter {
+			get {
+				object obj = ResourceManager.GetObject("btn_uboot_enter", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -493,9 +553,159 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap explo1 {
+			get {
+				object obj = ResourceManager.GetObject("explo1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap explo2 {
+			get {
+				object obj = ResourceManager.GetObject("explo2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap explo3 {
+			get {
+				object obj = ResourceManager.GetObject("explo3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap explo4 {
+			get {
+				object obj = ResourceManager.GetObject("explo4", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap explo5 {
+			get {
+				object obj = ResourceManager.GetObject("explo5", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap explo6 {
 			get {
 				object obj = ResourceManager.GetObject("explo6", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap explosion_30px {
+			get {
+				object obj = ResourceManager.GetObject("explosion_30px", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap fertig2 {
+			get {
+				object obj = ResourceManager.GetObject("fertig2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_h1 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_h1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_h2 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_h2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_h3 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_h3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_h4 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_h4", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_v1 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_v1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_v2 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_v2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_v3 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_v3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap galley_dmg_v4 {
+			get {
+				object obj = ResourceManager.GetObject("galley_dmg_v4", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -583,9 +793,219 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap kollision {
+			get {
+				object obj = ResourceManager.GetObject("kollision", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap meer {
+			get {
+				object obj = ResourceManager.GetObject("meer", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap meer_big {
+			get {
+				object obj = ResourceManager.GetObject("meer_big", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap meer_opponent {
+			get {
+				object obj = ResourceManager.GetObject("meer_opponent", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap meer_player {
+			get {
+				object obj = ResourceManager.GetObject("meer_player", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap pergament {
+			get {
+				object obj = ResourceManager.GetObject("pergament", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap position {
+			get {
+				object obj = ResourceManager.GetObject("position", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap splash {
 			get {
 				object obj = ResourceManager.GetObject("splash", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap uboot1 {
+			get {
+				object obj = ResourceManager.GetObject("uboot1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap uboot1v {
+			get {
+				object obj = ResourceManager.GetObject("uboot1v", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap uboot2 {
+			get {
+				object obj = ResourceManager.GetObject("uboot2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap uboot2v {
+			get {
+				object obj = ResourceManager.GetObject("uboot2v", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap wood {
+			get {
+				object obj = ResourceManager.GetObject("wood", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_h1 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_h1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_h2 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_h2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_h3 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_h3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_h4 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_h4", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_v1 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_v1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_v2 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_v2", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_v3 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_v3", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z_dmg_v4 {
+			get {
+				object obj = ResourceManager.GetObject("z_dmg_v4", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z1 {
+			get {
+				object obj = ResourceManager.GetObject("z1", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -603,9 +1023,29 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap z1v {
+			get {
+				object obj = ResourceManager.GetObject("z1v", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap z1v1 {
 			get {
 				object obj = ResourceManager.GetObject("z1v1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z2 {
+			get {
+				object obj = ResourceManager.GetObject("z2", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -623,9 +1063,29 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap z2v {
+			get {
+				object obj = ResourceManager.GetObject("z2v", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap z2v1 {
 			get {
 				object obj = ResourceManager.GetObject("z2v1", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z3 {
+			get {
+				object obj = ResourceManager.GetObject("z3", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}
@@ -643,6 +1103,16 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap z3v {
+			get {
+				object obj = ResourceManager.GetObject("z3v", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap z3v1 {
 			get {
 				object obj = ResourceManager.GetObject("z3v1", resourceCulture);
@@ -653,9 +1123,29 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Bitmap.
 		/// </summary>
+		internal static System.Drawing.Bitmap z4 {
+			get {
+				object obj = ResourceManager.GetObject("z4", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
 		internal static System.Drawing.Bitmap z41 {
 			get {
 				object obj = ResourceManager.GetObject("z41", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap z4v {
+			get {
+				object obj = ResourceManager.GetObject("z4v", resourceCulture);
 				return ((System.Drawing.Bitmap)(obj));
 			}
 		}

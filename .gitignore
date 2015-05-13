@@ -5,3 +5,4 @@ bin/Release/**
 bin/Release/Sounds/**
 obj/**
 battleships_icon.ico
+*.7z
