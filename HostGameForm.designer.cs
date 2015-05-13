@@ -132,7 +132,7 @@
             this.btnRdy.Text = "Bereit";
             this.toolTip_Btns.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.btnRdy_Click);
+            this.btnRdy.Click += new System.EventHandler(this.BtnRdy_Click);
             // 
             // btnExtIp
             // 

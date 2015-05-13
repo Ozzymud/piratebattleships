@@ -74,10 +74,11 @@ namespace Battleships
             this.btnCruiser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnCruiser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnCruiser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCruiser.Location = new System.Drawing.Point(364, 336);
+            this.btnCruiser.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnCruiser.Location = new System.Drawing.Point(348, 324);
             this.btnCruiser.Margin = new System.Windows.Forms.Padding(4);
             this.btnCruiser.Name = "btnCruiser";
-            this.btnCruiser.Size = new System.Drawing.Size(75, 40);
+            this.btnCruiser.Size = new System.Drawing.Size(106, 40);
             this.btnCruiser.TabIndex = 5;
             this.btnCruiser.UseVisualStyleBackColor = false;
             this.btnCruiser.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnCruiser_MouseDown);
@@ -96,10 +97,11 @@ namespace Battleships
             this.btnBattleship.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnBattleship.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBattleship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBattleship.Location = new System.Drawing.Point(353, 190);
+            this.btnBattleship.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnBattleship.Location = new System.Drawing.Point(348, 196);
             this.btnBattleship.Margin = new System.Windows.Forms.Padding(4);
             this.btnBattleship.Name = "btnBattleship";
-            this.btnBattleship.Size = new System.Drawing.Size(92, 40);
+            this.btnBattleship.Size = new System.Drawing.Size(106, 40);
             this.btnBattleship.TabIndex = 6;
             this.btnBattleship.UseVisualStyleBackColor = false;
             this.btnBattleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBattleship_MouseDown);
@@ -118,10 +120,11 @@ namespace Battleships
             this.btnBoat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnBoat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBoat.Location = new System.Drawing.Point(364, 394);
+            this.btnBoat.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnBoat.Location = new System.Drawing.Point(348, 388);
             this.btnBoat.Margin = new System.Windows.Forms.Padding(4);
             this.btnBoat.Name = "btnBoat";
-            this.btnBoat.Size = new System.Drawing.Size(75, 40);
+            this.btnBoat.Size = new System.Drawing.Size(106, 40);
             this.btnBoat.TabIndex = 7;
             this.btnBoat.UseVisualStyleBackColor = false;
             this.btnBoat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBoat_MouseDown);
@@ -134,13 +137,15 @@ namespace Battleships
                                     | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGalley.AutoSize = true;
             this.lblGalley.BackColor = System.Drawing.Color.Transparent;
-            this.lblGalley.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGalley.Location = new System.Drawing.Point(357, 234);
+            this.lblGalley.Font = new System.Drawing.Font("Segoe Print", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGalley.ForeColor = System.Drawing.Color.AliceBlue;
+            this.lblGalley.Location = new System.Drawing.Point(348, 236);
             this.lblGalley.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGalley.Name = "lblGalley";
-            this.lblGalley.Size = new System.Drawing.Size(88, 20);
+            this.lblGalley.Size = new System.Drawing.Size(106, 30);
             this.lblGalley.TabIndex = 8;
             this.lblGalley.Text = "Number: 1";
+            this.lblGalley.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnGalley
             // 
@@ -154,10 +159,11 @@ namespace Battleships
             this.btnGalley.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnGalley.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnGalley.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGalley.Location = new System.Drawing.Point(353, 258);
+            this.btnGalley.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnGalley.Location = new System.Drawing.Point(348, 260);
             this.btnGalley.Margin = new System.Windows.Forms.Padding(4);
             this.btnGalley.Name = "btnGalley";
-            this.btnGalley.Size = new System.Drawing.Size(92, 40);
+            this.btnGalley.Size = new System.Drawing.Size(106, 40);
             this.btnGalley.TabIndex = 4;
             this.btnGalley.UseVisualStyleBackColor = false;
             this.btnGalley.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnGalley_MouseDown);
@@ -170,13 +176,15 @@ namespace Battleships
                                     | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBattleship.AutoSize = true;
             this.lblBattleship.BackColor = System.Drawing.Color.Transparent;
-            this.lblBattleship.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBattleship.Location = new System.Drawing.Point(357, 166);
+            this.lblBattleship.Font = new System.Drawing.Font("Segoe Print", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBattleship.ForeColor = System.Drawing.Color.AliceBlue;
+            this.lblBattleship.Location = new System.Drawing.Point(348, 172);
             this.lblBattleship.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBattleship.Name = "lblBattleship";
-            this.lblBattleship.Size = new System.Drawing.Size(88, 20);
+            this.lblBattleship.Size = new System.Drawing.Size(106, 30);
             this.lblBattleship.TabIndex = 9;
             this.lblBattleship.Text = "Number: 1";
+            this.lblBattleship.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCruiser
             // 
@@ -184,13 +192,15 @@ namespace Battleships
                                     | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCruiser.AutoSize = true;
             this.lblCruiser.BackColor = System.Drawing.Color.Transparent;
-            this.lblCruiser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCruiser.Location = new System.Drawing.Point(357, 312);
+            this.lblCruiser.Font = new System.Drawing.Font("Segoe Print", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCruiser.ForeColor = System.Drawing.Color.AliceBlue;
+            this.lblCruiser.Location = new System.Drawing.Point(348, 300);
             this.lblCruiser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCruiser.Name = "lblCruiser";
-            this.lblCruiser.Size = new System.Drawing.Size(88, 20);
+            this.lblCruiser.Size = new System.Drawing.Size(106, 30);
             this.lblCruiser.TabIndex = 10;
             this.lblCruiser.Text = "Number: 3";
+            this.lblCruiser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBoat
             // 
@@ -198,13 +208,15 @@ namespace Battleships
                                     | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBoat.AutoSize = true;
             this.lblBoat.BackColor = System.Drawing.Color.Transparent;
-            this.lblBoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBoat.Location = new System.Drawing.Point(359, 380);
+            this.lblBoat.Font = new System.Drawing.Font("Segoe Print", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBoat.ForeColor = System.Drawing.Color.AliceBlue;
+            this.lblBoat.Location = new System.Drawing.Point(348, 364);
             this.lblBoat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBoat.Name = "lblBoat";
-            this.lblBoat.Size = new System.Drawing.Size(88, 20);
+            this.lblBoat.Size = new System.Drawing.Size(106, 30);
             this.lblBoat.TabIndex = 11;
             this.lblBoat.Text = "Number: 3";
+            this.lblBoat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStripMain
             // 

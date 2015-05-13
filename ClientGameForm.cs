@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace Battleships
 {
-    public partial class ClientGameForm : FormDoubleBuffered
+    public partial class ClientGameForm : DoubleBuffered.FormDoubleBuffered
     {
         byte[] m_dataBuffer = new byte[10];
         IAsyncResult m_result;
