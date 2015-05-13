@@ -1,3 +1,4 @@
 *.exe
 bin/Debug/**
+bin/Debug/Sounds/**
 obj/**
