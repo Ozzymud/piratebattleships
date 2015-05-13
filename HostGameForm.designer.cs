@@ -1,4 +1,18 @@
-﻿namespace Battleships
+﻿//-----------------------------------------------------------------------
+// <copyright file="HostGameForm.designer.cs" company="Team 17">
+// Copyright 2005 Team 17
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Battleships
 {
     partial class HostGameForm
     {
@@ -13,10 +27,11 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -132,7 +147,7 @@
             this.btnRdy.Text = "Bereit";
             this.toolTip_Btns.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.btnRdy_Click);
+            this.btnRdy.Click += new System.EventHandler(this.BtnRdy_Click);
             // 
             // btnExtIp
             // 
@@ -157,8 +172,7 @@
             this.btnInternIP.Size = new System.Drawing.Size(75, 40);
             this.btnInternIP.TabIndex = 24;
             this.btnInternIP.Text = "Interne IP \r\nfinden";
-            this.toolTip_Btns.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
-                    "");
+            this.toolTip_Btns.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" + string.Empty);
             this.btnInternIP.UseVisualStyleBackColor = true;
             this.btnInternIP.Click += new System.EventHandler(this.btnInternIP_Click);
             // 

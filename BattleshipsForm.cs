@@ -1,11 +1,23 @@
-﻿/*
- * Projekt: Schiffeversenken Pirat Edition
- * Klasse: BattleshipsForm
- * Beschreibung:
- * Autor: Markus Bohnert
- * Team: Simon Hodler, Markus Bohnert
- */
+﻿//-----------------------------------------------------------------------
+// <copyright file="BattleshipsForm.cs" company="Team 17">
+// Copyright 2005 Team 17
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <project>Schiffeversenken Pirat Edition</project>
+// <author>Markus Bohnert</author>
+// <team>Simon Hodler, Markus Bohnert</team>
+//-----------------------------------------------------------------------
 
+namespace Battleships
+{
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,24 +28,23 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace Battleships
-{
-    /// <summary>
-    /// Spieloberfläche
-    /// </summary>
-    public partial class BattleshipsForm : FormDoubleBuffered
+/// <summary>
+/// Game upper surface (?? machine translated from German: Spieloberfläche)
+/// </summary>
+public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
     {
         /// <summary>
-        /// Client-Form
+        /// Client Form
         /// </summary> 
         public static ClientGameForm clientGameForm;
+
         /// <summary>
-        /// Host-Form
+        /// Host Form
         /// </summary>
         public static HostGameForm hostGameForm;
 
         /// <summary>
-        /// Soundwiedergabe-Objekt
+        /// Soundwiedergabe Objekt
         /// </summary>
         public static SoundClass soundPlayer;
 
@@ -44,7 +55,7 @@ namespace Battleships
         /// </summary>
         public static Label lblStatus;
 
-        public static PanelDoubleBuffered panelStatus;
+        public static DoubleBuffered.PanelDoubleBuffered panelStatus;
 
         // MenuItems
         public static ToolStripMenuItem lanMenuItem;
@@ -57,6 +68,7 @@ namespace Battleships
         /// Das Schlachtfeld des Spielers
         /// </summary>
         public static BattlefieldPlayer battlefieldPlayer;
+
         /// <summary>
         /// Das Schlachtfeld des Gegners
         /// </summary>
@@ -66,22 +78,20 @@ namespace Battleships
         /// Flag der angibt ob der Spieler bereit ist
         /// </summary>
         public static bool playerReady2Play;
+
         /// <summary>
         /// Flag der angibt ob der Gegner bereit ist
         /// </summary>
         public static bool opponendReady2Play;
 
-        /// <summary>
-        /// Auflistung der Spielzüge
-        /// </summary>
+        // Auflistung der Spielzüge
         public enum spielzug
         {
             player = 0,
             opponend = 1
         }
-        /// <summary>
-        /// Speichert den Status, welcher Spieler gerade am Zug ist
-        /// </summary>
+
+        // Speichert den Status, welcher Spieler gerade am Zug ist
         public static spielzug whosTurn;
 
         public static int zaehler_galley = 0;
@@ -89,31 +99,26 @@ namespace Battleships
         public static int zaehler_cruiser = 0;
         public static int zaehler_boat = 0;
 
-        #region Klassenkonstanten
-        // 1 Schlachtschiff
-        private const short MAXANZAHLBATTLESHIP = 1;
-        // 1 Galley
-        private const short MAXANZAHLGALLEY = 1;
-        // 3 Cruiser
-        private const short MAXANZAHLCRUISER = 3;
-        // 3 Boote
-        private const short MAXANZAHLBOAT = 3;
-
+        #region Class constants
+        private const short MAXANZAHLBATTLESHIP = 1; // 1 Schlachtschiff
+        private const short MAXANZAHLGALLEY = 1; // 1 Galley
+        private const short MAXANZAHLCRUISER = 3; // 3 Cruiser
+        private const short MAXANZAHLBOAT = 3; // 3 Boote
         private const int BATTLEFIELDPLAYER_X = 40;
         private const int BATTLEFIELDPLAYER_Y = 180;
-
         private const int BATTLEFIELDOPPONNENT_X = 460;
         private const int BATTLEFIELDOPPONNENT_Y = 180;
         #endregion
 
         /// <summary>
-        /// Konstruktor der Spieloberfläche
+        /// Initializes a new instance of the BattleshipsForm class.
+        /// The game's interface constructor
         /// </summary>
         public BattleshipsForm()
         {
             try
             {
-                InitializeComponent();
+                this.InitializeComponent();
 
                 // Spieler ist noch nicht bereit (Start des Spiels)
                 playerReady2Play = false;
@@ -125,11 +130,11 @@ namespace Battleships
                 helpMenuItem = new ToolStripMenuItem("?");
                 infoMenuItem = new ToolStripMenuItem("&Info");
 
-                spielBeitretenMenuItem.Click += new EventHandler(spielBeitretenToolStripMenuItem_Click);
-                spielHostenMenuItem.Click += new EventHandler(spielHostenToolStripMenuItem_Click);
-                infoMenuItem.Click += new EventHandler(infoMenuItem_Click);
+                spielBeitretenMenuItem.Click += new EventHandler(this.spielBeitretenToolStripMenuItem_Click);
+                spielHostenMenuItem.Click += new EventHandler(this.spielHostenToolStripMenuItem_Click);
+                infoMenuItem.Click += new EventHandler(this.infoMenuItem_Click);
 
-                panelStatus = new PanelDoubleBuffered();
+                panelStatus = new DoubleBuffered.PanelDoubleBuffered();
                 panelStatus.Location = new Point(597, 47);
                 panelStatus.Size = new System.Drawing.Size(197, 100);
                 panelStatus.AutoScroll = true;
@@ -138,7 +143,8 @@ namespace Battleships
                 panelStatus.HorizontalScroll.Enabled = true;
 
                 lblStatus = new Label();
-                //lblStatus.Dock = DockStyle.Fill;
+
+                // lblStatus.Dock = DockStyle.Fill;
                 lblStatus.TextAlign = ContentAlignment.TopLeft;
                 lblStatus.AutoSize = true;
                 lblStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -149,8 +155,8 @@ namespace Battleships
                 lanMenuItem.DropDownItems.Add(spielHostenMenuItem);
                 lanMenuItem.DropDownItems.Add(spielBeitretenMenuItem);
                 helpMenuItem.DropDownItems.Add(infoMenuItem);
-                menuStripMain.Items.Add(lanMenuItem);
-                menuStripMain.Items.Add(helpMenuItem);
+                this.menuStripMain.Items.Add(lanMenuItem);
+                this.menuStripMain.Items.Add(helpMenuItem);
 
                 soundPlayer = new SoundClass();
 
@@ -162,21 +168,17 @@ namespace Battleships
                 this.Controls.Add(battlefieldOpponent);
 
                 SplashScreen splash = new SplashScreen();
-                // Splashscreen anzeigen (langsam einblenden)
-                splash.showForm();
-                // Splashscreen für 1sek. anzeigen
-                Thread.Sleep(1000);
-                // Splashscreen schließen
-                splash.Close();
-                // Ressourcen freigeben
-                splash.Dispose();
+                splash.showForm(); // Splashscreen anzeigen (langsam einblenden)
+                Thread.Sleep(1000); // Splashscreen für 1sek. anzeigen
+                splash.Close(); // Splashscreen schließen
+                splash.Dispose(); // Ressourcen freigeben
             }
-            // TODO: this throws an error, but caught errors need to be fixed eventually i think
-            // catch (Exception ex)
-            // sloppy change to at least run program without crash on start
             finally
             {
-                //MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
+                // HACK: this throws an error, but caught errors need to be fixed eventually i think
+                // sloppy change to at least run program without crash on start
+                //// catch (Exception ex)
+                //// MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
             }
         }
 
@@ -184,7 +186,9 @@ namespace Battleships
         private void BattleshipsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Wollen Sie das Spiel wirklich beenden?", "Beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+            {
                 e.Cancel = true;
+            }
         }
         #endregion
 
@@ -195,7 +199,8 @@ namespace Battleships
             {
                 // Linksklick
                 case System.Windows.Forms.MouseButtons.Left:
-                    btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
+                    this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
+
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
                     if (!(battlefieldPlayer.ships != BattlefieldPlayer.shipModels.nothing))
                     {
@@ -205,11 +210,12 @@ namespace Battleships
 
                         if (zaehler_galley == MAXANZAHLGALLEY)
                         {
-                            btnGalley.Enabled = false;
+                            this.btnGalley.Enabled = false;
                         }
                         
-                        lblGalley.Text = "Anzahl: " + (MAXANZAHLGALLEY - (zaehler_galley)).ToString();
+                        this.lblGalley.Text = "Number: " + (MAXANZAHLGALLEY - (zaehler_galley)).ToString();
                     }
+
                     break;
             }
         }
@@ -220,7 +226,8 @@ namespace Battleships
             {
                 // Linksklick
                 case System.Windows.Forms.MouseButtons.Left:
-                    btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
+                    this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
+
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
                     if (!(battlefieldPlayer.ships != BattlefieldPlayer.shipModels.nothing))
                     {
@@ -230,14 +237,14 @@ namespace Battleships
 
                         if (zaehler_battleship == MAXANZAHLBATTLESHIP)
                         {
-                            btnBattleship.Enabled = false;
+                            this.btnBattleship.Enabled = false;
                         }
                         
-                        lblBattleship.Text = "Anzahl: " + (MAXANZAHLBATTLESHIP - (zaehler_battleship)).ToString();
+                        this.lblBattleship.Text = "Number: " + (MAXANZAHLBATTLESHIP - (zaehler_battleship)).ToString();
                     }
+
                     break;
             }
-
         }
 
         private void btnCruiser_MouseDown(object sender, MouseEventArgs e)
@@ -245,7 +252,8 @@ namespace Battleships
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Left:
-                    btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
+                    this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
+
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
                     if (!(battlefieldPlayer.ships != BattlefieldPlayer.shipModels.nothing))
                     {
@@ -255,14 +263,14 @@ namespace Battleships
 
                         if (zaehler_cruiser == MAXANZAHLCRUISER)
                         {
-                            btnCruiser.Enabled = false;
+                            this.btnCruiser.Enabled = false;
                         }
                         
-                        lblCruiser.Text = "Anzahl: " + (MAXANZAHLCRUISER - (zaehler_cruiser)).ToString();
+                        this.lblCruiser.Text = "Number: " + (MAXANZAHLCRUISER - (zaehler_cruiser)).ToString();
                     }
+
                     break;
             }
-
         }
 
         private void btnBoat_MouseDown(object sender, MouseEventArgs e)
@@ -270,7 +278,8 @@ namespace Battleships
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Left:
-                    btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
+                    this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
+
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
                     if (!(battlefieldPlayer.ships != BattlefieldPlayer.shipModels.nothing))
                     {
@@ -280,107 +289,109 @@ namespace Battleships
 
                         if (zaehler_boat == MAXANZAHLBOAT)
                         {
-                            btnBoat.Enabled = false;
+                            this.btnBoat.Enabled = false;
                         }
-                        lblBoat.Text = "Anzahl: " + (MAXANZAHLBOAT - (zaehler_boat)).ToString();
+
+                        this.lblBoat.Text = "Number: " + (MAXANZAHLBOAT - (zaehler_boat)).ToString();
                     }
+
                     break;
             }
         }
 
         private void btnGalley_MouseLeave(object sender, EventArgs e)
         {
-            if (btnGalley.Enabled == false)
+            if (this.btnGalley.Enabled == false)
             {
-                btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_disable;
+                this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_disable;
             }
             else
             {
-                btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley;
+                this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley;
             }
         }
 
         private void btnBattleship_MouseLeave(object sender, EventArgs e)
         {
-            if (btnBattleship.Enabled == false)
+            if (this.btnBattleship.Enabled == false)
             {
-                btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_disable;
+                this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_disable;
             }
             else
             {
-                btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z;
+                this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z;
             }
         }
 
         private void btnCruiser_MouseLeave(object sender, EventArgs e)
         {
-            if (btnCruiser.Enabled == false)
+            if (this.btnCruiser.Enabled == false)
             {
-                btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_disable;
+                this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_disable;
             }
             else
             {
-                btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser;
+                this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser;
             }
         }
 
         private void btnBoat_MouseLeave(object sender, EventArgs e)
         {
-            if (btnBoat.Enabled == false)
+            if (this.btnBoat.Enabled == false)
             {
-                btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_disable;
+                this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_disable;
             }
             else
             {
-                btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat;
+                this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat;
             }
         }
 
         private void btnGalley_MouseEnter(object sender, EventArgs e)
         {
-            if (btnGalley.Enabled == false)
+            if (this.btnGalley.Enabled == false)
             {
-                btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_disable;
+                this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_disable;
             }
             else
             {
-                btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_enter;
+                this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_enter;
             }
         }
 
         private void btnBattleship_MouseEnter(object sender, EventArgs e)
         {
-            if (btnBattleship.Enabled == false)
+            if (this.btnBattleship.Enabled == false)
             {
-                btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_disable;
+                this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_disable;
             }
             else
             {
-                btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_enter;
+                this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_enter;
             }
         }
 
         private void btnCruiser_MouseEnter(object sender, EventArgs e)
         {
-            if (btnCruiser.Enabled == false)
+            if (this.btnCruiser.Enabled == false)
             {
-                btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_disable;
+                this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_disable;
             }
             else
             {
-                btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_enter;
+                this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_enter;
             }
         }
 
         private void btnBoat_MouseEnter(object sender, EventArgs e)
         {
-            if (btnBoat.Enabled == false)
+            if (this.btnBoat.Enabled == false)
             {
-                btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_disable;
+                this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_disable;
             }
             else
             {
-                btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_enter;
+                this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_enter;
             }
         }
         #endregion      
@@ -457,10 +468,6 @@ namespace Battleships
 
         private void BattleshipsForm_Load(object sender, EventArgs e)
         {
-
         }
-
-
     }
 }
-
