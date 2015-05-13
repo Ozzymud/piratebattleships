@@ -54,7 +54,9 @@ namespace Battleships
             positionColor = Color.FromArgb(120, 30, 151, 255);
 
             // Cursor aus PNG-File laden
-            Bitmap bitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\aim.png");
+            // Edit: use embedded resource
+            // Bitmap bitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\aim.png");
+            Bitmap bitmap = new Bitmap(Battleships.Properties.Resources.aim);
 
             this.Location = new Point(x, y);
             this.Width = 300;
@@ -196,7 +198,7 @@ namespace Battleships
             missPicture.Padding = new Padding(0);
             missPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
             missPicture.BackColor = Color.Transparent;
-            missPicture.Image = Properties.Resources.platsch;
+            missPicture.Image = Properties.Resources.splash;
 
             addControl(missPicture);
         }
