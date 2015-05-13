@@ -1,0 +1,499 @@
+
+
+Class: E2FI
+
+Team 17
+
+
+
+Alexander Zimmermann,
+Simon Hodler,
+Thorsten Kaufmann
+
+
+
+Contents
+
+
+
+
+
+
+
+
+
+    Starting point 
+
+
+
+    Requirements 
+
+
+
+2.1 A1 Project Management
+
+Since the project is being processed on multiple PC's and more than one person, a solution must be found, as all team members at each PC can always work with the latest version.
+
+To save changes to the project and be able to provide the most current version of the members must be set up a project management.
+Thus, each team member can access the resources of the project.
+
+For this purpose a SVN repository should be established and a local client install file management for each project participant.
+
+
+
+2.2 A2 networking capability
+
+The game must be Network ready to play on the local network and the Internet.
+
+
+
+2.3 A3 Intuitive interface
+
+Furthermore, should the game have a simple and intuitive user interface that enables the use of the game without extensive training.
+
+
+
+2.4 A4 Pirate Design
+
+The design of the game is to get Pirates / Caribbean look.
+It is different from the typical World War II scenario.
+
+
+    Project environment 
+
+
+3.1 Client
+
+Ferdinand von Steinbeis - School Reutlingen.
+
+
+3.2 Project
+
+Alexander Zimmermann
+
+
+
+3.3 Project Team
+
+Role / roles
+	
+
+Name
+	
+
+Phone
+	
+
+E-mail
+
+
+Developer
+	
+
+
+Simon Hodler
+	
+
+
+0163/7641337
+	
+
+
+simon.hodler@hs-albsig.de
+
+
+Developer
+	
+
+
+Thorsten Kaufmann
+	
+
+
+0151/24069734
+	
+
+
+thorsten.kaufmann@hs-albsig.de
+
+
+Project
+	
+
+Alexander Zimmermann
+	
+
+0160/90559017
+	
+
+alexander.zimmermann@hs-albsig.de
+
+
+Customer
+	
+
+Ferdinand von Steinbeis - Reutlingen
+
+
+	
+
+07121 / 485-111
+	
+
+
+
+
+
+
+
+
+    System environment 
+
+
+4.1 Components
+
+Operating system
+	
+
+Microsoft Windows 7
+
+Programming language
+	
+
+C #
+
+Development environment
+	
+
+Microsoft Visual Studio 2010
+
+Additional Software
+	
+
+Adobe Photoshop
+
+GIMP
+
+Audacity
+
+MS Project 2010
+
+
+4.2 environment
+
+The project location is on the project management side http://www.origo.ethz.ch .
+Origo offers a Subversion (SVN) repository (storage) to which can be accessed via the web or a local client. If a participant of the project has made ??a change, he can upload it to the client "Tortoise" locally installed on the repository. Here at each new upload a new revision (change state) is created.
+
+Thus, in case of loss or accidental overwrite the previous version can be restored.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4.2.1 View the log messages.
+
+Figure 1 - View of log messages
+
+
+
+
+
+1. view of each revision, it can be accessed on all previous versions.
+It appears of when and by whom the version was uploaded.
+
+2. Here, the changes are displayed which the user has made ??since the last revision.
+
+3. This window displays which files have been changed, added or removed.
+
+
+
+
+
+
+
+
+
+4.2.2 View the Tortoise context menus
+
+Tortoise as local versioning provides the opportunity via the Windows context menu the latest project version download (SVN Update) or changes to the project upload (SVN Commit).
+
+In addition, you get the context menu under "TortoiseSVN" for further settings.
+
+Such a directory can be for example, lock so that no more changes can be made ??(Get Lock ...).
+
+If access is required and a older file, a particular version of a file or the entire project of each revision to be downloaded (Update to revision ...).
+
+Figure 2 - Tortoise context menu
+
+
+    Design 
+
+
+
+Even before the start of the implementation phase of the design of the game was created. Here concepts on the surface design, the gameplay and the class design were created.
+
+Figure 3 - UML class diagram
+
+
+
+
+
+Figure 3 shows the class design of the game. Here, all required classes, attributes and methods can be observed before a deployment. This simplifies and speeds up the development process considerably.
+
+    Implementation 
+
+
+
+5.1 Implementation of the surface
+
+At the beginning of the implementation phase of the first draft of the surface was determined. This design was then implemented accordingly with the help of Adobe Photoshop and integrated into Visual Studio. The surface should be structured attractively and clearly especially. Furthermore, they should be user-friendly and self-explanatory.
+
+Figure 4 - presentation of the surface in VS2010
+
+
+
+5.2 Implementation of requirements
+5.2.1 Creating the Fields
+
+The game interface is divided into two main pitches. The "player" - and "opponents" -Spielfeld. The two fields do not differ in their construction and creation. Nevertheless, these two game fields must be separated from each other.
+On the "players" -Spielfeld the player can set his own ships and gets displayed if the opponent has hit ships, or not as the game progresses.
+On the "enemy" -Spielfeld the player may take the opponent's court under attack and gets also displayed if it has taken a ship or not.
+
+Therefore, two classes have been developed for the field generation.
+
+Source 1 - Battlefield Player Class
+
+Source 2 - BattlefieldOpponent class
+
+The class Battlefield Player represents thereby the "players" -Spielfeld while the class BattlefieldOpponent is the "enemy" -Spielfeld. The two classes inherit each of a self-developed control Panel_DoubleBuffered. This control is a .Net Panel with advanced DoubleBuffered property. This drawing of the panels and their content images is accelerated and suppressed a possible flicker.
+
+The constructors of the two pitch classes, based on their same structure, the same. Here, therefore, only the class's constructor Battlefield Player is considered.
+
+Source 3 - class constructor Battlefield Player
+
+The constructor gets handed over with his call two integers. These values ??determine the position of the playing field with respect to the upper left corner of the playing surface. By means of this .Location = new Point (x, y) is set the position of the playing field. Since each of the two playing fields is 300x300px large, set the width and height of the playing field on this .Width = 300 and this .Height = 300.
+
+The playing fields exist in from a comprehensive panel that in turn contains 100 panels of size 30x30px (10x10 panels). This allows a classic "Battleship" represent -Spielfeld.
+
+Source 4 - loops for Panel generation
+
+The 100 sub-panels will be created in two nested loops. Each of the two loops running from 0 to 9 by. Each passage is by means Panel_DoubleBuffered p = new Panel_DoubleBuffered () Creates a new panel and ultimately added on this .Controls.Add (p) to the parent panel.
+Since you want to respond to each of the individual sub-panels to certain events (eg mouse click), in each iteration, a corresponding event handler is attached to each subpanel. P.MouseClick + = new MouseEventHandler (p_MouseClick) hangs an event handler to the Mouse Click event of a sub-panel. That is, every time a player clicks in a subpanel, the appropriate method is called.
+
+The fact that the playing fields are dynamically in code, and not created in the Designer, you can generate any number of instances of the playing fields and produce at an appropriate point on the surface.
+
+
+
+5.2.2 Presentation and setting the ships
+
+As already described, there is a field of a large panel which includes turn 100 sub-panels. This sub-panels are all linked to event handler methods. So, for example, the MouseEnter event. This event is triggered when the player enters the mouse in such a subpanel.
+
+Source 5 - MouseEnter Event
+
+Public void p_MouseEnter (object sender, EventArgs e)
+
+{
+
+// Event triggered by a Panel_DoubleBuffered ...
+
+// Get sender object -> Panel that triggered the event
+
+Panel_DoubleBuffered tmp = (Panel_DoubleBuffered) sender;
+
+// Draw ship
+
+drawShips (ref tmp);
+
+}
+
+
+
+
+Is parsing (conversion) of the sender object (Panel_DoubleBuffered) transmitter
+
+
+
+the Panel determined that triggered the MouseEnter event. This can be explicitly found drove at what position the player with the mouse in the field. The selected ship is then the method drawShips (ref tmp)
+
+drawn on the pitch
+5.2.3 Network communication
+
+Network communication has been realized by means of sockets.
+Sockets are a standardized, platform-independent interface (API) between the network protocol implementation and the actual application software of the operating system.
+
+Sockets are bound to IP addresses and ports, depending on the protocol used. A ServerSocket listens on a port-bound and waits for incoming connection requests.
+If such a connection request is detected, the related host socket is derived, ie the original host socket remains and continues to wait for a new connection, while a new, directed to the client socket is opened from the horchendem host socket.
+
+This is only used for a communication with this client.
+The Host will remain active until the connection to the client on the other side is completed.
+
+string = Portstr textBoxPort.Text;
+
+. int port = System Convert .ToInt32 (Portstr);
+
+// Create the listening socket ...
+
+m_mainSocket = new Socket (AddressFamily .InterNetwork,
+
+Socket Type .Stream,
+
+Protocol Type .TCP);
+
+IPEndPoint ipLocal = new IPEndPoint (IPAddress .Any, port);
+
+// Bind to local IP address ...
+
+m_mainSocket.Bind (ipLocal);
+
+// Start listening ...
+
+listboxMessage.Items.Add ("Initialize Server ...");
+
+m_mainSocket.Listen (1);
+
+listboxMessage.Items.Add ("Server initialized");
+
+// Create the callback for any client connections ...
+
+m_mainSocket.BeginAccept (New AsyncCallback (OnClientConnect), null);
+
+
+
+
+
+
+
+Public void OnClientConnect (IAsyncResult asyn)
+
+{
+
+try
+
+{
+
+if (m_clientCount <1)
+
+{
+
+// Here we complete / end the BeginAccept () asynchronous call
+
+// By calling EndAccept () - Which returns the reference to
+
+// A new Socket object
+
+m_workerSocket = m_mainSocket.EndAccept (asyn);
+
+// Let the worker Socket do the Further Processing Hanes
+
+// Just connected client
+
+WaitForData (m_workerSocket);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5.2.4 game logic
+
+
+
+5.3 Layout and Design of the playfield
+
+The layout of the playing field has been completely created in Adobe Photoshop.
+The following figures show the development of the layout and design of the playing field.
+
+Figure 5 shows the first draft of the playing field in Visual Studio.
+The pitch size was fixed with 10x10 fields, as well as the square field size with 30px 30px *.
+The buttons for the ships were placed between the two fields.
+
+
+
+Figure 5 First draft of the playing field or in Visual Studio
+
+
+
+
+
+In Figure 6, the first concept in Photoshop was created. The playing field consists of a graphics * 600px with the size 800px.
+For the playing fields of the player and the opponent a water image was used with size 300px * 300px.
+These are then displayed studio behind the individual panels in Visual.
+There were the first palm trees and a pirate added that match the theme of "Pirate Edition".
+
+Figure 6 First layout design in Photoshop
+
+
+
+In the next version in Figure 7 before the first wooden background of the playing field has been inserted, and behind the lettering Battleships now you can see a blue gradient.
+
+
+
+Figure 7 Second version of the playfield
+
+
+
+
+
+
+
+In Figure 8 place was chamber for the menu bar of the game.
+The graphic was extended upwards slightly.
+At this point is a wooden beam on the later, the menu bar is displayed.
+The playing fields were edged with a dark wooden frame.
+
+Figure 8 Third version of the playfield
+
+
+
+In the final version of the surface (Figure 9) was in the upper right corner a parchment added to this then the current game status.
+The water for the respective playing fields was again revised and provided with a grid. Now it is no longer dependent on the edge of the panel and can turn this completely transparent at rest.
+
+Figure 9 final version of the playing field
+
+
+    List of Figures 
+
+
+
+
+    Source directory 
+
+
+
+
+
