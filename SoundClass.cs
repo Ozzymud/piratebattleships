@@ -1,37 +1,29 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="SoundClass.cs" company="Ozzymud">
-// Copyright 2005 Ozzymud
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// </copyright>
-// <author>Ozzymud</author>
-//-----------------------------------------------------------------------
+﻿/*
+ * Projekt: Schiffeversenken Pirat Edition
+ * Klasse: SoundClass
+ * Beschreibung: Die Klasse stellt Methoden zur verfügung mit deren Hilfe Wav-Dateien asynchron wiedergegeben werden können
+ * Autor: Markus Bohnert
+ * Team: Simon Hodler, Markus Bohnert
+ */
 
-namespace Battleships
-{
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Media;
+using System.ComponentModel;
 
-public class SoundClass
+namespace Battleships
+{
+    public class SoundClass
     {
-        public void PlaySoundAsync(string resource)
+        public void playSoundAsync(String resource)
         {
             SoundPlayer sp = new SoundPlayer();
-            
             // load sound from compiled resource
             sp.Stream = this.GetType().Assembly.GetManifestResourceStream("Battleships.Sounds." + resource);
-            sp.Play(); // play sound
+            // play sound
+            sp.Play();
         }
     }
 }

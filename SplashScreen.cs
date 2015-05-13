@@ -1,20 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="SplashScreen.cs" company="Team 17">
-// Copyright 2005 Team 17
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// </copyright>
-//-----------------------------------------------------------------------
-namespace Battleships
-{
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-public partial class SplashScreen : DoubleBuffered.FormDoubleBuffered
+namespace Battleships
+{
+    public partial class SplashScreen : FormDoubleBuffered
     {
         public SplashScreen()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             this.Visible = false;
             this.Opacity = 0;
         }
@@ -38,7 +24,7 @@ public partial class SplashScreen : DoubleBuffered.FormDoubleBuffered
         public void showForm()
         {
             // load and play sound
-            BattleshipsForm.soundPlayer.PlaySoundAsync("yaarrr.wav");
+            BattleshipsForm.soundPlayer.playSoundAsync("yaarrr.wav");
             double i;
 
             this.Opacity = 0.1;
@@ -51,13 +37,11 @@ public partial class SplashScreen : DoubleBuffered.FormDoubleBuffered
             while (this.Opacity < 1)
             {
                 System.Threading.Thread.Sleep(25);
-
                 // Opacity erhöhen
                 this.Opacity += i;
                 this.TopMost = true;
                 Application.DoEvents();
             }
-
             this.TopMost = false;
             this.BringToFront();
             Application.DoEvents();
