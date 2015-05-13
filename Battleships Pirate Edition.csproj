@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{81B1BABA-DAC9-4B46-8D27-35046158247E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Battleships</RootNamespace>
+    <AssemblyName>Battleships</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>battleships_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DoubleBufferedUserControls">
+      <HintPath>..\..\..\..\..\Downloads\Battleships\Battleships\DoubleBufferedUserControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BattlefieldOpponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BattlefieldPlayer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BattleshipsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BattleshipsForm.designer.cs">
+      <DependentUpon>BattleshipsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientGameForm.designer.cs">
+      <DependentUpon>ClientGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HostGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HostGameForm.designer.cs">
+      <DependentUpon>HostGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ships.cs" />
+    <Compile Include="SocketPacket.cs" />
+    <Compile Include="SoundClass.cs" />
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BattleshipsForm.resx">
+      <DependentUpon>BattleshipsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientGameForm.resx">
+      <DependentUpon>ClientGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HostGameForm.resx">
+      <DependentUpon>HostGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Resources\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleships.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleships_Splashscreen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleships_v1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleships_v3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleshipsv6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleshipsv7.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Battleshipsv8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boat1h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boat1v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boat2h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boat2v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_boat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_boat_click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_boat_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_boat_enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cruiser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cruiser_click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cruiser_click2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cruiser_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cruiser_enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_galley.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_galley_click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_galley_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_galley_enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_uboot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_uboot_click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_uboot_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_uboot_enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_z.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_z_click.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_z_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_z_enter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser1h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser1v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser2h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser2v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser3h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cruiser3v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\explosion_30px.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley1h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley1v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley2h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley2v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley3h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley3v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley4h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\galley4v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kollision.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meer_big.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meer_opponent.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meer_player.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\position.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uboot1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uboot1v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uboot2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uboot2v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z1v.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z1v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z2v.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z2v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z3v.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z3v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z4v.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\z4v.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="battleships_icon.ico" />
+    <None Include="Resources\fertig2.gif" />
+    <None Include="Resources\2496592065_7d6a6cb6a2_o.jpg" />
+    <None Include="Resources\pergament.png" />
+    <None Include="Resources\explo6.png" />
+    <None Include="Resources\explo5.png" />
+    <None Include="Resources\explo4.png" />
+    <None Include="Resources\explo3.png" />
+    <None Include="Resources\explo2.png" />
+    <None Include="Resources\explo1.png" />
+    <None Include="Resources\z_dmg_v4.png" />
+    <None Include="Resources\z_dmg_v3.png" />
+    <None Include="Resources\z_dmg_v2.png" />
+    <None Include="Resources\z_dmg_v1.png" />
+    <None Include="Resources\z_dmg_h4.png" />
+    <None Include="Resources\z_dmg_h3.png" />
+    <None Include="Resources\z_dmg_h2.png" />
+    <None Include="Resources\z_dmg_h1.png" />
+    <None Include="Resources\platsch.png" />
+    <None Include="Resources\galley_dmg_v4.png" />
+    <None Include="Resources\galley_dmg_v3.png" />
+    <None Include="Resources\galley_dmg_v2.png" />
+    <None Include="Resources\galley_dmg_v1.png" />
+    <None Include="Resources\galley_dmg_h4.png" />
+    <None Include="Resources\galley_dmg_h3.png" />
+    <None Include="Resources\galley_dmg_h2.png" />
+    <None Include="Resources\galley_dmg_h1.png" />
+    <None Include="Resources\cruiser_dmg_v3.png" />
+    <None Include="Resources\cruiser_dmg_v2.png" />
+    <None Include="Resources\cruiser_dmg_v2 - Kopie.png" />
+    <None Include="Resources\cruiser_dmg_v1.png" />
+    <None Include="Resources\cruiser_dmg_v1 - Kopie.png" />
+    <None Include="Resources\cruiser_dmg_h3.png" />
+    <None Include="Resources\cruiser_dmg_h3 - Kopie.png" />
+    <None Include="Resources\cruiser_dmg_h2.png" />
+    <None Include="Resources\cruiser_dmg_h2 - Kopie.png" />
+    <None Include="Resources\cruiser_dmg_h1.png" />
+    <None Include="Resources\cruiser_dmg_h1 - Kopie.png" />
+    <None Include="Resources\boat_dmg_v2 - Kopie.png" />
+    <None Include="Resources\boat_dmg_v1 - Kopie.png" />
+    <None Include="Resources\boat_dmg_h2 - Kopie.png" />
+    <None Include="Resources\boat_dmg_h1 - Kopie.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
