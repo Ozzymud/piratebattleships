@@ -172,9 +172,9 @@ namespace Battleships
                 // Ressourcen freigeben
                 splash.Dispose();
             }
-            //this throws an error
-            //catch (Exception ex)
-            //sloppy change to at least run
+            // TODO: this throws an error, but caught errors need to be fixed eventually i think
+            // catch (Exception ex)
+            // sloppy change to at least run program without crash on start
             finally
             {
                 //MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
