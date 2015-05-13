@@ -1,11 +1,23 @@
-﻿/*
- * Projekt: Schiffeversenken Pirat Edition
- * Klasse: BattlefieldOpponent
- * Beschreibung:
- * Autor: Markus Bohnert
- * Team: Simon Hodler, Markus Bohnert
- */
+﻿//-----------------------------------------------------------------------
+// <copyright file="BattlefieldOpponent.cs" company="Team 17">
+// Copyright 2005 Team 17
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <project>Schiffeversenken Pirat Edition</project>
+// <author>Markus Bohnert</author>
+// <team>Simon Hodler, Markus Bohnert</team>
+//-----------------------------------------------------------------------
 
+namespace Battleships
+{
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +26,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace Battleships
-{
-    public class BattlefieldOpponent : PanelDoubleBuffered
+public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
     {
         public struct IconInfo
         {
@@ -34,12 +44,13 @@ namespace Battleships
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
 
-        public PanelDoubleBuffered[,] pb = new PanelDoubleBuffered[10, 10];
+        public DoubleBuffered.PanelDoubleBuffered[,] pb = new DoubleBuffered.PanelDoubleBuffered[10, 10];
 
-        private delegate void addControlCallback(Control contr);
+        private delegate void AddControlCallback(Control contr);
+
         delegate void showDestroyedShipsCallback(int[] args, bool horizontal);
 
-        //private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
+        // private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
 
         /// <summary>
         /// Positionsfarbe (Wenn mit Maus über Feld gefahren wird)
@@ -48,44 +59,42 @@ namespace Battleships
 
         public BattlefieldOpponent(int x, int y)
         {
-            positionColor = new Color();
-            // Ein helles Blau
-            positionColor = Color.FromArgb(120, 30, 151, 255);
-
+            this.positionColor = new Color();
+            this.positionColor = Color.FromArgb(120, 30, 151, 255); // Ein helles Blau
             // Cursor aus PNG-File laden
             // Edit: use embedded resource
-            // Bitmap bitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\aim.png");
+            //// Bitmap bitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\aim.png");
             Bitmap bitmap = new Bitmap(Battleships.Properties.Resources.aim);
 
             this.Location = new Point(x, y);
             this.Width = 300;
             this.Height = 300;
             this.Size = new Size(300, 300);
-            //this.BackgroundImageLayout = ImageLayout.Stretch;
-            //this.BackgroundImage = Battleships.Properties.Resources.meer_opponent;
+            //// this.BackgroundImageLayout = ImageLayout.Stretch;
+            //// this.BackgroundImage = Battleships.Properties.Resources.meer_opponent;
             this.BackColor = Color.Transparent;
-            //this.BorderStyle = BorderStyle.FixedSingle;
-            //this.BorderStyle = BorderStyle.None;
+            //// this.BorderStyle = BorderStyle.FixedSingle;
+            //// this.BorderStyle = BorderStyle.None;
 
-            //Matrix Gegner
-            for (int i = 0; i < pb.GetLength(0); i++)
+            // Matrix Gegner
+            for (int i = 0; i < this.pb.GetLength(0); i++)
             {
-                for (int j = 0; j < pb.GetLength(1); j++)
+                for (int j = 0; j < this.pb.GetLength(1); j++)
                 {
-                    PanelDoubleBuffered p = new PanelDoubleBuffered();
+                    DoubleBuffered.PanelDoubleBuffered p = new DoubleBuffered.PanelDoubleBuffered();
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
                     p.Name = "pb_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
                     p.BorderStyle = BorderStyle.FixedSingle;
-                    p.MouseClick += new MouseEventHandler(p_Clicked);
-                    p.MouseEnter += new EventHandler(p_MouseEnter);
-                    p.MouseLeave += new EventHandler(p_MouseLeave);
+                    p.MouseClick += new MouseEventHandler(this.p_Clicked);
+                    p.MouseEnter += new EventHandler(this.p_MouseEnter);
+                    p.MouseLeave += new EventHandler(this.p_MouseLeave);
                     p.Cursor = CreateCursor(bitmap, 3, 3);
                     p.BackColor = Color.Transparent;
                     p.BorderStyle = BorderStyle.None;
-                    pb[i, j] = p;
+                    this.pb[i, j] = p;
                     this.Controls.Add(p);
                 }
             }
@@ -100,60 +109,62 @@ namespace Battleships
         {
             if (this.InvokeRequired)
             {
-                showDestroyedShipsCallback d = new showDestroyedShipsCallback(showDestroyedBoat);
+                showDestroyedShipsCallback d = new showDestroyedShipsCallback(this.showDestroyedBoat);
                 this.Invoke(d, new object[] { args, horizontal });
             }
             else
             {
-                BattleshipsForm.soundPlayer.playSoundAsync("explosion1.wav");
+                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
+
                 // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
-                pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
                 if (horizontal)
                 {
-                    pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
-                    pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
+                    this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+                    this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
                 }
                 else
                 {
-                    pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
-                    pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+                    this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                    this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
                 }
             }
         }
 
         /// <summary>
-        /// Zeigt auf dem Gegnerspielfeld einen zerstörten Cruiser an
+        ///  Displays on the opponent field a ruined cruiser
         /// </summary>
-        /// <param name="args">Enthält die Coordinaten des Schiffes</param>
-        /// <param name="horizontal">Gibt an ob das Schiff horizontal oder vertikal gesetzt wurde</param>
+        /// <param name="args">the co-ordinates of the vessel</param>
+        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically</param>
         public void showDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
-                showDestroyedShipsCallback d = new showDestroyedShipsCallback(showDestroyedCruiser);
+                showDestroyedShipsCallback d = new showDestroyedShipsCallback(this.showDestroyedCruiser);
                 this.Invoke(d, new object[] { args, horizontal });
             }
             else
             {
-                // ToDo: Siehe showDestroyedBoat
-                BattleshipsForm.soundPlayer.playSoundAsync("explosion1.wav");
+                // TODO: Siehe showDestroyedBoat
+                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
+
                 // Explosionsbild an der angegebeben Stelle entfernen (Control entfernen --> PictureBox)
-                pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
 
                 if (horizontal)
                 {
-                    pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
-                    pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                    pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                    this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                    this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
+                    this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
                 }
                 else
                 {
-                    pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
-                    pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                    pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+                    this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                    this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
+                    this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
                 }
             }
         }
@@ -167,8 +178,8 @@ namespace Battleships
         {
             try
             {
-                BattleshipsForm.soundPlayer.playSoundAsync("explosion2.wav");
-                drawExplosion(x, y);
+                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion2.wav");
+                this.drawExplosion(x, y);
             }
             catch (Exception ex)
             {
@@ -177,14 +188,14 @@ namespace Battleships
         }
 
         /// <summary>
-        /// Setzt einen Fehlschuss auf das angegebene Feld
+        /// sets a missed shot to the specified field
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">x coordinate of the missed shot</param>
+        /// <param name="y">y coordinate of the missed shot</param>
         public void setMiss(int x, int y)
         {
-            BattleshipsForm.soundPlayer.playSoundAsync("splash.wav");
-            drawMiss(x, y);
+            BattleshipsForm.soundPlayer.PlaySoundAsync("splash.wav");
+            this.drawMiss(x, y);
         }
 
         private void drawMiss(int x, int y)
@@ -199,7 +210,7 @@ namespace Battleships
             missPicture.BackColor = Color.Transparent;
             missPicture.Image = Properties.Resources.splash;
 
-            addControl(missPicture);
+            this.addControl(missPicture);
         }
 
         /// <summary>
@@ -209,7 +220,7 @@ namespace Battleships
         /// <param name="y">Y-Koordinate des Treffers</param>
         public void drawExplosion(int x, int y)
         {
-            //PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
+            // PictureBoxDoubleBuffered explPicture = new PictureBoxDoubleBuffered();
             PictureBox explPicture = new PictureBox();
             explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
             explPicture.Location = new Point(x * 30, y * 30);
@@ -221,14 +232,14 @@ namespace Battleships
             explPicture.Image = Properties.Resources.explo6;
             
             // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
-            addControl(explPicture);
+            this.addControl(explPicture);
         }
         
         public void addControl(Control contr)
         {
             if (this.InvokeRequired)
             {
-                addControlCallback d = new addControlCallback(addControl);
+                AddControlCallback d = new AddControlCallback(this.addControl);
                 this.Invoke(d, new object[] { contr });
             }
             else
@@ -248,7 +259,7 @@ namespace Battleships
                 // Es darf nur geschossen werden, wenn man auch an der reihe ist!
                 if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
                 {
-                    PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
+                    DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
                     switch (e.Button)
                     {
                         case System.Windows.Forms.MouseButtons.Left:
@@ -261,8 +272,10 @@ namespace Battleships
                                     {
                                         object sendData = tmp.Name;
                                         byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
+
                                         // Koordinaten des aktuellen Feldes an Server schicken
                                         BattleshipsForm.clientGameForm.m_clientSocket.Send(byData);
+
                                         // Auf Antwort warten (HIT\MISS\WIN\LOSE)
                                         BattleshipsForm.clientGameForm.WaitForData();
                                     }
@@ -272,9 +285,9 @@ namespace Battleships
                                     }
                                 }
                             }
-                            // Oder Hoste ich selber ein Spiel?
                             else if (BattleshipsForm.hostGameForm != null)
                             {
+                            // Oder Hoste ich selber ein Spiel?
                                 try
                                 {
                                     if (BattleshipsForm.hostGameForm.m_workerSocket != null)
@@ -283,8 +296,10 @@ namespace Battleships
                                         {
                                             object sendData = tmp.Name;
                                             byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
+
                                             // Koordinaten des aktuellen Feldes an Server schicken
                                             BattleshipsForm.hostGameForm.m_workerSocket.Send(byData);
+
                                             // Auf Antwort warten (HIT\MISS\WIN\LOSE)
                                             BattleshipsForm.hostGameForm.WaitForData(BattleshipsForm.hostGameForm.m_workerSocket);
                                         }
@@ -297,9 +312,9 @@ namespace Battleships
                                 }
                                 catch (Exception)
                                 {
-
                                 }
                             }
+
                             break;
                     }
                 }
@@ -310,15 +325,15 @@ namespace Battleships
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
+                DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
 
-                for (int i = 0; i < pb.GetLength(0); i++)
+                for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
-                    for (int j = 0; j < pb.GetLength(1); j++)
+                    for (int j = 0; j < this.pb.GetLength(1); j++)
                     {
-                        if (tmp.Name.ToString() == pb[i, j].Name.ToString())
+                        if (tmp.Name.ToString() == this.pb[i, j].Name.ToString())
                         {
-                            pb[i, j].BackColor = positionColor;
+                            this.pb[i, j].BackColor = this.positionColor;
                         }
                     }
                 }
@@ -329,15 +344,15 @@ namespace Battleships
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
+                DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
 
-                for (int i = 0; i < pb.GetLength(0); i++)
+                for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
-                    for (int j = 0; j < pb.GetLength(1); j++)
+                    for (int j = 0; j < this.pb.GetLength(1); j++)
                     {
-                        if ((int)pb[i, j].Tag != (int)1)
+                        if ((int)this.pb[i, j].Tag != (int)1)
                         {
-                            pb[i, j].BackColor = Color.Transparent;
+                            this.pb[i, j].BackColor = Color.Transparent;
                         }
                     }
                 }
@@ -346,12 +361,12 @@ namespace Battleships
         #endregion
 
         /// <summary>
-        /// Erstellt einen Cursor aus einer Bitmap (PNG, JPEG geht auch)
+        /// Creates a cursor from a bitmap (PNG, JPEG is also good)
         /// </summary>
-        /// <param name="bmp">Das Image-File welches als Cursor angezeigt werden soll</param>
-        /// <param name="xHotSpot"></param>
-        /// <param name="yHotSpot"></param>
-        /// <returns>Den erstellten Cursor</returns>
+        /// <param name="bmp">The image file to be displayed as the cursor</param>
+        /// <param name="xHotSpot">x value of the hotspot</param>
+        /// <param name="yHotSpot">y value of the hotspot</param>
+        /// <returns>the created cursor</returns>
         public static Cursor CreateCursor(Bitmap bmp, int xHotSpot, int yHotSpot)
         {
             IconInfo tmp = new IconInfo();
@@ -363,4 +378,3 @@ namespace Battleships
         }
     }
 }
-
