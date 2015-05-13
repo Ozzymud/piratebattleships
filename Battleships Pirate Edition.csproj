@@ -169,21 +169,21 @@
     <None Include="Sounds\bird.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <Content Include="Sounds\platsch.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Sounds\platsch.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="Sounds\platsch2.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="Sounds\platsch3.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <Content Include="Sounds\argh.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\bangbang.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Sounds\argh.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="Sounds\bangbang.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <Content Include="Sounds\explo2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
