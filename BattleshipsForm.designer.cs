@@ -47,6 +47,9 @@
         	// 
         	// btnCruiser
         	// 
+        	this.btnCruiser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.btnCruiser.BackColor = System.Drawing.Color.Transparent;
         	this.btnCruiser.BackgroundImage = global::Battleships.Properties.Resources.btn_cruiser;
         	this.btnCruiser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -55,7 +58,7 @@
         	this.btnCruiser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
         	this.btnCruiser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnCruiser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        	this.btnCruiser.Location = new System.Drawing.Point(473, 393);
+        	this.btnCruiser.Location = new System.Drawing.Point(340, 320);
         	this.btnCruiser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
         	this.btnCruiser.Name = "btnCruiser";
         	this.btnCruiser.Size = new System.Drawing.Size(120, 37);
@@ -67,6 +70,9 @@
         	// 
         	// btnBattleship
         	// 
+        	this.btnBattleship.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.btnBattleship.BackColor = System.Drawing.Color.Transparent;
         	this.btnBattleship.BackgroundImage = global::Battleships.Properties.Resources.btn_z;
         	this.btnBattleship.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -75,7 +81,7 @@
         	this.btnBattleship.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
         	this.btnBattleship.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnBattleship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        	this.btnBattleship.Location = new System.Drawing.Point(481, 242);
+        	this.btnBattleship.Location = new System.Drawing.Point(348, 169);
         	this.btnBattleship.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
         	this.btnBattleship.Name = "btnBattleship";
         	this.btnBattleship.Size = new System.Drawing.Size(100, 28);
@@ -87,6 +93,9 @@
         	// 
         	// btnBoat
         	// 
+        	this.btnBoat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.btnBoat.BackColor = System.Drawing.Color.Transparent;
         	this.btnBoat.BackgroundImage = global::Battleships.Properties.Resources.btn_boat;
         	this.btnBoat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -95,7 +104,7 @@
         	this.btnBoat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
         	this.btnBoat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnBoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        	this.btnBoat.Location = new System.Drawing.Point(493, 469);
+        	this.btnBoat.Location = new System.Drawing.Point(360, 396);
         	this.btnBoat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
         	this.btnBoat.Name = "btnBoat";
         	this.btnBoat.Size = new System.Drawing.Size(83, 33);
@@ -107,10 +116,13 @@
         	// 
         	// lblGalley
         	// 
+        	this.lblGalley.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.lblGalley.AutoSize = true;
         	this.lblGalley.BackColor = System.Drawing.Color.Transparent;
         	this.lblGalley.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.lblGalley.Location = new System.Drawing.Point(489, 292);
+        	this.lblGalley.Location = new System.Drawing.Point(356, 219);
         	this.lblGalley.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblGalley.Name = "lblGalley";
         	this.lblGalley.Size = new System.Drawing.Size(88, 20);
@@ -119,6 +131,9 @@
         	// 
         	// btnGalley
         	// 
+        	this.btnGalley.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.btnGalley.BackColor = System.Drawing.Color.Transparent;
         	this.btnGalley.BackgroundImage = global::Battleships.Properties.Resources.btn_galley;
         	this.btnGalley.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -127,7 +142,7 @@
         	this.btnGalley.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
         	this.btnGalley.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnGalley.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        	this.btnGalley.Location = new System.Drawing.Point(481, 318);
+        	this.btnGalley.Location = new System.Drawing.Point(348, 245);
         	this.btnGalley.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
         	this.btnGalley.Name = "btnGalley";
         	this.btnGalley.Size = new System.Drawing.Size(100, 31);
@@ -139,10 +154,13 @@
         	// 
         	// lblBattleship
         	// 
+        	this.lblBattleship.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.lblBattleship.AutoSize = true;
         	this.lblBattleship.BackColor = System.Drawing.Color.Transparent;
         	this.lblBattleship.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.lblBattleship.Location = new System.Drawing.Point(489, 217);
+        	this.lblBattleship.Location = new System.Drawing.Point(356, 144);
         	this.lblBattleship.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblBattleship.Name = "lblBattleship";
         	this.lblBattleship.Size = new System.Drawing.Size(88, 20);
@@ -151,10 +169,13 @@
         	// 
         	// lblCruiser
         	// 
+        	this.lblCruiser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.lblCruiser.AutoSize = true;
         	this.lblCruiser.BackColor = System.Drawing.Color.Transparent;
         	this.lblCruiser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.lblCruiser.Location = new System.Drawing.Point(489, 372);
+        	this.lblCruiser.Location = new System.Drawing.Point(356, 299);
         	this.lblCruiser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblCruiser.Name = "lblCruiser";
         	this.lblCruiser.Size = new System.Drawing.Size(88, 20);
@@ -163,10 +184,13 @@
         	// 
         	// lblBoat
         	// 
+        	this.lblBoat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
         	this.lblBoat.AutoSize = true;
         	this.lblBoat.BackColor = System.Drawing.Color.Transparent;
         	this.lblBoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.lblBoat.Location = new System.Drawing.Point(489, 443);
+        	this.lblBoat.Location = new System.Drawing.Point(356, 370);
         	this.lblBoat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblBoat.Name = "lblBoat";
         	this.lblBoat.Size = new System.Drawing.Size(88, 20);
