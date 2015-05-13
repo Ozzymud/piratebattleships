@@ -12,11 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using DoubleBufferedUserControls;
 
 namespace Battleships
 {
-    public class BattlefieldPlayer : Panel_DoubleBuffered
+    public class BattlefieldPlayer : PanelDoubleBuffered
     {
         delegate void addControlCallback(Control contr, int x, int y);
         delegate void setTextCallback(string text);
@@ -54,11 +53,11 @@ namespace Battleships
         /// <summary>
         /// Enthält das Spielfeld und alle darin gesetzten Schiffe
         /// </summary>
-        public Panel_DoubleBuffered[,] pb = new Panel_DoubleBuffered[10, 10];
+        public PanelDoubleBuffered[,] pb = new PanelDoubleBuffered[10, 10];
         /// <summary>
         /// Enthält eine Schattenkopie des Spielfeldes
         /// </summary>
-        public Panel_DoubleBuffered[,] pb_Store = new Panel_DoubleBuffered[10, 10];
+        public PanelDoubleBuffered[,] pb_Store = new PanelDoubleBuffered[10, 10];
 
         /// <summary>
         /// Farbwert der angezeigt wird, wenn eine Kollsision beim Schiffe setzen erkannt wird
@@ -93,7 +92,7 @@ namespace Battleships
             {
                 for (int j = 0; j < pb.GetLength(1); j++)
                 {
-                    Panel_DoubleBuffered p = new Panel_DoubleBuffered();
+                    PanelDoubleBuffered p = new PanelDoubleBuffered();
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
@@ -109,7 +108,7 @@ namespace Battleships
                     pb[i, j] = p;
                     this.Controls.Add(p);
 
-                    pb_Store[i, j] = new Panel_DoubleBuffered();
+                    pb_Store[i, j] = new PanelDoubleBuffered();
                 }
             }
         }
@@ -118,7 +117,7 @@ namespace Battleships
         public void p_MouseClick(object sender, MouseEventArgs e)
         {
             // Das Panel holen, welches das MouseClick-Event ausgelöst hat
-            Panel_DoubleBuffered tmp = (Panel_DoubleBuffered)sender;
+            PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
 
             // Linke Maustaste gedrückt
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -128,7 +127,7 @@ namespace Battleships
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                // Felder durchlaufen (PictureBox_DoubleBuffereden)
+                // Felder durchlaufen (PictureBoxDoubleBuffereden)
                 for (int i = 0; i < pb.GetLength(0); i++)
                 {
                     for (int j = 0; j < pb.GetLength(1); j++)
@@ -150,7 +149,7 @@ namespace Battleships
         {
             // Event wurde von einer Panel_DoubleBuffered ausgelöst...
             // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
-            Panel_DoubleBuffered tmp = (Panel_DoubleBuffered)sender;
+            PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
             // Schiff zeichnen
             drawShips(ref tmp);
         }
@@ -533,7 +532,7 @@ namespace Battleships
         /// Setzt die Schiffsteile an den jeweiligen Positionen fest (Bei einem MouseClick-Event)
         /// </summary>
         /// <param name="tmp">Das Panel welches das MouseClick-Event ausgelöst hat (als Referenz)</param>
-        private void setShips(ref Panel_DoubleBuffered tmp)
+        private void setShips(ref PanelDoubleBuffered tmp)
         {
             String positionString = tmp.Name;
             // pb_ aus dem String entfernen
@@ -1304,7 +1303,7 @@ namespace Battleships
         /// Zeichnet die Schiffe an die entsprechende Stelle (Bei einem MouseEnter-Event auf ein Panel)
         /// </summary>
         /// <param name="tmp">Das Panel welches das MouseEnter-Event ausgelöst hat (Als Referenz)</param>
-        private void drawShips(ref Panel_DoubleBuffered tmp)
+        private void drawShips(ref PanelDoubleBuffered tmp)
         {
             String positionString = tmp.Name;
             // pb_ aus dem String entfernen

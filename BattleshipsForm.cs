@@ -15,14 +15,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using DoubleBufferedUserControls;
 
 namespace Battleships
 {
     /// <summary>
     /// Spieloberfläche
     /// </summary>
-    public partial class BattleshipsForm : Form_DoubleBuffered
+    public partial class BattleshipsForm : FormDoubleBuffered
     {
         /// <summary>
         /// Client-Form
@@ -45,7 +44,7 @@ namespace Battleships
         /// </summary>
         public static Label lblStatus;
 
-        public static DoubleBufferedUserControls.Panel_DoubleBuffered panelStatus;
+        public static PanelDoubleBuffered panelStatus;
 
         // MenuItems
         public static ToolStripMenuItem lanMenuItem;
@@ -130,7 +129,7 @@ namespace Battleships
                 spielHostenMenuItem.Click += new EventHandler(spielHostenToolStripMenuItem_Click);
                 infoMenuItem.Click += new EventHandler(infoMenuItem_Click);
 
-                panelStatus = new Panel_DoubleBuffered();
+                panelStatus = new PanelDoubleBuffered();
                 panelStatus.Location = new Point(597, 47);
                 panelStatus.Size = new System.Drawing.Size(197, 100);
                 panelStatus.AutoScroll = true;

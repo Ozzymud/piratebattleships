@@ -17,11 +17,10 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using DoubleBufferedUserControls;
 
 namespace Battleships
 {
-    public partial class ClientGameForm : Form_DoubleBuffered
+    public partial class ClientGameForm : FormDoubleBuffered
     {
         byte[] m_dataBuffer = new byte[10];
         IAsyncResult m_result;

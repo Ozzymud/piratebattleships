@@ -41,7 +41,7 @@ using System.Runtime.InteropServices;
 [assembly: Guid("f5381bd7-128a-4fa5-80e5-4dab4c37c1ae")]
 
 // Mark the assembly as CLSCompliant for use with all CLS languages
-[assembly: CLSCompliant(false)]
+[assembly: CLSCompliant(true)]
 
 // Version information for an assembly consists of the following four values:
 //

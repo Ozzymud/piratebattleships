@@ -5,11 +5,10 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using DoubleBufferedUserControls;
 
 namespace Battleships
 {
-    public partial class InfoForm : Form_DoubleBuffered
+    public partial class InfoForm : FormDoubleBuffered
     {
         public InfoForm()
         {

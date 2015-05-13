@@ -6,11 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DoubleBufferedUserControls;
 
 namespace Battleships
 {
-    public partial class SplashScreen : Form_DoubleBuffered
+    public partial class SplashScreen : FormDoubleBuffered
     {
         public SplashScreen()
         {

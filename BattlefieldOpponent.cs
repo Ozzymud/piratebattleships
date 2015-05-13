@@ -12,12 +12,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using DoubleBufferedUserControls;
 using System.Runtime.InteropServices;
 
 namespace Battleships
 {
-    public class BattlefieldOpponent : Panel_DoubleBuffered
+    public class BattlefieldOpponent : PanelDoubleBuffered
     {
         public struct IconInfo
         {
@@ -35,7 +34,7 @@ namespace Battleships
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
 
-        public Panel_DoubleBuffered[,] pb = new Panel_DoubleBuffered[10, 10];
+        public PanelDoubleBuffered[,] pb = new PanelDoubleBuffered[10, 10];
 
         private delegate void addControlCallback(Control contr);
         delegate void showDestroyedShipsCallback(int[] args, bool horizontal);
@@ -73,7 +72,7 @@ namespace Battleships
             {
                 for (int j = 0; j < pb.GetLength(1); j++)
                 {
-                    Panel_DoubleBuffered p = new Panel_DoubleBuffered();
+                    PanelDoubleBuffered p = new PanelDoubleBuffered();
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
@@ -249,7 +248,7 @@ namespace Battleships
                 // Es darf nur geschossen werden, wenn man auch an der reihe ist!
                 if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
                 {
-                    Panel_DoubleBuffered tmp = (Panel_DoubleBuffered)sender;
+                    PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
                     switch (e.Button)
                     {
                         case System.Windows.Forms.MouseButtons.Left:
@@ -311,7 +310,7 @@ namespace Battleships
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                Panel_DoubleBuffered tmp = (Panel_DoubleBuffered)sender;
+                PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
 
                 for (int i = 0; i < pb.GetLength(0); i++)
                 {
@@ -330,7 +329,7 @@ namespace Battleships
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                Panel_DoubleBuffered tmp = (Panel_DoubleBuffered)sender;
+                PanelDoubleBuffered tmp = (PanelDoubleBuffered)sender;
 
                 for (int i = 0; i < pb.GetLength(0); i++)
                 {

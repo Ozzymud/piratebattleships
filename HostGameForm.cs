@@ -17,12 +17,11 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using DoubleBufferedUserControls;
 using System.IO;
 
 namespace Battleships
 {
-    public partial class HostGameForm : Form_DoubleBuffered
+    public partial class HostGameForm : FormDoubleBuffered
     {
         delegate void SetTextCallback(string text);
         delegate void SetTextMainFormCallback(string text);
