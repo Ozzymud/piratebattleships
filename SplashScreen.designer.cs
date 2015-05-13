@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // SplashScreen
-            // 
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.ShowInTaskbar = false;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Battleships.Properties.Resources.Battleships_Splashscreen;
-            this.ClientSize = new System.Drawing.Size(478, 330);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "SplashScreen";
-            this.Text = "SplashScreen";
-            this.ResumeLayout(false);
-
+        	this.SuspendLayout();
+        	// 
+        	// SplashScreen
+        	// 
+        	this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+        	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        	this.BackgroundImage = global::Battleships.Properties.Resources.Battleships_Splashscreen;
+        	this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+        	this.ClientSize = new System.Drawing.Size(637, 406);
+        	this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+        	this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.Name = "SplashScreen";
+        	this.ShowInTaskbar = false;
+        	this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        	this.Text = "SplashScreen";
+        	this.ResumeLayout(false);
         }
 
         #endregion
