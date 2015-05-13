@@ -133,7 +133,6 @@
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Images\17392-schiffe-versenken.jpg" />
     <None Include="Images\2496592065_7d6a6cb6a2_o.jpg" />
     <None Include="Images\aim.png" />
