@@ -175,24 +175,24 @@
     <None Include="Sounds\platsch2.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Include="Sounds\platsch3.wav">
+    <EmbeddedResource Include="Sounds\platsch3.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <None Include="Sounds\argh.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="Sounds\bangbang.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <Content Include="Sounds\explo2.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\explo_big1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\yaarrr.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Sounds\explo2.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sounds\explo_big1.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sounds\yaarrr.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="battleships_icon.ico" />

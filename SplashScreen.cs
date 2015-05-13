@@ -24,6 +24,8 @@ namespace Battleships
         /// </summary>
         public void showForm()
         {
+            // load and play sound
+            BattleshipsForm.soundPlayer.playSoundAsync("yaarrr.wav");
             double i;
 
             this.Opacity = 0.1;
@@ -31,9 +33,6 @@ namespace Battleships
 
             // Intervall
             i = 0.03;
-            // Sound asynchron laden und wiedergeben
-            SoundClass soundPlayer = new SoundClass();
-            soundPlayer.playSoundAsync(soundPlayer.currentSoundDir + "\\yaarrr.wav");
 
             // Solange durchlaufen bis Opacity = 1 (100%)
             while (this.Opacity < 1)

@@ -17,28 +17,13 @@ namespace Battleships
 {
     public class SoundClass
     {
-        public string currentSoundDir;
-
-        public SoundClass()
+        public void playSoundAsync(String resource)
         {
-            currentSoundDir = System.IO.Directory.GetCurrentDirectory() + "\\Sounds";
-        }
-
-        public void playSoundAsync(String soundlocation)
-        {
-            SoundPlayer sound = new SoundPlayer();
-            // Speicherort des Sounds
-            sound.SoundLocation = soundlocation;
-            // LoadCompleted Event hinzufügen
-            sound.LoadCompleted += new AsyncCompletedEventHandler(sound_LoadCompleted);
-            // Sounddatei asynchron laden
-            sound.LoadAsync();
-        }
-
-        private void sound_LoadCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            // Sound wiedergeben
-            ((SoundPlayer)sender).Play();
+            SoundPlayer sp = new SoundPlayer();
+            // load sound from compiled resource
+            sp.Stream = this.GetType().Assembly.GetManifestResourceStream("Battleships.Sounds." + resource);
+            // play sound
+            sp.Play();
         }
     }
 }

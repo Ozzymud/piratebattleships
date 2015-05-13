@@ -106,7 +106,7 @@ namespace Battleships
             }
             else
             {
-                BattleshipsForm.soundPlayer.playSoundAsync(BattleshipsForm.soundPlayer.currentSoundDir + "\\explo_big1.wav");
+                BattleshipsForm.soundPlayer.playSoundAsync("explo_big1.wav");
                 // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
                 pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
@@ -138,7 +138,7 @@ namespace Battleships
             else
             {
                 // ToDo: Siehe showDestroyedBoat
-                BattleshipsForm.soundPlayer.playSoundAsync(BattleshipsForm.soundPlayer.currentSoundDir + "\\explo_big1.wav");
+                BattleshipsForm.soundPlayer.playSoundAsync("explo_big1.wav");
                 // Explosionsbild an der angegebeben Stelle entfernen (Control entfernen --> PictureBox)
                 pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
@@ -168,7 +168,7 @@ namespace Battleships
         {
             try
             {
-                BattleshipsForm.soundPlayer.playSoundAsync(BattleshipsForm.soundPlayer.currentSoundDir + "\\explo2.wav");
+                BattleshipsForm.soundPlayer.playSoundAsync("explo2.wav");
                 drawExplosion(x, y);
             }
             catch (Exception ex)
@@ -184,7 +184,7 @@ namespace Battleships
         /// <param name="y"></param>
         public void setMiss(int x, int y)
         {
-            BattleshipsForm.soundPlayer.playSoundAsync(BattleshipsForm.soundPlayer.currentSoundDir + "\\platsch3.wav");
+            BattleshipsForm.soundPlayer.playSoundAsync("platsch3.wav");
             drawMiss(x, y);
         }
 
