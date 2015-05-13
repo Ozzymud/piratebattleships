@@ -242,7 +242,8 @@
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
-        private DoubleBufferedUserControls.Panel_DoubleBuffered panel_Status;
+        // unused?
+        // private DoubleBufferedUserControls.Panel_DoubleBuffered panel_Status;
     }
 }
 

@@ -237,7 +237,7 @@ namespace Battleships
             //missPicture.Image = Properties.Resources.platsch;
 
             //addControl(missPicture, x, y);
-            pb[x, y].BackgroundImage = Properties.Resources.platsch;
+            pb[x, y].BackgroundImage = Properties.Resources.splash;
             pb[x, y].Tag = 1;
         }
 

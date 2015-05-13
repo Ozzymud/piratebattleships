@@ -25,10 +25,10 @@ namespace Battleships.Properties {
 		
 		[global::System.Configuration.UserScopedSettingAttribute()]
 		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-		[global::System.Configuration.DefaultSettingValueAttribute("black")]
-		public string backColor {
+		[global::System.Configuration.DefaultSettingValueAttribute("Black")]
+		public global::System.Drawing.Color backColor {
 			get {
-				return ((string)(this["backColor"]));
+				return ((global::System.Drawing.Color)(this["backColor"]));
 			}
 			set {
 				this["backColor"] = value;
@@ -37,10 +37,10 @@ namespace Battleships.Properties {
 		
 		[global::System.Configuration.UserScopedSettingAttribute()]
 		[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-		[global::System.Configuration.DefaultSettingValueAttribute("")]
-		public string foreColor {
+		[global::System.Configuration.DefaultSettingValueAttribute("Lime")]
+		public global::System.Drawing.Color foreColor {
 			get {
-				return ((string)(this["foreColor"]));
+				return ((global::System.Drawing.Color)(this["foreColor"]));
 			}
 			set {
 				this["foreColor"] = value;

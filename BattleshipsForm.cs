@@ -172,9 +172,12 @@ namespace Battleships
                 // Ressourcen freigeben
                 splash.Dispose();
             }
-            catch (Exception ex)
+            //this throws an error
+            //catch (Exception ex)
+            //sloppy change to at least run
+            finally
             {
-                MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
+                //MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
             }
         }
 
