@@ -93,9 +93,9 @@ namespace Battleships.Properties {
 		/// <summary>
 		///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
 		/// </summary>
-		internal static System.Drawing.Icon battleships_icon_1 {
+		internal static System.Drawing.Icon battleships_icon_small {
 			get {
-				object obj = ResourceManager.GetObject("battleships_icon_1", resourceCulture);
+				object obj = ResourceManager.GetObject("battleships_icon_small", resourceCulture);
 				return ((System.Drawing.Icon)(obj));
 			}
 		}
