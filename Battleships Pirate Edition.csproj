@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DoubleBufferedUserControls">
-      <HintPath>..\..\..\..\..\Downloads\Battleships\Battleships\DoubleBufferedUserControls.dll</HintPath>
+      <HintPath>DoubleBufferedUserControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,9 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships Pirate Edition", "Battleships Pirate Edition\Battleships Pirate Edition.csproj", "{81B1BABA-DAC9-4B46-8D27-35046158247E}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_Schiffeversenken_Pirate_Edition", "Setup_Schiffeversenken_Pirate_Edition\Setup_Schiffeversenken_Pirate_Edition.vdproj", "{007D2359-579D-4DA1-AF0B-7CD4747496BD}"
+# SharpDevelop 4.4
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships Pirate Edition", "Battleships Pirate Edition.csproj", "{81B1BABA-DAC9-4B46-8D27-35046158247E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +10,9 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Debug|x86.ActiveCfg = Debug|x86
 		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Debug|x86.Build.0 = Debug|x86
-		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Release|x86.ActiveCfg = Release|x86
+		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Debug|x86.ActiveCfg = Debug|x86
 		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Release|x86.Build.0 = Release|x86
-		{007D2359-579D-4DA1-AF0B-7CD4747496BD}.Debug|x86.ActiveCfg = Debug
-		{007D2359-579D-4DA1-AF0B-7CD4747496BD}.Release|x86.ActiveCfg = Release
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{81B1BABA-DAC9-4B46-8D27-35046158247E}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 EndGlobal
