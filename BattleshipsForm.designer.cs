@@ -42,6 +42,8 @@
         	this.menuStripMain = new System.Windows.Forms.MenuStrip();
         	this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.label1 = new System.Windows.Forms.Label();
+        	this.label2 = new System.Windows.Forms.Label();
         	this.menuStripMain.SuspendLayout();
         	this.SuspendLayout();
         	// 
@@ -59,7 +61,7 @@
         	this.btnCruiser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnCruiser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         	this.btnCruiser.Location = new System.Drawing.Point(340, 320);
-        	this.btnCruiser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.btnCruiser.Margin = new System.Windows.Forms.Padding(4);
         	this.btnCruiser.Name = "btnCruiser";
         	this.btnCruiser.Size = new System.Drawing.Size(120, 37);
         	this.btnCruiser.TabIndex = 5;
@@ -82,7 +84,7 @@
         	this.btnBattleship.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnBattleship.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         	this.btnBattleship.Location = new System.Drawing.Point(348, 169);
-        	this.btnBattleship.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.btnBattleship.Margin = new System.Windows.Forms.Padding(4);
         	this.btnBattleship.Name = "btnBattleship";
         	this.btnBattleship.Size = new System.Drawing.Size(100, 28);
         	this.btnBattleship.TabIndex = 6;
@@ -105,7 +107,7 @@
         	this.btnBoat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnBoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         	this.btnBoat.Location = new System.Drawing.Point(360, 396);
-        	this.btnBoat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.btnBoat.Margin = new System.Windows.Forms.Padding(4);
         	this.btnBoat.Name = "btnBoat";
         	this.btnBoat.Size = new System.Drawing.Size(83, 33);
         	this.btnBoat.TabIndex = 7;
@@ -143,7 +145,7 @@
         	this.btnGalley.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
         	this.btnGalley.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         	this.btnGalley.Location = new System.Drawing.Point(348, 245);
-        	this.btnGalley.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.btnGalley.Margin = new System.Windows.Forms.Padding(4);
         	this.btnGalley.Name = "btnGalley";
         	this.btnGalley.Size = new System.Drawing.Size(100, 31);
         	this.btnGalley.TabIndex = 4;
@@ -228,6 +230,36 @@
         	this.beendenToolStripMenuItem.Text = "&Beenden";
         	this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
         	// 
+        	// label1
+        	// 
+        	this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
+        	this.label1.AutoSize = true;
+        	this.label1.BackColor = System.Drawing.Color.Transparent;
+        	this.label1.Font = new System.Drawing.Font("Segoe Print", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        	this.label1.Location = new System.Drawing.Point(13, 106);
+        	this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+        	this.label1.Name = "label1";
+        	this.label1.Size = new System.Drawing.Size(120, 54);
+        	this.label1.TabIndex = 13;
+        	this.label1.Text = "Player";
+        	// 
+        	// label2
+        	// 
+        	this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Left) 
+        	        	        	| System.Windows.Forms.AnchorStyles.Right)));
+        	this.label2.AutoSize = true;
+        	this.label2.BackColor = System.Drawing.Color.Transparent;
+        	this.label2.Font = new System.Drawing.Font("Segoe Print", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        	this.label2.Location = new System.Drawing.Point(443, 106);
+        	this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+        	this.label2.Name = "label2";
+        	this.label2.Size = new System.Drawing.Size(127, 54);
+        	this.label2.TabIndex = 14;
+        	this.label2.Text = "Enemy";
+        	// 
         	// BattleshipsForm
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -236,6 +268,8 @@
         	this.BackgroundImage = global::Battleships.Properties.Resources.Battleshipsv8;
         	this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
         	this.ClientSize = new System.Drawing.Size(794, 592);
+        	this.Controls.Add(this.label2);
+        	this.Controls.Add(this.label1);
         	this.Controls.Add(this.lblBoat);
         	this.Controls.Add(this.lblCruiser);
         	this.Controls.Add(this.lblBattleship);
@@ -248,7 +282,7 @@
         	this.DoubleBuffered = true;
         	this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
         	this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-        	this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+        	this.Margin = new System.Windows.Forms.Padding(4);
         	this.MaximizeBox = false;
         	this.Name = "BattleshipsForm";
         	this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -260,6 +294,8 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
 
         #endregion
 
