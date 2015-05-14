@@ -245,7 +245,7 @@ using System.Windows.Forms;
                 // If opponent has won, then players may no longer have a turn...
                 if (objData.ToString().StartsWith("WIN"))
                 {
-                    // ToDo: Sound abspielen (Losersound...)
+                    // TODO: Play sound - Lloser...
                     MessageBox.Show(this, "Loser!", "lose", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Application.Exit();
                 }
@@ -259,7 +259,7 @@ using System.Windows.Forms;
             else if (data.StartsWith("WIN"))
             {
                 // Du hast gewonnen!!
-                // ToDo: Sound abspielen (Gewinnersound....)
+                // TODO: Play sound - Winner...
                 MessageBox.Show(this, "Du hast gewonnen!", "Sieg!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }

@@ -144,7 +144,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             }
             else
             {
-                // TODO: show destroyed boat
+                // TODO: show destroyed cruiser
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove --> PictureBox control)

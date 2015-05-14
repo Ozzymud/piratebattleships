@@ -33,6 +33,17 @@ using System.Windows.Forms;
 /// </summary>
 public partial class BattleshipsForm : Battleships.DoubleBufferedForm
     {
+        #region Class constants
+        private const short MaxNumberBattleship = 1; // 1 Schlachtschiff
+        private const short MaxNumberGalley = 1; // 1 Galley
+        private const short MaxNumberCruiser = 3; // 3 Cruiser
+        private const short MaxNumberBoat = 3; // 3 Boote
+        private const int BattlefieldPlayerX = 40;
+        private const int BattlefieldPlayerY = 180;
+        private const int BattlefieldOpponentX = 460;
+        private const int BattlefieldOpponentY = 180;
+        #endregion
+
         /// <summary>
         /// Client Form.
         /// </summary> 
@@ -58,11 +69,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         public static Battleships.DoubleBufferedPanel PanelStatus;
 
         // MenuItems
-        public static ToolStripMenuItem NetworkMenuItem;
+        private static ToolStripMenuItem networkMenuItem;
         public static ToolStripMenuItem JoinGameMenuItem;
         public static ToolStripMenuItem HostGameMenuItem;
-        public static ToolStripMenuItem HelpMenuItem;
-        public static ToolStripMenuItem InfoMenuItem;
+        private static ToolStripMenuItem helpMenuItem;
+        private static ToolStripMenuItem infoMenuItem;
 
         /// <summary>
         /// The battlefield of the player.
@@ -101,17 +112,6 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         public static int CounterCruiser = 0;
         public static int CounterBoat = 0;
 
-        #region Class constants
-        private const short MaxNumberBattleship = 1; // 1 Schlachtschiff
-        private const short MaxNumberGalley = 1; // 1 Galley
-        private const short MaxNumberCruiser = 3; // 3 Cruiser
-        private const short MaxNumberBoat = 3; // 3 Boote
-        private const int BattlefieldPlayerX = 40;
-        private const int BattlefieldPlayerY = 180;
-        private const int BattlefieldOpponentX = 460;
-        private const int BattlefieldOpponentY = 180;
-        #endregion
-
         /// <summary>
         /// Initializes a new instance of the BattleshipsForm class.
         /// The game's interface constructor.
@@ -126,15 +126,15 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 PlayerReadyToPlay = false;
                 OpponentReadyToPlay = false;
 
-                NetworkMenuItem = new ToolStripMenuItem("&Network");
+                networkMenuItem = new ToolStripMenuItem("&Network");
                 JoinGameMenuItem = new ToolStripMenuItem("&Join game");
                 HostGameMenuItem = new ToolStripMenuItem("&Host game");
-                HelpMenuItem = new ToolStripMenuItem("&Help");
-                InfoMenuItem = new ToolStripMenuItem("&About");
+                helpMenuItem = new ToolStripMenuItem("&Help");
+                infoMenuItem = new ToolStripMenuItem("&About");
 
                 JoinGameMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItemClick);
                 HostGameMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItemClick);
-                InfoMenuItem.Click += new EventHandler(this.InfoMenuItem_Click);
+                infoMenuItem.Click += new EventHandler(this.InfoMenuItemClick);
 
                 PanelStatus = new Battleships.DoubleBufferedPanel();
                 PanelStatus.Location = new Point(597, 47);
@@ -154,11 +154,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
 
                 this.Controls.Add(PanelStatus);
 
-                NetworkMenuItem.DropDownItems.Add(HostGameMenuItem);
-                NetworkMenuItem.DropDownItems.Add(JoinGameMenuItem);
-                HelpMenuItem.DropDownItems.Add(InfoMenuItem);
-                this.menuStripMain.Items.Add(NetworkMenuItem);
-                this.menuStripMain.Items.Add(HelpMenuItem);
+                networkMenuItem.DropDownItems.Add(HostGameMenuItem);
+                networkMenuItem.DropDownItems.Add(JoinGameMenuItem);
+                helpMenuItem.DropDownItems.Add(infoMenuItem);
+                this.menuStripMain.Items.Add(networkMenuItem);
+                this.menuStripMain.Items.Add(helpMenuItem);
 
                 SoundPlayer = new SoundClass();
 
@@ -436,7 +436,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void InfoMenuItem_Click(object sender, EventArgs e)
+        private void InfoMenuItemClick(object sender, EventArgs e)
         {
             if (InfoForm == null)
             {
