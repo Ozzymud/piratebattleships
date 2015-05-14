@@ -50,12 +50,11 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         public Ships.Cruiser[] CruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
         public Ships.Galley GalleyReference = new Ships.Galley();                     // 1 Galley
         public Ships.Battleship BattleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
-
         public int CounterGalley = 0;
         public int CounterBattleship = 0;
         public int CounterCruiser = 0;
         public int CounterBoat = 0;
-
+        
         /// <summary>
         /// Contains a collection of ship models.
         /// </summary>
@@ -125,7 +124,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         #region Mouse-Events
-        public void PlayerMouseClick(object sender, MouseEventArgs e)
+        private void PlayerMouseClick(object sender, MouseEventArgs e)
         {
             // Das Panel holen, welches das MouseClick-Event ausgelöst hat
             Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
@@ -157,7 +156,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        public void PlayerMouseEnter(object sender, EventArgs e)
+        private void PlayerMouseEnter(object sender, EventArgs e)
         {
             // Event wurde von einer Panel_DoubleBuffered ausgelöst...
             // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
@@ -165,7 +164,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             this.DrawShips(ref tmp); // Schiff zeichnen
         }
 
-        public void PlayerMouseLeave(object sender, EventArgs e)
+        private void PlayerMouseLeave(object sender, EventArgs e)
         {
             // Alle Panels durchlaufen
             for (int x = 0; x < this.Pb.GetLength(0); x++)
@@ -258,7 +257,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="args">Contains the coordinates of the vessel.</param>
         /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
-        public void ShowDestroyedBoat(int[] args, bool horizontal)
+        private void ShowDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -290,7 +289,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="args">The co-ordinates of the vessel.</param>
         /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-        public void ShowDestroyedCruiser(int[] args, bool horizontal)
+        private void ShowDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -412,7 +411,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                         this.BoatReference[boatNr].PosFrontX, this.BoatReference[boatNr].PosFrontY
                         },
                         this.BoatReference[boatNr].Horizontal);
-                    BattleshipsForm.BattlefieldOpponent.ShowDestroyedBoat(
+                    this.ShowDestroyedBoat(
                         new int[4]
                         {
                         this.BoatReference[boatNr].PosRearX, this.BoatReference[boatNr].PosRearY,
@@ -462,7 +461,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                         this.CruiserReference[cruiserNr].PosFrontX, this.CruiserReference[cruiserNr].PosFrontY
                         },
                         this.CruiserReference[cruiserNr].Horizontal);
-                    BattleshipsForm.BattlefieldOpponent.ShowDestroyedCruiser(
+                    this.ShowDestroyedCruiser(
                         new int[6]
                         {
                         this.CruiserReference[cruiserNr].PosRearX, this.CruiserReference[cruiserNr].PosRearY,

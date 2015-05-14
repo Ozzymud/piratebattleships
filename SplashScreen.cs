@@ -29,10 +29,11 @@ using System.Windows.Forms;
 public partial class SplashScreen : Battleships.DoubleBufferedForm
     {
         /// <summary>
-        /// Start with an invisible window
+        /// Initializes a new instance of the <see cref="SplashScreen" /> class.
         /// </summary>
         public SplashScreen()
         {
+            // Start with an invisible window.
             this.InitializeComponent();
             this.Visible = false;
             this.Opacity = 0;

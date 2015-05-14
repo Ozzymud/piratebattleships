@@ -32,11 +32,10 @@ using System.Windows.Forms;
 
     public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
-        private byte[] mainDataBuffer = new byte[10];
-        public IAsyncResult MainResult;
-        public AsyncCallback MainPfnCallBack;
         public Socket MainClientSocket;
-
+        private byte[] mainDataBuffer = new byte[10];
+        private IAsyncResult mainResult;
+        private AsyncCallback pfnCallBack;
         private int roll;
         private string oroll;
 
@@ -104,21 +103,21 @@ using System.Windows.Forms;
         {
             try
             {
-                if (this.MainPfnCallBack == null)
+                if (this.pfnCallBack == null)
                 {
-                    this.MainPfnCallBack = new AsyncCallback(this.OnDataReceived);
+                    this.pfnCallBack = new AsyncCallback(this.OnDataReceived);
                 }
 
                 SocketPacket theSocPkt = new SocketPacket();
                 theSocPkt.MainCurrentSocket = this.MainClientSocket;
 
                 // Start listening to the data asynchronously
-                this.MainResult = this.MainClientSocket.BeginReceive(
+                this.mainResult = this.MainClientSocket.BeginReceive(
                     theSocPkt.DataBuffer,
                     0,
                     theSocPkt.DataBuffer.Length,
                     SocketFlags.None,
-                    this.MainPfnCallBack,
+                    this.pfnCallBack,
                     theSocPkt);
             }
             catch (SocketException se)

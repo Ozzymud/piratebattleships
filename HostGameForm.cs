@@ -56,9 +56,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             return s;
         }
 
-        public AsyncCallback PfnWorkerCallBack;
         public Socket MainWorkerSocket;
         public int MainClientCount = 0;
+        private AsyncCallback pfnWorkerCallBack;
         private Socket mainSocket;
         private int roll;
         private string oroll;
@@ -184,12 +184,12 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         {
             try
             {
-                if (this.PfnWorkerCallBack == null)
+                if (this.pfnWorkerCallBack == null)
                 {
                     // Specify the call back function which is to be 
                     // invoked when there is any write activity by the 
                     // connected client
-                    this.PfnWorkerCallBack = new AsyncCallback(this.OnDataReceived);
+                    this.pfnWorkerCallBack = new AsyncCallback(this.OnDataReceived);
                 }
 
                 SocketPacket theSocPkt = new SocketPacket();
@@ -197,7 +197,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                 // Start receiving any data written by the connected client
                 // asynchronously
-                soc.BeginReceive(theSocPkt.DataBuffer, 0, theSocPkt.DataBuffer.Length, SocketFlags.None, this.PfnWorkerCallBack, theSocPkt);
+                soc.BeginReceive(theSocPkt.DataBuffer, 0, theSocPkt.DataBuffer.Length, SocketFlags.None, this.pfnWorkerCallBack, theSocPkt);
             }
             catch (SocketException se)
             {

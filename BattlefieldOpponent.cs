@@ -86,7 +86,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                     p.Name = "pb_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
                     p.BorderStyle = BorderStyle.FixedSingle;
-                    p.MouseClick += new MouseEventHandler(this.PlayerClicked);
+                    p.MouseClick += new MouseEventHandler(this.PlayerMouseClick);
                     p.MouseEnter += new EventHandler(this.PlayerMouseEnter);
                     p.MouseLeave += new EventHandler(this.PlayerMouseLeave);
                     p.Cursor = CreateCursor(bitmap, 16, 16);
@@ -103,7 +103,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="args">Contains the coordinates of the vessel.</param>
         /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
-        public void ShowDestroyedBoat(int[] args, bool horizontal)
+        private void ShowDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -135,7 +135,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="args">The co-ordinates of the vessel.</param>
         /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-        public void ShowDestroyedCruiser(int[] args, bool horizontal)
+        private void ShowDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -248,7 +248,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         #region Mouse-Events
-        public void PlayerClicked(object sender, MouseEventArgs e)
+        private void PlayerMouseClick(object sender, MouseEventArgs e)
         {
             // Only start if both players are ready
             if (BattleshipsForm.OpponentReadyToPlay && BattleshipsForm.PlayerReadyToPlay)
@@ -318,7 +318,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             }
         }
 
-        public void PlayerMouseEnter(object sender, EventArgs e)
+        private void PlayerMouseEnter(object sender, EventArgs e)
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
@@ -337,7 +337,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             }
         }
 
-        public void PlayerMouseLeave(object sender, EventArgs e)
+        private void PlayerMouseLeave(object sender, EventArgs e)
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
