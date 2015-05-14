@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
+public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
     {
         delegate void AddControlCallback(Control contr, int x, int y);
 
@@ -64,12 +64,12 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
         /// <summary>
         /// Enthält das Spielfeld und alle darin gesetzten Schiffe
         /// </summary>
-        public DoubleBuffered.PanelDoubleBuffered[,] pb = new DoubleBuffered.PanelDoubleBuffered[10, 10];
+        public Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
 
         /// <summary>
         /// Enthält eine Schattenkopie des Spielfeldes
         /// </summary>
-        public DoubleBuffered.PanelDoubleBuffered[,] pb_Store = new DoubleBuffered.PanelDoubleBuffered[10, 10];
+        public Battleships.DoubleBufferedPanel[,] pb_Store = new Battleships.DoubleBufferedPanel[10, 10];
 
         /// <summary>
         /// Farbwert der angezeigt wird, wenn eine Kollsision beim Schiffe setzen erkannt wird
@@ -102,7 +102,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
             {
                 for (int j = 0; j < this.pb.GetLength(1); j++)
                 {
-                    DoubleBuffered.PanelDoubleBuffered p = new DoubleBuffered.PanelDoubleBuffered();
+                    Battleships.DoubleBufferedPanel p = new Battleships.DoubleBufferedPanel();
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
@@ -118,7 +118,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
                     this.pb[i, j] = p;
                     this.Controls.Add(p);
 
-                    this.pb_Store[i, j] = new DoubleBuffered.PanelDoubleBuffered();
+                    this.pb_Store[i, j] = new Battleships.DoubleBufferedPanel();
                 }
             }
         }
@@ -127,7 +127,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
         public void p_MouseClick(object sender, MouseEventArgs e)
         {
             // Das Panel holen, welches das MouseClick-Event ausgelöst hat
-            DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
+            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
             // Linke Maustaste gedrückt
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -137,7 +137,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                // Felder durchlaufen (PictureBoxDoubleBuffereden)
+                // Loop through the fields (PictureBox)
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
                     for (int j = 0; j < this.pb.GetLength(1); j++)
@@ -160,7 +160,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
         {
             // Event wurde von einer Panel_DoubleBuffered ausgelöst...
             // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
-            DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
+            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
             this.drawShips(ref tmp); // Schiff zeichnen
         }
 
@@ -566,7 +566,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
         /// Setzt die Schiffsteile an den jeweiligen Positionen fest (Bei einem MouseClick-Event)
         /// </summary>
         /// <param name="tmp">Das Panel welches das MouseClick-Event ausgelöst hat (als Referenz)</param>
-        private void setShips(ref DoubleBuffered.PanelDoubleBuffered tmp)
+        private void setShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pb_ aus dem String entfernen
@@ -1322,7 +1322,7 @@ public class BattlefieldPlayer : DoubleBuffered.PanelDoubleBuffered
         /// Zeichnet die Schiffe an die entsprechende Stelle (Bei einem MouseEnter-Event auf ein Panel)
         /// </summary>
         /// <param name="tmp">Das Panel welches das MouseEnter-Event ausgelöst hat (Als Referenz)</param>
-        private void drawShips(ref DoubleBuffered.PanelDoubleBuffered tmp)
+        private void drawShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pb_ aus dem String entfernen

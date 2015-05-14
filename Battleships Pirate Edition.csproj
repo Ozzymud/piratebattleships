@@ -82,7 +82,8 @@
     <Compile Include="ClientGameForm.designer.cs">
       <DependentUpon>ClientGameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DoubleBuffered.cs" />
+    <Compile Include="DoubleBufferedPanel.cs" />
+    <Compile Include="DoubleBufferedForm.cs" />
     <Compile Include="HostGameForm.cs">
       <SubType>Form</SubType>
     </Compile>

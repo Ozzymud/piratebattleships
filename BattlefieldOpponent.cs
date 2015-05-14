@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
+public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
     {
         public struct IconInfo
         {
@@ -44,7 +44,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
 
-        public DoubleBuffered.PanelDoubleBuffered[,] pb = new DoubleBuffered.PanelDoubleBuffered[10, 10];
+        public Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
 
         private delegate void AddControlCallback(Control contr);
 
@@ -79,7 +79,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
             {
                 for (int j = 0; j < this.pb.GetLength(1); j++)
                 {
-                    DoubleBuffered.PanelDoubleBuffered p = new DoubleBuffered.PanelDoubleBuffered();
+                    Battleships.DoubleBufferedPanel p = new Battleships.DoubleBufferedPanel();
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
@@ -218,7 +218,6 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         /// <param name="y">Y Coordinate of the hit</param>
         public void drawExplosion(int x, int y)
         {
-            //// PictureBoxDoubleBuffered explPicture = new PictureBoxDoubleBuffered();
             PictureBox explPicture = new PictureBox();
             explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
             explPicture.Location = new Point(x * 30, y * 30);
@@ -257,7 +256,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
                 // can only shoot if it is your turn
                 if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
                 {
-                    DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
+                    Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
                     switch (e.Button)
                     {
                         case System.Windows.Forms.MouseButtons.Left:
@@ -323,7 +322,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
+                Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
@@ -342,7 +341,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         {
             if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
             {
-                DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
+                Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {

@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace Battleships
 {
-    public partial class ClientGameForm : DoubleBuffered.FormDoubleBuffered
+    public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
         byte[] m_dataBuffer = new byte[10];
         IAsyncResult m_result;
@@ -245,7 +245,7 @@ namespace Battleships
                 // Dem Spieler Anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
                 BattleshipsForm.battlefieldOpponent.setImpact(x, y);
                 // Gegner ist an der Reihe
-                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponend;
+                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponent;
                 SetTextLblStatus("Gegner ist am Zug!");
             }
             // Der Schuss ging leider daneben, versuchs nochmal!
@@ -259,13 +259,13 @@ namespace Battleships
                 // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
                 BattleshipsForm.battlefieldOpponent.setMiss(x, y);
                 // Gegner ist an der Reihe
-                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponend;
+                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponent;
                 SetTextLblStatus("Gegner ist am Zug!");
             }
             else if (data.StartsWith("RDY_"))
             {
                 oroll = data.Remove(0, 4);
-                BattleshipsForm.opponendReady2Play = true;
+                BattleshipsForm.opponentReady2Play = true;
                 SetTextLblStatus("Opponend is ready and rolled: " + oroll);
 
                 // Prüfen ob Spieler auch bereit ist?
@@ -281,7 +281,7 @@ namespace Battleships
                     {
                         SetTextLblStatus("Opponend rolled: " + oroll + " you rolled: " + roll.ToString());
                         SetTextLblStatus("Gegner darf anfangen");
-                        BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponend;
+                        BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponent;
                     }
                 }
                 // Wenn nicht, dann abwarten bis Spieler bereit ist
@@ -318,7 +318,7 @@ namespace Battleships
                         if (m_clientSocket.Connected) m_clientSocket.Send(byData);
                         SetTextLblStatus("You rolled: " + roll.ToString());
 
-                        if (BattleshipsForm.opponendReady2Play)
+                        if (BattleshipsForm.opponentReady2Play)
                         {
                             if (int.Parse(oroll) < roll)
                             {
@@ -330,7 +330,7 @@ namespace Battleships
                             {
                                 SetTextLblStatus("Opponend rolled: " + oroll + " you rolled: " + roll.ToString());
                                 SetTextLblStatus("Gegner darf anfangen");
-                                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponend;
+                                BattleshipsForm.whosTurn = BattleshipsForm.spielzug.opponent;
                             }
                         }
                         else
@@ -427,7 +427,7 @@ namespace Battleships
                 m_clientSocket = null;
             }
             BattleshipsForm.playerReady2Play = false;
-            BattleshipsForm.opponendReady2Play = false;
+            BattleshipsForm.opponentReady2Play = false;
             SetText("Server closed!");
             SetTextLblStatus("Server closed!");
             UpdateControls(false);

@@ -23,7 +23,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-public partial class InfoForm : DoubleBuffered.FormDoubleBuffered
+public partial class InfoForm : Battleships.DoubleBufferedForm
     {
         public InfoForm()
         {

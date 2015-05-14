@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-public partial class SplashScreen : DoubleBuffered.FormDoubleBuffered
+public partial class SplashScreen : Battleships.DoubleBufferedForm
     {
         public SplashScreen()
         {

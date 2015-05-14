@@ -31,7 +31,7 @@ using System.Threading;
 /// <summary>
 /// Game upper surface (?? machine translated from German: Spieloberfläche)
 /// </summary>
-public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
+public partial class BattleshipsForm : Battleships.DoubleBufferedForm
     {
         /// <summary>
         /// Client Form
@@ -55,7 +55,7 @@ public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
         /// </summary>
         public static Label lblStatus;
 
-        public static DoubleBuffered.PanelDoubleBuffered panelStatus;
+        public static Battleships.DoubleBufferedPanel panelStatus;
 
         // MenuItems
         public static ToolStripMenuItem lanMenuItem;
@@ -82,13 +82,13 @@ public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
         /// <summary>
         /// Flag der angibt ob der Gegner bereit ist
         /// </summary>
-        public static bool opponendReady2Play;
+        public static bool opponentReady2Play;
 
         // Auflistung der Spielzüge
         public enum spielzug
         {
             player = 0,
-            opponend = 1
+            opponent = 1
         }
 
         // Speichert den Status, welcher Spieler gerade am Zug ist
@@ -122,7 +122,7 @@ public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
 
                 // Spieler ist noch nicht bereit (Start des Spiels)
                 playerReady2Play = false;
-                opponendReady2Play = false;
+                opponentReady2Play = false;
 
                 lanMenuItem = new ToolStripMenuItem("&Netzwerk");
                 spielBeitretenMenuItem = new ToolStripMenuItem("&Spiel beitreten");
@@ -134,7 +134,7 @@ public partial class BattleshipsForm : DoubleBuffered.FormDoubleBuffered
                 spielHostenMenuItem.Click += new EventHandler(this.spielHostenToolStripMenuItem_Click);
                 infoMenuItem.Click += new EventHandler(this.infoMenuItem_Click);
 
-                panelStatus = new DoubleBuffered.PanelDoubleBuffered();
+                panelStatus = new Battleships.DoubleBufferedPanel();
                 panelStatus.Location = new Point(597, 47);
                 panelStatus.Size = new System.Drawing.Size(197, 100);
                 panelStatus.AutoScroll = true;
