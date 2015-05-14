@@ -452,7 +452,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         }
 
         /// <summary>
-        /// Determine the internal IP address of the PC.
+        /// Determines the internal IP address of the PC.
         /// </summary>
         /// <returns>Internal IP-Address as a string.</returns>
         private string GetIP()
