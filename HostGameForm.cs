@@ -35,25 +35,17 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
     {
         /// <summary>
         /// Sends a request to an external web page.
-        /// Then evaluates the received response (external IP).
+        /// The received response is the external IP.
         /// </summary>
         /// <returns>External IP Address (String).</returns>
         private static string GetExternalIP()
         {
-            WebClient client = new WebClient();
-
-            // Add a user agent header in case the requested URI contains a query.
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)");
-            string baseurl = "http://checkip.dyndns.org/";
-            Stream data = client.OpenRead(baseurl);
-            StreamReader reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-            data.Close();
-            reader.Close();
-
-            // Den erhaltenen Response so zurechtschneiden, dass nur noch die IP-Adresse übrig bleibt
-            s = s.Replace("<html><head><title>Current IP Check</title></head><body>Current IP Address:", string.Empty).Replace("</body></html>", string.Empty).ToString();
-            return s;
+            // Other services:
+            // http://icanhazip.com
+            // http://bot.whatismyipaddress.com
+            // http://ipinfo.io/ip
+            string externalip = new WebClient().DownloadString("http://api.ipify.org").ToString();
+            return externalip;
         }
 
         public Socket MainWorkerSocket;
@@ -75,7 +67,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             this.textBoxIP.Text = this.GetIP();
         }
 
-        private void ButtonHostGameClick(object sender, EventArgs e)
+        private void ButtonHostGame_Click(object sender, EventArgs e)
         {
             try
             {
@@ -392,7 +384,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void ButtonReadyClick(object sender, EventArgs e)
+        private void ButtonReady_Click(object sender, EventArgs e)
         {
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
@@ -523,7 +515,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void ButtonCloseGameClick(object sender, EventArgs e)
+        private void ButtonCloseGame_Click(object sender, EventArgs e)
         {
             this.CloseSockets();
             this.UpdateControls(false);
@@ -554,12 +546,12 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             BattleshipsForm.JoinGameMenuItem.Enabled = true;
         }
 
-        private void ButtonExternalIpClick(object sender, EventArgs e)
+        private void ButtonExternalIp_Click(object sender, EventArgs e)
         {
             this.textBoxIP.Text = GetExternalIP();
         }
 
-        private void ButtonInternalIPClick(object sender, EventArgs e)
+        private void ButtonInternalIP_Click(object sender, EventArgs e)
         {
             this.textBoxIP.Text = this.GetIP();
         }
