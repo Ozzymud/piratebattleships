@@ -132,9 +132,9 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 helpMenuItem = new ToolStripMenuItem("&Help");
                 infoMenuItem = new ToolStripMenuItem("&About");
 
-                JoinGameMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItemClick);
-                HostGameMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItemClick);
-                infoMenuItem.Click += new EventHandler(this.InfoMenuItemClick);
+                JoinGameMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItem_Click);
+                HostGameMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItem_Click);
+                infoMenuItem.Click += new EventHandler(this.InfoMenuItem_Click);
 
                 PanelStatus = new Battleships.DoubleBufferedPanel();
                 PanelStatus.Location = new Point(597, 47);
@@ -399,12 +399,12 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         #endregion      
 
         #region ToolStripMenuItems-Events
-        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();        
         }
 
-        private void JoinGameToolStripMenuItemClick(object sender, EventArgs e)
+        private void JoinGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ClientGameForm == null)
             { 
@@ -420,7 +420,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void HostGameToolStripMenuItemClick(object sender, EventArgs e)
+        private void HostGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (HostGameForm == null)
             {
@@ -436,7 +436,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void InfoMenuItemClick(object sender, EventArgs e)
+        private void InfoMenuItem_Click(object sender, EventArgs e)
         {
             if (InfoForm == null)
             {
@@ -451,7 +451,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         }
         #endregion 
 
-        private void ButtonOneClick(object sender, EventArgs e)
+        private void ButtonOne_Click(object sender, EventArgs e)
         {
             LabelStatus.Text += "Test\n";
             PanelStatus.VerticalScroll.Value += PanelStatus.VerticalScroll.SmallChange;

@@ -105,7 +105,7 @@ namespace Battleships
             this.btnConnect.Text = "Connect";
             this.toolTipButtons.SetToolTip(this.btnConnect, "Verbinde dich mit einem Spiel (Über das Internet oder LAN)");
             this.btnConnect.UseVisualStyleBackColor = false;
-            this.btnConnect.Click += new System.EventHandler(this.ButtonConnectClick);
+            this.btnConnect.Click += new System.EventHandler(this.ButtonConnect_Click);
             // 
             // label3
             // 
@@ -127,7 +127,7 @@ namespace Battleships
             this.btnDisconnect.TabIndex = 7;
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = false;
-            this.btnDisconnect.Click += new System.EventHandler(this.ButtonDisconnectClick);
+            this.btnDisconnect.Click += new System.EventHandler(this.ButtonDisconnect_Click);
             // 
             // listboxRx
             // 
@@ -151,7 +151,7 @@ namespace Battleships
             this.btnRdy.Text = "Ready";
             this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du Bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.ButtonReadyClick);
+            this.btnRdy.Click += new System.EventHandler(this.ButtonReady_Click);
             // 
             // toolTipButtons
             // 

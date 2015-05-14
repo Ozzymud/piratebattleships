@@ -109,7 +109,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                     p.Padding = new Padding(0);
                     p.Name = "pb_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
-                    p.MouseClick += new MouseEventHandler(this.PlayerMouseClick);
+                    p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
                     p.MouseEnter += new EventHandler(this.PlayerMouseEnter);
                     p.MouseLeave += new EventHandler(this.PlayerMouseLeave);
                     //// p.Visible = false;
@@ -124,7 +124,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         #region Mouse-Events
-        private void PlayerMouseClick(object sender, MouseEventArgs e)
+        private void PlayerMouse_Click(object sender, MouseEventArgs e)
         {
             // Das Panel holen, welches das MouseClick-Event ausgelöst hat
             Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;

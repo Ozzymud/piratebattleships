@@ -51,7 +51,7 @@ using System.Windows.Forms;
             this.textboxIP.Text = this.GetIP();
         }
 
-        private void ButtonConnectClick(object sender, EventArgs e)
+        private void ButtonConnect_Click(object sender, EventArgs e)
         {
             // See if we have text on the IP and Port text fields
             if (this.textboxIP.Text == string.Empty || this.textboxPort.Text == string.Empty)
@@ -332,7 +332,7 @@ using System.Windows.Forms;
             return true;
         }
 
-        private void ButtonReadyClick(object sender, EventArgs e)
+        private void ButtonReady_Click(object sender, EventArgs e)
         {
             // Überprüfen ob alle Schiffe verteilt wurden
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
@@ -479,7 +479,7 @@ using System.Windows.Forms;
             this.UpdateControls(false);
         }
 
-        private void ButtonDisconnectClick(object sender, EventArgs e)
+        private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
             this.CloseSocket();         
         }

@@ -86,7 +86,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                     p.Name = "pb_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
                     p.BorderStyle = BorderStyle.FixedSingle;
-                    p.MouseClick += new MouseEventHandler(this.PlayerMouseClick);
+                    p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
                     p.MouseEnter += new EventHandler(this.PlayerMouseEnter);
                     p.MouseLeave += new EventHandler(this.PlayerMouseLeave);
                     p.Cursor = CreateCursor(bitmap, 16, 16);
@@ -248,7 +248,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         #region Mouse-Events
-        private void PlayerMouseClick(object sender, MouseEventArgs e)
+        private void PlayerMouse_Click(object sender, MouseEventArgs e)
         {
             // Only start if both players are ready
             if (BattleshipsForm.OpponentReadyToPlay && BattleshipsForm.PlayerReadyToPlay)

@@ -105,7 +105,7 @@ namespace Battleships
             this.btnCloseGame.TabIndex = 18;
             this.btnCloseGame.Text = "Spiel beenden";
             this.btnCloseGame.UseVisualStyleBackColor = false;
-            this.btnCloseGame.Click += new System.EventHandler(this.ButtonCloseGameClick);
+            this.btnCloseGame.Click += new System.EventHandler(this.ButtonCloseGame_Click);
             // 
             // btnHostGame
             // 
@@ -119,7 +119,7 @@ namespace Battleships
             this.btnHostGame.Text = "Spiel starten";
             this.toolTipButtons.SetToolTip(this.btnHostGame, "Starte ein Spiel, auf das sich ein Freund einlogen kann");
             this.btnHostGame.UseVisualStyleBackColor = false;
-            this.btnHostGame.Click += new System.EventHandler(this.ButtonHostGameClick);
+            this.btnHostGame.Click += new System.EventHandler(this.ButtonHostGame_Click);
             // 
             // labelStatusMessage
             // 
@@ -151,7 +151,7 @@ namespace Battleships
             this.btnRdy.Text = "Ready";
             this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.ButtonReadyClick);
+            this.btnRdy.Click += new System.EventHandler(this.ButtonReady_Click);
             // 
             // btnExtIp
             // 
@@ -163,7 +163,7 @@ namespace Battleships
             this.toolTipButtons.SetToolTip(this.btnExtIp, "Ermittelt deine externe IP-Adresse um mit einem Freund über das Intenet spielen z" +
                     "u können");
             this.btnExtIp.UseVisualStyleBackColor = true;
-            this.btnExtIp.Click += new System.EventHandler(this.ButtonExternalIpClick);
+            this.btnExtIp.Click += new System.EventHandler(this.ButtonExternalIp_Click);
             // 
             // toolTipButtons
             // 
@@ -179,7 +179,7 @@ namespace Battleships
             this.toolTipButtons.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
                     string.Empty);
             this.btnInternIP.UseVisualStyleBackColor = true;
-            this.btnInternIP.Click += new System.EventHandler(this.ButtonInternalIPClick);
+            this.btnInternIP.Click += new System.EventHandler(this.ButtonInternalIP_Click);
             // 
             // HostGameForm
             // 
