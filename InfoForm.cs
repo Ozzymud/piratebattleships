@@ -36,9 +36,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             this.textBoxDescription.Text = this.AssemblyDescription;
         }
 
-        #region Assemblyattributaccessoren
+        #region Assembly attribute accessors
 
-        public string AssemblyTitle
+        private string AssemblyTitle
         {
             get
             {
@@ -56,7 +56,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public string AssemblyVersion
+        private string AssemblyVersion
         {
             get
             {
@@ -64,7 +64,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public string AssemblyDescription
+        private string AssemblyDescription
         {
             get
             {
@@ -78,7 +78,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public string AssemblyProduct
+        private string AssemblyProduct
         {
             get
             {
@@ -92,7 +92,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public string AssemblyCopyright
+        private string AssemblyCopyright
         {
             get
             {
@@ -106,7 +106,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public string AssemblyCompany
+        private string AssemblyCompany
         {
             get
             {

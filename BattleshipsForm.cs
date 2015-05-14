@@ -59,7 +59,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// </summary>
         public static SoundClass SoundPlayer;
 
-        public static InfoForm InfoForm;
+        private static InfoForm InfoForm;
 
         /// <summary>
         /// The label displays the status of the game.
