@@ -50,7 +50,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
 
         delegate void showDestroyedShipsCallback(int[] args, bool horizontal);
 
-        // private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
+        //// private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
 
         /// <summary>
         /// Positionsfarbe (Wenn mit Maus über Feld gefahren wird)
@@ -61,9 +61,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         {
             this.positionColor = new Color();
             this.positionColor = Color.FromArgb(120, 30, 151, 255); // Ein helles Blau
-            // Cursor aus PNG-File laden
-            // Edit: use embedded resource
-            //// Bitmap bitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\aim.png");
+            // Get cursor from an embedded image
             Bitmap bitmap = new Bitmap(Battleships.Properties.Resources.aim);
 
             this.Location = new Point(x, y);
@@ -76,7 +74,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
             //// this.BorderStyle = BorderStyle.FixedSingle;
             //// this.BorderStyle = BorderStyle.None;
 
-            // Matrix Gegner
+            // opponents grid
             for (int i = 0; i < this.pb.GetLength(0); i++)
             {
                 for (int j = 0; j < this.pb.GetLength(1); j++)
@@ -101,10 +99,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         }
 
         /// <summary>
-        /// Zeigt auf dem Gegnerspielfeld ein zerstörtes Boot an
+        /// Displays a destroyed boat on the opponents playing field
         /// </summary>
-        /// <param name="args">Enthält die Coordinaten des Schiffes</param>
-        /// <param name="horizontal">Gibt an ob das Schiff horizontal oder vertikal gesetzt wurde</param>
+        /// <param name="args">Contains the coordinates of the vessel</param>
+        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically</param>
         public void showDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
@@ -116,7 +114,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
             {
                 BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
 
-                // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
+                // remove explosion picture at the specified position (remove--> PictureBox control)
                 this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
                 if (horizontal)
@@ -133,7 +131,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         }
 
         /// <summary>
-        ///  Displays on the opponent field a ruined cruiser
+        ///  Displays a ruined cruiser on the opponent field
         /// </summary>
         /// <param name="args">the co-ordinates of the vessel</param>
         /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically</param>
@@ -146,10 +144,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
             }
             else
             {
-                // TODO: Siehe showDestroyedBoat
+                // TODO: show destroyed boat
                 BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
 
-                // Explosionsbild an der angegebeben Stelle entfernen (Control entfernen --> PictureBox)
+                // At the entered point remove explosion image (remove --> PictureBox control)
                 this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
                 this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
@@ -170,10 +168,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         }
 
         /// <summary>
-        /// Setzt einen Treffer auf das angegebene Feld
+        /// sets a hit on the specified field
         /// </summary>
-        /// <param name="x">X-Koordinate des Treffers</param>
-        /// <param name="y">Y-Koordinate des Treffers</param>
+        /// <param name="x">X Coordinate of the hit</param>
+        /// <param name="y">Y Coordinate of the hit</param>
         public void setImpact(int x, int y)
         {
             try
@@ -188,10 +186,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         }
 
         /// <summary>
-        /// sets a missed shot to the specified field
+        /// sets a missed shot on the specified field
         /// </summary>
-        /// <param name="x">x coordinate of the missed shot</param>
-        /// <param name="y">y coordinate of the missed shot</param>
+        /// <param name="x">X coordinate of the missed shot</param>
+        /// <param name="y">Y coordinate of the missed shot</param>
         public void setMiss(int x, int y)
         {
             BattleshipsForm.soundPlayer.PlaySoundAsync("splash.wav");
@@ -214,13 +212,13 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         }
 
         /// <summary>
-        /// Entscheidet anhand des bereits im Panel gespeicherten Bildes welche Explosion dargestellt werden soll
+        /// Decide based on the stored image in the panel which explosion should be presented
         /// </summary>
-        /// <param name="x">X-Koordinate des Treffers</param>
-        /// <param name="y">Y-Koordinate des Treffers</param>
+        /// <param name="x">X Coordinate of the hit</param>
+        /// <param name="y">Y Coordinate of the hit</param>
         public void drawExplosion(int x, int y)
         {
-            // PictureBoxDoubleBuffered explPicture = new PictureBoxDoubleBuffered();
+            //// PictureBoxDoubleBuffered explPicture = new PictureBoxDoubleBuffered();
             PictureBox explPicture = new PictureBox();
             explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
             explPicture.Location = new Point(x * 30, y * 30);
@@ -231,7 +229,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
             explPicture.BackColor = Color.Transparent;
             explPicture.Image = Properties.Resources.explo6;
             
-            // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
+            // Explosion PictureBox - Add to the panel where the impact is
             this.addControl(explPicture);
         }
         
@@ -253,17 +251,17 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
         #region Mouse-Events
         public void p_Clicked(object sender, MouseEventArgs e)
         {
-            // Erst loslegen, wenn beide Spieler bereit sind
-            if (BattleshipsForm.opponendReady2Play && BattleshipsForm.playerReady2Play)
+            // Only start if both players are ready
+            if (BattleshipsForm.opponentReady2Play && BattleshipsForm.playerReady2Play)
             {
-                // Es darf nur geschossen werden, wenn man auch an der reihe ist!
+                // can only shoot if it is your turn
                 if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
                 {
                     DoubleBuffered.PanelDoubleBuffered tmp = (DoubleBuffered.PanelDoubleBuffered)sender;
                     switch (e.Button)
                     {
                         case System.Windows.Forms.MouseButtons.Left:
-                            // Bin ich einem Spiel beigetreten?
+                            // has a game been joined?
                             if (BattleshipsForm.clientGameForm != null)
                             {
                                 if (BattleshipsForm.clientGameForm.m_clientSocket != null)
@@ -273,10 +271,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
                                         object sendData = tmp.Name;
                                         byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
-                                        // Koordinaten des aktuellen Feldes an Server schicken
+                                        // Send coordinates of the current field to server
                                         BattleshipsForm.clientGameForm.m_clientSocket.Send(byData);
 
-                                        // Auf Antwort warten (HIT\MISS\WIN\LOSE)
+                                        // Wait for a response (HIT\MISS\WIN\LOSE)
                                         BattleshipsForm.clientGameForm.WaitForData();
                                     }
                                     catch (Exception ex)
@@ -287,7 +285,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
                             }
                             else if (BattleshipsForm.hostGameForm != null)
                             {
-                            // Oder Hoste ich selber ein Spiel?
+                            // Or do I host a game myself?
                                 try
                                 {
                                     if (BattleshipsForm.hostGameForm.m_workerSocket != null)
@@ -297,10 +295,10 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
                                             object sendData = tmp.Name;
                                             byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
-                                            // Koordinaten des aktuellen Feldes an Server schicken
+                                            // Send coordinates of the current field to Server
                                             BattleshipsForm.hostGameForm.m_workerSocket.Send(byData);
 
-                                            // Auf Antwort warten (HIT\MISS\WIN\LOSE)
+                                            // wait for an answer (HIT\MISS\WIN\LOSE)
                                             BattleshipsForm.hostGameForm.WaitForData(BattleshipsForm.hostGameForm.m_workerSocket);
                                         }
                                         catch (Exception ex)
