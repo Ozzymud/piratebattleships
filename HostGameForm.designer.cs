@@ -54,7 +54,7 @@ namespace Battleships
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.btnCloseGame = new System.Windows.Forms.Button();
             this.btnHostGame = new System.Windows.Forms.Button();
-            this.lblStatusMsg = new System.Windows.Forms.Label();
+            this.labelStatusMessage = new System.Windows.Forms.Label();
             this.listboxMessage = new System.Windows.Forms.ListBox();
             this.btnRdy = new System.Windows.Forms.Button();
             this.btnExtIp = new System.Windows.Forms.Button();
@@ -105,7 +105,7 @@ namespace Battleships
             this.btnCloseGame.TabIndex = 18;
             this.btnCloseGame.Text = "Spiel beenden";
             this.btnCloseGame.UseVisualStyleBackColor = false;
-            this.btnCloseGame.Click += new System.EventHandler(this.btnCloseGame_Click);
+            this.btnCloseGame.Click += new System.EventHandler(this.ButtonCloseGameClick);
             // 
             // btnHostGame
             // 
@@ -119,15 +119,15 @@ namespace Battleships
             this.btnHostGame.Text = "Spiel starten";
             this.toolTipButtons.SetToolTip(this.btnHostGame, "Starte ein Spiel, auf das sich ein Freund einlogen kann");
             this.btnHostGame.UseVisualStyleBackColor = false;
-            this.btnHostGame.Click += new System.EventHandler(this.btnHostGame_Click);
+            this.btnHostGame.Click += new System.EventHandler(this.ButtonHostGameClick);
             // 
-            // lblStatusMsg
+            // labelStatusMessage
             // 
-            this.lblStatusMsg.Location = new System.Drawing.Point(13, 89);
-            this.lblStatusMsg.Name = "lblStatusMsg";
-            this.lblStatusMsg.Size = new System.Drawing.Size(112, 16);
-            this.lblStatusMsg.TabIndex = 20;
-            this.lblStatusMsg.Text = "Status Message:";
+            this.labelStatusMessage.Location = new System.Drawing.Point(13, 89);
+            this.labelStatusMessage.Name = "labelStatusMessage";
+            this.labelStatusMessage.Size = new System.Drawing.Size(112, 16);
+            this.labelStatusMessage.TabIndex = 20;
+            this.labelStatusMessage.Text = "Status Message:";
             // 
             // listboxMessage
             // 
@@ -151,7 +151,7 @@ namespace Battleships
             this.btnRdy.Text = "Ready";
             this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.BtnRdy_Click);
+            this.btnRdy.Click += new System.EventHandler(this.ButtonReadyClick);
             // 
             // btnExtIp
             // 
@@ -163,7 +163,7 @@ namespace Battleships
             this.toolTipButtons.SetToolTip(this.btnExtIp, "Ermittelt deine externe IP-Adresse um mit einem Freund über das Intenet spielen z" +
                     "u können");
             this.btnExtIp.UseVisualStyleBackColor = true;
-            this.btnExtIp.Click += new System.EventHandler(this.btnExtIp_Click);
+            this.btnExtIp.Click += new System.EventHandler(this.ButtonExternalIpClick);
             // 
             // toolTipButtons
             // 
@@ -179,7 +179,7 @@ namespace Battleships
             this.toolTipButtons.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
                     string.Empty);
             this.btnInternIP.UseVisualStyleBackColor = true;
-            this.btnInternIP.Click += new System.EventHandler(this.btnInternIP_Click);
+            this.btnInternIP.Click += new System.EventHandler(this.ButtonInternalIPClick);
             // 
             // HostGameForm
             // 
@@ -190,7 +190,7 @@ namespace Battleships
             this.Controls.Add(this.btnExtIp);
             this.Controls.Add(this.btnRdy);
             this.Controls.Add(this.listboxMessage);
-            this.Controls.Add(this.lblStatusMsg);
+            this.Controls.Add(this.labelStatusMessage);
             this.Controls.Add(this.btnCloseGame);
             this.Controls.Add(this.btnHostGame);
             this.Controls.Add(this.textBoxIP);
@@ -216,7 +216,7 @@ namespace Battleships
         private System.Windows.Forms.TextBox textBoxPort;
         private System.Windows.Forms.Button btnCloseGame;
         private System.Windows.Forms.Button btnHostGame;
-        private System.Windows.Forms.Label lblStatusMsg;
+        private System.Windows.Forms.Label labelStatusMessage;
         private System.Windows.Forms.ListBox listboxMessage;
         private System.Windows.Forms.Button btnRdy;
         private System.Windows.Forms.Button btnExtIp;

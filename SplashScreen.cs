@@ -35,7 +35,7 @@ public partial class SplashScreen : Battleships.DoubleBufferedForm
         /// <summary>
         /// Blendet die Form langsam ein
         /// </summary>
-        public void showForm()
+        public void ShowForm()
         {
             // load and play sound
             BattleshipsForm.SoundPlayer.PlaySoundAsync("yaarrr.wav");

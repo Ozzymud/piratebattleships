@@ -36,24 +36,24 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// Client Form
         /// </summary> 
-        public static ClientGameForm clientGameForm;
+        public static ClientGameForm ClientGameForm;
 
         /// <summary>
         /// Host Form
         /// </summary>
-        public static HostGameForm hostGameForm;
+        public static HostGameForm HostGameForm;
 
         /// <summary>
         /// Soundwiedergabe Objekt
         /// </summary>
         public static SoundClass SoundPlayer;
 
-        public static InfoForm infoForm;
+        public static InfoForm InfoForm;
 
         /// <summary>
         /// Label der den Status des Spiels anzeigt
         /// </summary>
-        public static Label lblStatus;
+        public static Label LabelStatus;
 
         public static Battleships.DoubleBufferedPanel PanelStatus;
 
@@ -67,12 +67,12 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// Das Schlachtfeld des Spielers
         /// </summary>
-        public static BattlefieldPlayer battlefieldPlayer;
+        public static BattlefieldPlayer BattlefieldPlayer;
 
         /// <summary>
         /// Das Schlachtfeld des Gegners
         /// </summary>
-        public static BattlefieldOpponent battlefieldOpponent;
+        public static BattlefieldOpponent BattlefieldOpponent;
 
         /// <summary>
         /// Flag der angibt ob der Spieler bereit ist
@@ -116,8 +116,8 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// </summary>
         public BattleshipsForm()
         {
-            try
-            {
+            ////try
+            ////{
                 this.InitializeComponent();
 
                 // Spieler ist noch nicht bereit (Start des Spiels)
@@ -130,8 +130,8 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 HelpMenuItem = new ToolStripMenuItem("&Help");
                 InfoMenuItem = new ToolStripMenuItem("&About");
 
-                JoinGameMenuItem.Click += new EventHandler(this.spielBeitretenToolStripMenuItem_Click);
-                HostGameMenuItem.Click += new EventHandler(this.spielHostenToolStripMenuItem_Click);
+                JoinGameMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItemClick);
+                HostGameMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItemClick);
                 InfoMenuItem.Click += new EventHandler(this.InfoMenuItem_Click);
 
                 PanelStatus = new Battleships.DoubleBufferedPanel();
@@ -142,13 +142,13 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 PanelStatus.VerticalScroll.SmallChange = 50;
                 PanelStatus.HorizontalScroll.Enabled = true;
 
-                lblStatus = new Label();
+                LabelStatus = new Label();
 
-                // lblStatus.Dock = DockStyle.Fill;
-                lblStatus.TextAlign = ContentAlignment.TopLeft;
-                lblStatus.AutoSize = true;
-                lblStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                PanelStatus.Controls.Add(lblStatus);
+                // LabelStatus.Dock = DockStyle.Fill;
+                LabelStatus.TextAlign = ContentAlignment.TopLeft;
+                LabelStatus.AutoSize = true;
+                LabelStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                PanelStatus.Controls.Add(LabelStatus);
 
                 this.Controls.Add(PanelStatus);
 
@@ -160,26 +160,26 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
 
                 SoundPlayer = new SoundClass();
 
-                battlefieldPlayer = new BattlefieldPlayer(BattlefieldPlayerX, BattlefieldPlayerY);
-                battlefieldOpponent = new BattlefieldOpponent(BattlefieldOpponentX, BattlefieldOpponentY);
+                BattlefieldPlayer = new BattlefieldPlayer(BattlefieldPlayerX, BattlefieldPlayerY);
+                BattlefieldOpponent = new BattlefieldOpponent(BattlefieldOpponentX, BattlefieldOpponentY);
 
                 // Schlachtfelder der Hautpform Hinzufügen
-                this.Controls.Add(battlefieldPlayer);
-                this.Controls.Add(battlefieldOpponent);
+                this.Controls.Add(BattlefieldPlayer);
+                this.Controls.Add(BattlefieldOpponent);
 
                 SplashScreen splash = new SplashScreen();
-                splash.showForm(); // Splashscreen anzeigen (langsam einblenden)
+                splash.ShowForm(); // Splashscreen anzeigen (langsam einblenden)
                 Thread.Sleep(1000); // Splashscreen für 1sek. anzeigen
                 splash.Close(); // Splashscreen schließen
                 splash.Dispose(); // Ressourcen freigeben
-            }
-            finally
-            {
+            ////}
+            ////finally
+            ////{
                 // HACK: this throws an error, but caught errors need to be fixed eventually i think
                 // sloppy change to at least run program without crash on start
                 //// catch (Exception ex)
                 //// MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
-            }
+            ////}
         }
 
         #region Form-Events
@@ -193,7 +193,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         #endregion
 
         #region Mouse-Events
-        private void btnGalley_MouseDown(object sender, MouseEventArgs e)
+        private void ButtonGalleyMouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
@@ -202,11 +202,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(battlefieldPlayer.ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
                     {
-                        battlefieldPlayer.CounterGalley = CounterGalley;
+                        BattlefieldPlayer.CounterGalley = CounterGalley;
                         CounterGalley++;
-                        battlefieldPlayer.ships = BattlefieldPlayer.ShipModels.galley;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.galley;
 
                         if (CounterGalley == MaxNumberGalley)
                         {
@@ -220,7 +220,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBattleship_MouseDown(object sender, MouseEventArgs e)
+        private void ButtonBattleshipMouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
@@ -229,11 +229,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(battlefieldPlayer.ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
                     {
-                        battlefieldPlayer.CounterBattleship = CounterBattleship;
+                        BattlefieldPlayer.CounterBattleship = CounterBattleship;
                         CounterBattleship++;
-                        battlefieldPlayer.ships = BattlefieldPlayer.ShipModels.battleship;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.battleship;
 
                         if (CounterBattleship == MaxNumberBattleship)
                         {
@@ -247,7 +247,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnCruiser_MouseDown(object sender, MouseEventArgs e)
+        private void ButtonCruiserMouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
@@ -255,11 +255,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(battlefieldPlayer.ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
                     {
-                        battlefieldPlayer.CounterCruiser = CounterCruiser;
+                        BattlefieldPlayer.CounterCruiser = CounterCruiser;
                         CounterCruiser++;
-                        battlefieldPlayer.ships = BattlefieldPlayer.ShipModels.cruiser;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.cruiser;
 
                         if (CounterCruiser == MaxNumberCruiser)
                         {
@@ -273,7 +273,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBoat_MouseDown(object sender, MouseEventArgs e)
+        private void ButtonBoatMouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
@@ -281,11 +281,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(battlefieldPlayer.ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
                     {
-                        battlefieldPlayer.CounterBoat = CounterBoat;
+                        BattlefieldPlayer.CounterBoat = CounterBoat;
                         CounterBoat++;
-                        battlefieldPlayer.ships = BattlefieldPlayer.ShipModels.boat;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.boat;
 
                         if (CounterBoat == MaxNumberBoat)
                         {
@@ -299,7 +299,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnGalley_MouseLeave(object sender, EventArgs e)
+        private void ButtonGalleyMouseLeave(object sender, EventArgs e)
         {
             if (this.btnGalley.Enabled == false)
             {
@@ -311,7 +311,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBattleship_MouseLeave(object sender, EventArgs e)
+        private void ButtonBattleshipMouseLeave(object sender, EventArgs e)
         {
             if (this.btnBattleship.Enabled == false)
             {
@@ -323,7 +323,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnCruiser_MouseLeave(object sender, EventArgs e)
+        private void ButtonCruiserMouseLeave(object sender, EventArgs e)
         {
             if (this.btnCruiser.Enabled == false)
             {
@@ -335,7 +335,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBoat_MouseLeave(object sender, EventArgs e)
+        private void ButtonBoatMouseLeave(object sender, EventArgs e)
         {
             if (this.btnBoat.Enabled == false)
             {
@@ -347,7 +347,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnGalley_MouseEnter(object sender, EventArgs e)
+        private void ButtonGalleyMouseEnter(object sender, EventArgs e)
         {
             if (this.btnGalley.Enabled == false)
             {
@@ -359,7 +359,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBattleship_MouseEnter(object sender, EventArgs e)
+        private void ButtonBattleshipMouseEnter(object sender, EventArgs e)
         {
             if (this.btnBattleship.Enabled == false)
             {
@@ -371,7 +371,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnCruiser_MouseEnter(object sender, EventArgs e)
+        private void ButtonCruiserMouseEnter(object sender, EventArgs e)
         {
             if (this.btnCruiser.Enabled == false)
             {
@@ -383,7 +383,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnBoat_MouseEnter(object sender, EventArgs e)
+        private void ButtonBoatMouseEnter(object sender, EventArgs e)
         {
             if (this.btnBoat.Enabled == false)
             {
@@ -397,71 +397,71 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         #endregion      
 
         #region ToolStripMenuItems-Events
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();        
         }
 
-        private void spielBeitretenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void JoinGameToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (clientGameForm == null)
+            if (ClientGameForm == null)
             { 
-                clientGameForm = new ClientGameForm();
+                ClientGameForm = new ClientGameForm();
                 HostGameMenuItem.Enabled = false;
-                clientGameForm.Show(this);
+                ClientGameForm.Show(this);
             }
-            else if (!clientGameForm.IsHandleCreated)
+            else if (!ClientGameForm.IsHandleCreated)
             {
-                clientGameForm = new ClientGameForm();
+                ClientGameForm = new ClientGameForm();
                 HostGameMenuItem.Enabled = false;
-                clientGameForm.Show(this);
+                ClientGameForm.Show(this);
             }
         }
 
-        private void spielHostenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HostGameToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (hostGameForm == null)
+            if (HostGameForm == null)
             {
-                hostGameForm = new HostGameForm();
+                HostGameForm = new HostGameForm();
                 JoinGameMenuItem.Enabled = false;
-                hostGameForm.Show(this);
+                HostGameForm.Show(this);
             }
-            else if (!hostGameForm.IsHandleCreated)
+            else if (!HostGameForm.IsHandleCreated)
             {
-                hostGameForm = new HostGameForm();
+                HostGameForm = new HostGameForm();
                 JoinGameMenuItem.Enabled = false;
-                hostGameForm.Show(this);
+                HostGameForm.Show(this);
             }
         }
 
         private void InfoMenuItem_Click(object sender, EventArgs e)
         {
-            if (infoForm == null)
+            if (InfoForm == null)
             {
-                infoForm = new InfoForm();
-                infoForm.ShowDialog();
+                InfoForm = new InfoForm();
+                InfoForm.ShowDialog();
             }
-            else if (!infoForm.IsHandleCreated)
+            else if (!InfoForm.IsHandleCreated)
             {
-                infoForm = new InfoForm();
-                infoForm.ShowDialog();
+                InfoForm = new InfoForm();
+                InfoForm.ShowDialog();
             }
         }
         #endregion 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ButtonOneClick(object sender, EventArgs e)
         {
-            lblStatus.Text += "Test\n";
+            LabelStatus.Text += "Test\n";
             PanelStatus.VerticalScroll.Value += PanelStatus.VerticalScroll.SmallChange;
             PanelStatus.Refresh();
         }
 
-        private void panel_Status_Scroll(object sender, ScrollEventArgs e)
+        private void PanelStatusScroll(object sender, ScrollEventArgs e)
         {
             MessageBox.Show("TEst");
         }
 
-        private void panel_Status_SizeChanged(object sender, EventArgs e)
+        private void PanelStatusSizeChanged(object sender, EventArgs e)
         {
             MessageBox.Show("TEst");
         }

@@ -32,7 +32,7 @@ using System.Windows.Forms;
 
     public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
-        private byte[] MainDataBuffer = new byte[10];
+        private byte[] mainDataBuffer = new byte[10];
         public IAsyncResult MainResult;
         public AsyncCallback MainPfnCallBack;
         public Socket MainClientSocket;
@@ -52,7 +52,7 @@ using System.Windows.Forms;
             this.textboxIP.Text = this.GetIP();
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void ButtonConnectClick(object sender, EventArgs e)
         {
             // See if we have text on the IP and Port text fields
             if (this.textboxIP.Text == string.Empty || this.textboxPort.Text == string.Empty)
@@ -73,13 +73,13 @@ using System.Windows.Forms;
 
                 // Cet the remote IP address
                 IPAddress ip = IPAddress.Parse(this.textboxIP.Text);
-                int iPortNo = System.Convert.ToInt16(this.textboxPort.Text);
+                int internetPortNumber = System.Convert.ToInt16(this.textboxPort.Text);
 
                 // Create the end point
-                IPEndPoint ipEnd = new IPEndPoint(ip, iPortNo);
+                IPEndPoint endPoint = new IPEndPoint(ip, internetPortNumber);
 
                 // Connect to the remote host
-                this.MainClientSocket.Connect(ipEnd);
+                this.MainClientSocket.Connect(endPoint);
                 if (this.MainClientSocket.Connected)
                 {
                     this.listboxRx.Items.Add("Connected to Server...");
@@ -114,9 +114,9 @@ using System.Windows.Forms;
 
                 // Start listening to the data asynchronously
                 this.MainResult = this.MainClientSocket.BeginReceive(
-                    theSocPkt.dataBuffer,
+                    theSocPkt.DataBuffer,
                     0,
-                    theSocPkt.dataBuffer.Length,
+                    theSocPkt.DataBuffer.Length,
                     SocketFlags.None,
                     this.MainPfnCallBack,
                     theSocPkt);
@@ -147,7 +147,7 @@ using System.Windows.Forms;
                 int iRx = theSockId.MainCurrentSocket.EndReceive(asyn);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(theSockId.dataBuffer, 0, iRx, chars, 0);
+                int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);
                 string data = new string(chars);
 
                 // Ankommende Daten verarbeiten und Service auswählen
@@ -181,12 +181,14 @@ using System.Windows.Forms;
         /// <returns>False wenn Verbindung geschlossen werden soll (z.B. bei vollem Server)</returns>
         private bool Services(string data)
         {
-            // Server hat Verbindung bestätigt
+            // Server has confirmed connection
+            // else if: Server is full, close connection
+            // else if: get coordinates (pb_) from an opponent (evaluate whether a ship is set to the coords or not) 
             if (data.StartsWith("ACK"))
             {
                 this.SetTextLblStatus("Server hat Verbindung bestätigt (ACK)");
             }
-            else if (data.StartsWith("FULL")) // Server ist voll!
+            else if (data.StartsWith("FULL"))
             {
                 this.SetText("Server is full...closing connection!");
                 if (this.MainClientSocket != null)
@@ -199,7 +201,7 @@ using System.Windows.Forms;
 
                 return false;
             }
-            else if (data.Contains("pb_")) // Koordinaten vom Gegner erhalten (Auswerten ob an den Koords ein Schiff gesetzt ist oder nicht)
+            else if (data.Contains("pb_"))
             {
                 // Erhaltene koordinaten ausgeben
                 this.SetText("Coords received: " + data);
@@ -213,11 +215,11 @@ using System.Windows.Forms;
                 object objData;
 
                 // Auswerten ob der Gegner getroffen hat oder nicht
-                if (!BattleshipsForm.battlefieldPlayer.hitOrMiss(x, y))
+                if (!BattleshipsForm.BattlefieldPlayer.HitOrMiss(x, y))
                 {
                     // Gegner mitteilen, dass er nicht getroffen hat
                     objData = "MISS" + x.ToString() + ":" + y.ToString();
-                    BattleshipsForm.battlefieldPlayer.SetMiss(x, y);
+                    BattleshipsForm.BattlefieldPlayer.SetMiss(x, y);
                 }
                 else
                 {
@@ -225,7 +227,7 @@ using System.Windows.Forms;
                     objData = "HIT" + x.ToString() + ":" + y.ToString();
 
                     // Einschlag darstellen (Auf eigenem Feld --> Gegner hat getroffen)
-                    if (BattleshipsForm.battlefieldPlayer.SetImpact(x, y))
+                    if (BattleshipsForm.BattlefieldPlayer.SetImpact(x, y))
                     {
                         // Gegner hat gewonnen (Alle Schiffe wurden zerstört)
                         objData = "WIN";
@@ -254,14 +256,16 @@ using System.Windows.Forms;
                     this.SetTextLblStatus("It's your turn now!");
                 }
             }
-            else if (data.StartsWith("WIN")) // Du hast gewonnen!!
+            else if (data.StartsWith("WIN"))
             {
+                // Du hast gewonnen!!
                 // ToDo: Sound abspielen (Gewinnersound....)
                 MessageBox.Show(this, "Du hast gewonnen!", "Sieg!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
-            else if (data.StartsWith("HIT")) //  Du hast einen treffer gelandet!
+            else if (data.StartsWith("HIT"))
             {
+                // Du hast einen treffer gelandet!
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
                 int x = int.Parse(posData[0]);
@@ -269,14 +273,15 @@ using System.Windows.Forms;
                 this.SetText("HIT received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler Anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
-                BattleshipsForm.battlefieldOpponent.SetImpact(x, y);
+                BattleshipsForm.BattlefieldOpponent.SetImpact(x, y);
 
                 // Gegner ist an der Reihe
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.enemy;
                 this.SetTextLblStatus("Enemy's turn!");
             }
-            else if (data.StartsWith("MISS")) // Der Schuss ging leider daneben, versuchs nochmal!
+            else if (data.StartsWith("MISS"))
             {
+                // Der Schuss ging leider daneben, versuchs nochmal!
                 string pos = data.Remove(0, 4);
                 string[] posData = pos.Split(':');
                 int x = int.Parse(posData[0]);
@@ -284,7 +289,7 @@ using System.Windows.Forms;
                 this.SetText("MISS received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
-                BattleshipsForm.battlefieldOpponent.SetMiss(x, y);
+                BattleshipsForm.BattlefieldOpponent.SetMiss(x, y);
 
                 // Gegner ist an der Reihe
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.enemy;
@@ -327,7 +332,7 @@ using System.Windows.Forms;
             return true;
         }
 
-        private void btnRdy_Click(object sender, EventArgs e)
+        private void ButtonReadyClick(object sender, EventArgs e)
         {
             // Überprüfen ob alle Schiffe verteilt wurden
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
@@ -401,18 +406,18 @@ using System.Windows.Forms;
             IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
 
             // Grab the first IP addresses
-            string IPStr = string.Empty;
+            string stringCurrentIP = string.Empty;
             foreach (IPAddress ipaddress in iphostentry.AddressList)
             {
                 // Die erste IPV4 Adresse aus der Adressliste wählen
                 if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    IPStr = ipaddress.ToString();
-                    return IPStr;
+                    stringCurrentIP = ipaddress.ToString();
+                    return stringCurrentIP;
                 }  
             }
 
-            return IPStr;
+            return stringCurrentIP;
         }
 
         public void SetText(string text)
@@ -431,15 +436,15 @@ using System.Windows.Forms;
 
         public void SetTextLblStatus(string text)
         {
-            if (BattleshipsForm.lblStatus.InvokeRequired)
+            if (BattleshipsForm.LabelStatus.InvokeRequired)
             {
                 SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
                 this.Invoke(d, new object[] { text });
             }
             else
             {
-                BattleshipsForm.lblStatus.Text += text;
-                BattleshipsForm.lblStatus.Text += "\n";
+                BattleshipsForm.LabelStatus.Text += text;
+                BattleshipsForm.LabelStatus.Text += "\n";
                 BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
                 BattleshipsForm.PanelStatus.Refresh();
             }
@@ -475,12 +480,12 @@ using System.Windows.Forms;
             this.UpdateControls(false);
         }
 
-        private void btnDisconnect_Click(object sender, EventArgs e)
+        private void ButtonDisconnectClick(object sender, EventArgs e)
         {
             this.CloseSocket();         
         }
 
-        private void ClientGameForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void ClientGameFormClosed(object sender, FormClosedEventArgs e)
         {
             this.CloseSocket();
             BattleshipsForm.HostGameMenuItem.Enabled = true;

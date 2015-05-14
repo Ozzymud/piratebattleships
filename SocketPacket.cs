@@ -26,6 +26,6 @@ using System.Text;
 internal class SocketPacket
     {
         public System.Net.Sockets.Socket MainCurrentSocket;
-        public byte[] dataBuffer = new byte[10]; // 10 Bytes aus dem Socket lesen
+        public byte[] DataBuffer = new byte[10]; // 10 Bytes aus dem Socket lesen
     }
 }

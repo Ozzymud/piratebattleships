@@ -29,7 +29,7 @@ using System.Text;
 public class Ships
     {
         // Boat --> 2 Pixel
-        public struct boat
+        public struct Boat
         {
             // Das boot besteht aus 2 Teilen
             public bool Front;
@@ -44,11 +44,11 @@ public class Ships
         }
 
         // Cruiser --> 3 Pixel
-        public struct cruiser
+        public struct Cruiser
         {
             public bool Front;
             public bool Rear;
-            public bool middle;
+            public bool Middle;
             public bool ShipDestryoed;
             public int PosRearX;
             public int PosRearY;
@@ -63,7 +63,7 @@ public class Ships
         /// <summary>
         /// Galley --> 4 Pixel
         /// </summary>
-        public struct galley
+        public struct Galley
         {
             public bool Front;
             public bool Rear;
@@ -85,7 +85,7 @@ public class Ships
         /// <summary>
         /// Galley --> 5 Pixel
         /// </summary>
-        public struct battleship
+        public struct Battleship
         {
             public bool Front;
             public bool Rear;

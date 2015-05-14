@@ -33,10 +33,32 @@ using System.Windows.Forms;
 
 public partial class HostGameForm : Battleships.DoubleBufferedForm
     {
+        /// <summary>
+        /// Schickt einen Request an die Seite "http://checkip.dyndns.org/" und wertet den erhaltenen Response (Externe IP-Adresse) aus
+        /// </summary>
+        /// <returns>Externe IP-Adresse (String)</returns>
+        private static string GetExternalIP()
+        {
+            WebClient client = new WebClient();
+
+            // Add a user agent header in case the requested URI contains a query.
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)");
+            string baseurl = "http://checkip.dyndns.org/";
+            Stream data = client.OpenRead(baseurl);
+            StreamReader reader = new StreamReader(data);
+            string s = reader.ReadToEnd();
+            data.Close();
+            reader.Close();
+
+            // Den erhaltenen Response so zurechtschneiden, dass nur noch die IP-Adresse übrig bleibt
+            s = s.Replace("<html><head><title>Current IP Check</title></head><body>Current IP Address:", string.Empty).Replace("</body></html>", string.Empty).ToString();
+            return s;
+        }
+
         public AsyncCallback PfnWorkerCallBack;
         public Socket MainWorkerSocket;
         public int MainClientCount = 0;
-        private Socket MainSocket;
+        private Socket mainSocket;
         private int roll;
         private string oroll;
 
@@ -52,7 +74,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             this.textBoxIP.Text = this.GetIP();
         }
 
-        private void btnHostGame_Click(object sender, EventArgs e)
+        private void ButtonHostGameClick(object sender, EventArgs e)
         {
             try
             {
@@ -67,22 +89,22 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     int port = System.Convert.ToInt32(portStr);
 
                     // Create the listening socket...
-                    this.MainSocket = new Socket(
+                    this.mainSocket = new Socket(
                                        AddressFamily.InterNetwork,
                                        SocketType.Stream,
                                        ProtocolType.Tcp);
-                    IPEndPoint ipLocal = new IPEndPoint(IPAddress.Any, port);
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
 
                     // Bind to local IP Address...
-                    this.MainSocket.Bind(ipLocal);
+                    this.mainSocket.Bind(endPoint);
 
                     // Start listening...
                     this.listboxMessage.Items.Add("Initialize Server...");
-                    this.MainSocket.Listen(1);
+                    this.mainSocket.Listen(1);
                     this.listboxMessage.Items.Add("Server initialized");
 
                     // Create the call back for any client connections...
-                    this.MainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
+                    this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
 
                     this.UpdateControls(true);
                     this.listboxMessage.Items.Add("Waiting for Client...");   
@@ -102,7 +124,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     // Here we complete/end the BeginAccept() asynchronous call
                     // by calling EndAccept() - which returns the reference to
                     // a new Socket object
-                    this.MainWorkerSocket = this.MainSocket.EndAccept(asyn);
+                    this.MainWorkerSocket = this.mainSocket.EndAccept(asyn);
 
                     // Let the worker Socket do the further processing for the
                     // just connected client
@@ -130,11 +152,11 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                     // Since the main Socket is now free, it can go back and wait for
                     // other clients who are attempting to connect
-                    //// MainSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
+                    //// mainSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
                 }
                 else
                 {
-                    Socket tmp_workerSocket = this.MainSocket.EndAccept(asyn);
+                    Socket tmp_workerSocket = this.mainSocket.EndAccept(asyn);
                     this.WaitForData(tmp_workerSocket);
                     this.SetText("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
                     this.SetText("But Server is already full!");
@@ -174,7 +196,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                 // Start receiving any data written by the connected client
                 // asynchronously
-                soc.BeginReceive(theSocPkt.dataBuffer, 0, theSocPkt.dataBuffer.Length, SocketFlags.None, this.PfnWorkerCallBack, theSocPkt);
+                soc.BeginReceive(theSocPkt.DataBuffer, 0, theSocPkt.DataBuffer.Length, SocketFlags.None, this.PfnWorkerCallBack, theSocPkt);
             }
             catch (SocketException se)
             {
@@ -199,7 +221,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 iRx = socketData.MainCurrentSocket.EndReceive(asyn);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(socketData.dataBuffer, 0, iRx, chars, 0);
+                int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
                 string data = new string(chars);
                 //// richTextBoxReceivedMsg.AppendText(data);
                 //// SetTextRichTextBox(data);
@@ -257,11 +279,11 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 object objData;
 
                 // Evaluate whether the enemy has hit or not
-                if (!BattleshipsForm.battlefieldPlayer.hitOrMiss(x, y))
+                if (!BattleshipsForm.BattlefieldPlayer.HitOrMiss(x, y))
                 {
                     // Inform the enemy that he missed
                     objData = "MISS" + x.ToString() + ":" + y.ToString();
-                    BattleshipsForm.battlefieldPlayer.SetMiss(x, y);
+                    BattleshipsForm.BattlefieldPlayer.SetMiss(x, y);
                 }
                 else
                 {
@@ -269,7 +291,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     objData = "HIT" + x.ToString() + ":" + y.ToString();
 
                     // Set hit (On own field --> Enemy hit)
-                    if (BattleshipsForm.battlefieldPlayer.SetImpact(x, y))
+                    if (BattleshipsForm.BattlefieldPlayer.SetImpact(x, y))
                     {
                         // Enemy won (all ships were destroyed)
                         objData = "WIN";
@@ -314,7 +336,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 this.SetText("HIT received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
-                BattleshipsForm.battlefieldOpponent.SetImpact(x, y);
+                BattleshipsForm.BattlefieldOpponent.SetImpact(x, y);
 
                 // Gegner ist an der Reihe
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.enemy;
@@ -330,7 +352,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 this.SetText("MISS received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
-                BattleshipsForm.battlefieldOpponent.SetMiss(x, y);
+                BattleshipsForm.BattlefieldOpponent.SetMiss(x, y);
 
                 // Gegner ist an der Reihe
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.enemy;
@@ -369,7 +391,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void BtnRdy_Click(object sender, EventArgs e)
+        private void ButtonReadyClick(object sender, EventArgs e)
         {
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
@@ -441,40 +463,18 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             //// Dns.GetHostByName(strHostName);
 
             // Grab the first IP addresses
-            string IPStr = string.Empty;
+            string stringCurrentIP = string.Empty;
             foreach (IPAddress ipaddress in iphostentry.AddressList)
             {     
                 // Die erste IPV4 Adresse aus der Adressliste wählen
                 if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    IPStr = ipaddress.ToString();
-                    return IPStr;
+                    stringCurrentIP = ipaddress.ToString();
+                    return stringCurrentIP;
                 }                  
             }
 
-            return IPStr;
-        }
-
-        /// <summary>
-        /// Schickt einen Request an die Seite "http://checkip.dyndns.org/" und wertet den erhaltenen Response (Externe IP-Adresse) aus
-        /// </summary>
-        /// <returns>Externe IP-Adresse (String)</returns>
-        private static string GetExternalIP()
-        {
-            WebClient client = new WebClient();
-
-            // Add a user agent header in case the requested URI contains a query.
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)");
-            string baseurl = "http://checkip.dyndns.org/";
-            Stream data = client.OpenRead(baseurl);
-            StreamReader reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-            data.Close();
-            reader.Close();
-
-            // Den erhaltenen Response so zurechtschneiden, dass nur noch die IP-Adresse übrig bleibt
-            s = s.Replace("<html><head><title>Current IP Check</title></head><body>Current IP Address:", string.Empty).Replace("</body></html>", string.Empty).ToString();
-            return s;
+            return stringCurrentIP;
         }
 
         public void SetText(string text)
@@ -493,15 +493,15 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
         public void SetTextLblStatus(string text)
         {
-            if (BattleshipsForm.lblStatus.InvokeRequired)
+            if (BattleshipsForm.LabelStatus.InvokeRequired)
             {
                 SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
                 this.Invoke(d, new object[] { text });
             }
             else
             {
-                BattleshipsForm.lblStatus.Text += text;
-                BattleshipsForm.lblStatus.Text += "\n";
+                BattleshipsForm.LabelStatus.Text += text;
+                BattleshipsForm.LabelStatus.Text += "\n";
                 BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
                 BattleshipsForm.PanelStatus.Refresh();
             }
@@ -522,7 +522,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void btnCloseGame_Click(object sender, EventArgs e)
+        private void ButtonCloseGameClick(object sender, EventArgs e)
         {
             this.CloseSockets();
             this.UpdateControls(false);
@@ -530,9 +530,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
         private void CloseSockets()
         {
-            if (this.MainSocket != null)
+            if (this.mainSocket != null)
             {
-                this.MainSocket.Close();
+                this.mainSocket.Close();
             }
 
             if (this.MainWorkerSocket != null)
@@ -553,12 +553,12 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             BattleshipsForm.JoinGameMenuItem.Enabled = true;
         }
 
-        private void btnExtIp_Click(object sender, EventArgs e)
+        private void ButtonExternalIpClick(object sender, EventArgs e)
         {
             this.textBoxIP.Text = GetExternalIP();
         }
 
-        private void btnInternIP_Click(object sender, EventArgs e)
+        private void ButtonInternalIPClick(object sender, EventArgs e)
         {
             this.textBoxIP.Text = this.GetIP();
         }

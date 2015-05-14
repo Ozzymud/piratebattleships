@@ -80,9 +80,9 @@ namespace Battleships
             this.btnCruiser.Size = new System.Drawing.Size(106, 40);
             this.btnCruiser.TabIndex = 5;
             this.btnCruiser.UseVisualStyleBackColor = false;
-            this.btnCruiser.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnCruiser_MouseDown);
-            this.btnCruiser.MouseEnter += new System.EventHandler(this.btnCruiser_MouseEnter);
-            this.btnCruiser.MouseLeave += new System.EventHandler(this.btnCruiser_MouseLeave);
+            this.btnCruiser.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonCruiserMouseDown);
+            this.btnCruiser.MouseEnter += new System.EventHandler(this.ButtonCruiserMouseEnter);
+            this.btnCruiser.MouseLeave += new System.EventHandler(this.ButtonCruiserMouseLeave);
 
             // btnBattleship
             this.btnBattleship.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -102,9 +102,9 @@ namespace Battleships
             this.btnBattleship.Size = new System.Drawing.Size(106, 40);
             this.btnBattleship.TabIndex = 6;
             this.btnBattleship.UseVisualStyleBackColor = false;
-            this.btnBattleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBattleship_MouseDown);
-            this.btnBattleship.MouseEnter += new System.EventHandler(this.btnBattleship_MouseEnter);
-            this.btnBattleship.MouseLeave += new System.EventHandler(this.btnBattleship_MouseLeave);
+            this.btnBattleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonBattleshipMouseDown);
+            this.btnBattleship.MouseEnter += new System.EventHandler(this.ButtonBattleshipMouseEnter);
+            this.btnBattleship.MouseLeave += new System.EventHandler(this.ButtonBattleshipMouseLeave);
 
             // btnBoat
             this.btnBoat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -124,9 +124,9 @@ namespace Battleships
             this.btnBoat.Size = new System.Drawing.Size(106, 40);
             this.btnBoat.TabIndex = 7;
             this.btnBoat.UseVisualStyleBackColor = false;
-            this.btnBoat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBoat_MouseDown);
-            this.btnBoat.MouseEnter += new System.EventHandler(this.btnBoat_MouseEnter);
-            this.btnBoat.MouseLeave += new System.EventHandler(this.btnBoat_MouseLeave);
+            this.btnBoat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonBoatMouseDown);
+            this.btnBoat.MouseEnter += new System.EventHandler(this.ButtonBoatMouseEnter);
+            this.btnBoat.MouseLeave += new System.EventHandler(this.ButtonBoatMouseLeave);
 
             // lblGalley
             this.lblGalley.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -161,9 +161,9 @@ namespace Battleships
             this.btnGalley.Size = new System.Drawing.Size(106, 40);
             this.btnGalley.TabIndex = 4;
             this.btnGalley.UseVisualStyleBackColor = false;
-            this.btnGalley.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnGalley_MouseDown);
-            this.btnGalley.MouseEnter += new System.EventHandler(this.btnGalley_MouseEnter);
-            this.btnGalley.MouseLeave += new System.EventHandler(this.btnGalley_MouseLeave);
+            this.btnGalley.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonGalleyMouseDown);
+            this.btnGalley.MouseEnter += new System.EventHandler(this.ButtonGalleyMouseEnter);
+            this.btnGalley.MouseLeave += new System.EventHandler(this.ButtonGalleyMouseLeave);
 
             // lblBattleship
             this.lblBattleship.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -241,7 +241,7 @@ namespace Battleships
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 24);
             this.exitToolStripMenuItem.Text = "&Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
 
             // playerLabel
             this.playerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
