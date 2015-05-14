@@ -91,7 +91,7 @@ public class BattlefieldOpponent : DoubleBuffered.PanelDoubleBuffered
                     p.MouseClick += new MouseEventHandler(this.p_Clicked);
                     p.MouseEnter += new EventHandler(this.p_MouseEnter);
                     p.MouseLeave += new EventHandler(this.p_MouseLeave);
-                    p.Cursor = CreateCursor(bitmap, 3, 3);
+                    p.Cursor = CreateCursor(bitmap, 16, 16);
                     p.BackColor = Color.Transparent;
                     p.BorderStyle = BorderStyle.None;
                     this.pb[i, j] = p;
