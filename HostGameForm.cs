@@ -454,7 +454,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// Determine the internal IP address of the PC.
         /// </summary>
-        /// <returns>internal IP-Address as a string.</returns>
+        /// <returns>Internal IP-Address as a string.</returns>
         private string GetIP()
         {
             string strHostName = Dns.GetHostName();
