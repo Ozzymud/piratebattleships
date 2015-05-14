@@ -286,7 +286,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Displays on the enemy field a ruined cruiser.
+        /// Display on the enemy field a ruined cruiser.
         /// </summary>
         /// <param name="args">The co-ordinates of the vessel.</param>
         /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
@@ -299,7 +299,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
             else
             {
-                // TODO: Siehe ShowDestroyedBoat
+                // TODO: Show destroyed boat.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // Explosionsbild an der angegebeben Stelle entfernen (Control entfernen --> PictureBox)

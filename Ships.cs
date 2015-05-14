@@ -28,10 +28,11 @@ using System.Text;
 /// </summary>
 public class Ships
     {
-        // Boat --> 2 parts.
+        /// <summary>
+        /// Boat --> 2 parts.
+        /// </summary>
         public struct Boat
         {
-            // Boat exists of 2 parts
             public bool Front;
             public bool Rear;
             public bool ShipDestryoed;
@@ -43,7 +44,9 @@ public class Ships
             public bool Horizontal;
         }
 
-        // Cruiser --> 3 parts.
+        /// <summary>
+        /// Cruiser --> 3 parts.
+        /// </summary>
         public struct Cruiser
         {
             public bool Front;
@@ -83,7 +86,8 @@ public class Ships
         }
 
         /// <summary>
-        /// Battleship --> 5 parts. (TODO: actually make this 5 parts).
+        /// Battleship --> 5 parts.
+        /// TODO: actually make this 5 parts.
         /// </summary>
         public struct Battleship
         {

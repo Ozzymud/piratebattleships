@@ -310,7 +310,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 // If opponent has won, then players may no longer have a turn...
                 if (objData.ToString().StartsWith("WIN"))
                 {
-                    // ToDo: Sound abspielen (Losersound...)
+                    // TODO: Play Sound (Loser).
                     MessageBox.Show(this, "Loser!", "lose", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
@@ -323,9 +323,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             else if (data.StartsWith("WIN"))
             {
             // Du hast gewonnen!!
-                // TODO: Sound abspielen (Gewinnersound....)
-                MessageBox.Show(this, "Du hast gewonnen!", "Sieg!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Application.Exit();
+            // TODO: Play Sound (Winner).
+            MessageBox.Show(this, "Du hast gewonnen!", "Sieg!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            Application.Exit();
             }
             else if (data.StartsWith("HIT"))
             {

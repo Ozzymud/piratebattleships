@@ -23,9 +23,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/// <summary>
+/// Read 10 bytes from a network socket.
+/// </summary>
 internal class SocketPacket
     {
-        public System.Net.Sockets.Socket MainCurrentSocket;
-        public byte[] DataBuffer = new byte[10]; // 10 Bytes aus dem Socket lesen
-    }
+    public System.Net.Sockets.Socket MainCurrentSocket;
+    public byte[] DataBuffer = new byte[10];
+}
 }
