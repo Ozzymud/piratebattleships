@@ -18,7 +18,7 @@
 
 namespace Battleships
 {
-    partial class ClientGameForm
+    public partial class ClientGameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,10 +31,11 @@ namespace Battleships
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -56,7 +57,7 @@ namespace Battleships
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.listboxRx = new System.Windows.Forms.ListBox();
             this.btnRdy = new System.Windows.Forms.Button();
-            this.toolTip_Btns = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblIP
@@ -102,7 +103,7 @@ namespace Battleships
             this.btnConnect.Size = new System.Drawing.Size(90, 46);
             this.btnConnect.TabIndex = 4;
             this.btnConnect.Text = "Connect";
-            this.toolTip_Btns.SetToolTip(this.btnConnect, "Verbinde dich mit einem Spiel (Über das Internet oder LAN)");
+            this.toolTipButtons.SetToolTip(this.btnConnect, "Verbinde dich mit einem Spiel (Über das Internet oder LAN)");
             this.btnConnect.UseVisualStyleBackColor = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -147,14 +148,14 @@ namespace Battleships
             this.btnRdy.Name = "btnRdy";
             this.btnRdy.Size = new System.Drawing.Size(90, 46);
             this.btnRdy.TabIndex = 9;
-            this.btnRdy.Text = "Bereit";
-            this.toolTip_Btns.SetToolTip(this.btnRdy, "Gib an, dass du Bereit zum Spielen bist");
+            this.btnRdy.Text = "Ready";
+            this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du Bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
             this.btnRdy.Click += new System.EventHandler(this.btnRdy_Click);
             // 
-            // toolTip_Btns
+            // toolTipButtons
             // 
-            this.toolTip_Btns.IsBalloon = true;
+            this.toolTipButtons.IsBalloon = true;
             // 
             // ClientGameForm
             // 
@@ -193,6 +194,6 @@ namespace Battleships
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.ListBox listboxRx;
         private System.Windows.Forms.Button btnRdy;
-        private System.Windows.Forms.ToolTip toolTip_Btns;
+        private System.Windows.Forms.ToolTip toolTipButtons;
     }
 }

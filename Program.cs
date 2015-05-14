@@ -23,13 +23,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-static class Program
+internal static class Program
     {
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

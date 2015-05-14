@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------
 namespace Battleships
 {
-    partial class InfoForm
+    public partial class InfoForm
     {
         /// <summary>
         /// Erforderliche Designervariable.

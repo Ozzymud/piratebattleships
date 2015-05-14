@@ -14,7 +14,7 @@
 //-----------------------------------------------------------------------
 namespace Battleships
 {
-    partial class SplashScreen
+    public partial class SplashScreen
     {
         /// <summary>
         /// Required designer variable.

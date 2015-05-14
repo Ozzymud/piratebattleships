@@ -33,31 +33,31 @@ public class Ships
         {
             // Das boot besteht aus 2 Teilen
             public bool Front;
-            public bool Heck;
-            public bool shipDestryoed;
-            public int posFrontX;
-            public int posFrontY;
-            public int posHeckX;
-            public int posHeckY;
-            public string name;
-            public bool horizontal;
+            public bool Rear;
+            public bool ShipDestryoed;
+            public int PosFrontX;
+            public int PosFrontY;
+            public int PosRearX;
+            public int PosRearY;
+            public string ShipName;
+            public bool Horizontal;
         }
 
         // Cruiser --> 3 Pixel
         public struct cruiser
         {
             public bool Front;
-            public bool Heck;
+            public bool Rear;
             public bool middle;
-            public bool shipDestryoed;
-            public int posHeckX;
-            public int posHeckY;
-            public int posMiddleX;
-            public int posMiddleY;
-            public int posFrontX;
-            public int posFrontY;
-            public string name;
-            public bool horizontal;
+            public bool ShipDestryoed;
+            public int PosRearX;
+            public int PosRearY;
+            public int PosMiddleX;
+            public int PosMiddleY;
+            public int PosFrontX;
+            public int PosFrontY;
+            public string ShipName;
+            public bool Horizontal;
         }
 
         /// <summary>
@@ -66,20 +66,20 @@ public class Ships
         public struct galley
         {
             public bool Front;
-            public bool Heck;
-            public bool middle1;
-            public bool middle2;
-            public bool shipDestryoed;
-            public int posHeckX;
-            public int posHeckY;
-            public int posMiddle1X;
-            public int posMiddle1Y;
-            public int posMiddle2X;
-            public int posMiddle2Y;
-            public int posFrontX;
-            public int posFrontY;
-            public string name;
-            public bool horizontal;
+            public bool Rear;
+            public bool MiddleFirstPart;
+            public bool MiddleSecondPart;
+            public bool ShipDestryoed;
+            public int PosRearX;
+            public int PosRearY;
+            public int PosMiddleFirstX;
+            public int PosMiddleFirstY;
+            public int PosMiddleSecondX;
+            public int PosMiddleSecondY;
+            public int PosFrontX;
+            public int PosFrontY;
+            public string ShipName;
+            public bool Horizontal;
         }
 
         /// <summary>
@@ -88,20 +88,20 @@ public class Ships
         public struct battleship
         {
             public bool Front;
-            public bool Heck;
-            public bool middle1;
-            public bool middle2;
-            public bool shipDestryoed;
-            public int posHeckX;
-            public int posHeckY;
-            public int posMiddle1X;
-            public int posMiddle1Y;
-            public int posMiddle2X;
-            public int posMiddle2Y;
-            public int posFrontX;
-            public int posFrontY;
-            public string name;
-            public bool horizontal;
+            public bool Rear;
+            public bool MiddleFirstPart;
+            public bool MiddleSecondPart;
+            public bool ShipDestryoed;
+            public int PosRearX;
+            public int PosRearY;
+            public int PosMiddleFirstX;
+            public int PosMiddleFirstY;
+            public int PosMiddleSecondX;
+            public int PosMiddleSecondY;
+            public int PosFrontX;
+            public int PosFrontY;
+            public string ShipName;
+            public bool Horizontal;
         }
     }
 }

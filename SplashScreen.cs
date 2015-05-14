@@ -38,7 +38,7 @@ public partial class SplashScreen : Battleships.DoubleBufferedForm
         public void showForm()
         {
             // load and play sound
-            BattleshipsForm.soundPlayer.PlaySoundAsync("yaarrr.wav");
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("yaarrr.wav");
             double i;
 
             this.Opacity = 0.1;

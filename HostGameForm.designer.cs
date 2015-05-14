@@ -18,7 +18,7 @@
 
 namespace Battleships
 {
-    partial class HostGameForm
+    public partial class HostGameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,10 +31,11 @@ namespace Battleships
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -57,7 +58,7 @@ namespace Battleships
             this.listboxMessage = new System.Windows.Forms.ListBox();
             this.btnRdy = new System.Windows.Forms.Button();
             this.btnExtIp = new System.Windows.Forms.Button();
-            this.toolTip_Btns = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
             this.btnInternIP = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -116,7 +117,7 @@ namespace Battleships
             this.btnHostGame.Size = new System.Drawing.Size(88, 40);
             this.btnHostGame.TabIndex = 17;
             this.btnHostGame.Text = "Spiel starten";
-            this.toolTip_Btns.SetToolTip(this.btnHostGame, "Starte ein Spiel, auf das sich ein Freund einlogen kann");
+            this.toolTipButtons.SetToolTip(this.btnHostGame, "Starte ein Spiel, auf das sich ein Freund einlogen kann");
             this.btnHostGame.UseVisualStyleBackColor = false;
             this.btnHostGame.Click += new System.EventHandler(this.btnHostGame_Click);
             // 
@@ -147,8 +148,8 @@ namespace Battleships
             this.btnRdy.Name = "btnRdy";
             this.btnRdy.Size = new System.Drawing.Size(88, 40);
             this.btnRdy.TabIndex = 22;
-            this.btnRdy.Text = "Bereit";
-            this.toolTip_Btns.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
+            this.btnRdy.Text = "Ready";
+            this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
             this.btnRdy.UseVisualStyleBackColor = false;
             this.btnRdy.Click += new System.EventHandler(this.BtnRdy_Click);
             // 
@@ -159,14 +160,14 @@ namespace Battleships
             this.btnExtIp.Size = new System.Drawing.Size(75, 40);
             this.btnExtIp.TabIndex = 23;
             this.btnExtIp.Text = "Externe IP \r\nfinden";
-            this.toolTip_Btns.SetToolTip(this.btnExtIp, "Ermittelt deine externe IP-Adresse um mit einem Freund über das Intenet spielen z" +
+            this.toolTipButtons.SetToolTip(this.btnExtIp, "Ermittelt deine externe IP-Adresse um mit einem Freund über das Intenet spielen z" +
                     "u können");
             this.btnExtIp.UseVisualStyleBackColor = true;
             this.btnExtIp.Click += new System.EventHandler(this.btnExtIp_Click);
             // 
-            // toolTip_Btns
+            // toolTipButtons
             // 
-            this.toolTip_Btns.IsBalloon = true;
+            this.toolTipButtons.IsBalloon = true;
             // 
             // btnInternIP
             // 
@@ -175,8 +176,8 @@ namespace Battleships
             this.btnInternIP.Size = new System.Drawing.Size(75, 40);
             this.btnInternIP.TabIndex = 24;
             this.btnInternIP.Text = "Interne IP \r\nfinden";
-            this.toolTip_Btns.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
-                    "");
+            this.toolTipButtons.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
+                    string.Empty);
             this.btnInternIP.UseVisualStyleBackColor = true;
             this.btnInternIP.Click += new System.EventHandler(this.btnInternIP_Click);
             // 
@@ -219,7 +220,7 @@ namespace Battleships
         private System.Windows.Forms.ListBox listboxMessage;
         private System.Windows.Forms.Button btnRdy;
         private System.Windows.Forms.Button btnExtIp;
-        private System.Windows.Forms.ToolTip toolTip_Btns;
+        private System.Windows.Forms.ToolTip toolTipButtons;
         private System.Windows.Forms.Button btnInternIP;
     }
 }

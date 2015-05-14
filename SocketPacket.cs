@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class SocketPacket
+internal class SocketPacket
     {
-        public System.Net.Sockets.Socket m_currentSocket;
+        public System.Net.Sockets.Socket MainCurrentSocket;
         public byte[] dataBuffer = new byte[10]; // 10 Bytes aus dem Socket lesen
     }
 }

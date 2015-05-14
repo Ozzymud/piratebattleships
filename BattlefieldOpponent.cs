@@ -20,35 +20,35 @@ namespace Battleships
 {
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Runtime.InteropServices;
 
 public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
     {
-        public struct IconInfo
+        private struct IconInfo
         {
-            public bool fIcon;
-            public int xHotspot;
-            public int yHotspot;
-            public IntPtr hbmMask;
-            public IntPtr hbmColor;
+            internal bool ParameterfIcon;
+            internal int ParameterxHotspot;
+            internal int ParameteryHotspot;
+            private IntPtr hbmMask;
+            private IntPtr hbmColor;
         }
 
         [DllImport("user32.dll")]
-        public static extern IntPtr CreateIconIndirect(ref IconInfo icon);
+        private static extern IntPtr CreateIconIndirect(ref IconInfo icon);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
+        private static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
 
-        public Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
+        private Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
 
         private delegate void AddControlCallback(Control contr);
 
-        delegate void showDestroyedShipsCallback(int[] args, bool horizontal);
+        private delegate void ShowDestroyedShipsCallback(int[] args, bool Horizontal);
 
         //// private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
 
@@ -69,12 +69,12 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             this.Height = 300;
             this.Size = new Size(300, 300);
             //// this.BackgroundImageLayout = ImageLayout.Stretch;
-            //// this.BackgroundImage = Battleships.Properties.Resources.meer_opponent;
+            //// this.BackgroundImage = Battleships.Properties.Resources.sea_enemy;
             this.BackColor = Color.Transparent;
             //// this.BorderStyle = BorderStyle.FixedSingle;
             //// this.BorderStyle = BorderStyle.None;
 
-            // opponents grid
+            // enemies grid
             for (int i = 0; i < this.pb.GetLength(0); i++)
             {
                 for (int j = 0; j < this.pb.GetLength(1); j++)
@@ -86,7 +86,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                     p.Name = "pb_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
                     p.BorderStyle = BorderStyle.FixedSingle;
-                    p.MouseClick += new MouseEventHandler(this.p_Clicked);
+                    p.MouseClick += new MouseEventHandler(this.P_Clicked);
                     p.MouseEnter += new EventHandler(this.p_MouseEnter);
                     p.MouseLeave += new EventHandler(this.p_MouseLeave);
                     p.Cursor = CreateCursor(bitmap, 16, 16);
@@ -99,25 +99,25 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Displays a destroyed boat on the opponents playing field
+        /// Displays a destroyed boat on the enemies playing field
         /// </summary>
         /// <param name="args">Contains the coordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically</param>
-        public void showDestroyedBoat(int[] args, bool horizontal)
+        /// <param name="Horizontal">Specifies whether the ship was used Horizontally or vertically</param>
+        public void ShowDestroyedBoat(int[] args, bool Horizontal)
         {
             if (this.InvokeRequired)
             {
-                showDestroyedShipsCallback d = new showDestroyedShipsCallback(this.showDestroyedBoat);
-                this.Invoke(d, new object[] { args, horizontal });
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
+                this.Invoke(d, new object[] { args, Horizontal });
             }
             else
             {
-                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // remove explosion picture at the specified position (remove--> PictureBox control)
                 this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                if (horizontal)
+                if (Horizontal)
                 {
                     this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
                     this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
@@ -131,28 +131,28 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        ///  Displays a ruined cruiser on the opponent field
+        ///  Displays a ruined cruiser on the enemy field
         /// </summary>
         /// <param name="args">the co-ordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically</param>
-        public void showDestroyedCruiser(int[] args, bool horizontal)
+        /// <param name="Horizontal">Specifies whether the ship was placed Horizontally or vertically</param>
+        public void ShowDestroyedCruiser(int[] args, bool Horizontal)
         {
             if (this.InvokeRequired)
             {
-                showDestroyedShipsCallback d = new showDestroyedShipsCallback(this.showDestroyedCruiser);
-                this.Invoke(d, new object[] { args, horizontal });
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedCruiser);
+                this.Invoke(d, new object[] { args, Horizontal });
             }
             else
             {
                 // TODO: show destroyed boat
-                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion1.wav");
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove --> PictureBox control)
                 this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
                 this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
 
-                if (horizontal)
+                if (Horizontal)
                 {
                     this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
                     this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
@@ -172,12 +172,12 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="x">X Coordinate of the hit</param>
         /// <param name="y">Y Coordinate of the hit</param>
-        public void setImpact(int x, int y)
+        public void SetImpact(int x, int y)
         {
             try
             {
-                BattleshipsForm.soundPlayer.PlaySoundAsync("explosion2.wav");
-                this.drawExplosion(x, y);
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion2.wav");
+                this.DrawExplosion(x, y);
             }
             catch (Exception ex)
             {
@@ -190,13 +190,13 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="x">X coordinate of the missed shot</param>
         /// <param name="y">Y coordinate of the missed shot</param>
-        public void setMiss(int x, int y)
+        public void SetMiss(int x, int y)
         {
-            BattleshipsForm.soundPlayer.PlaySoundAsync("splash.wav");
-            this.drawMiss(x, y);
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
+            this.DrawMiss(x, y);
         }
 
-        private void drawMiss(int x, int y)
+        private void DrawMiss(int x, int y)
         {
             PictureBox missPicture = new PictureBox();
             missPicture.Name = "miss_" + x.ToString() + ":" + y.ToString();
@@ -208,7 +208,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             missPicture.BackColor = Color.Transparent;
             missPicture.Image = Properties.Resources.splash;
 
-            this.addControl(missPicture);
+            this.AddControl(missPicture);
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         /// </summary>
         /// <param name="x">X Coordinate of the hit</param>
         /// <param name="y">Y Coordinate of the hit</param>
-        public void drawExplosion(int x, int y)
+        public void DrawExplosion(int x, int y)
         {
             PictureBox explPicture = new PictureBox();
             explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
@@ -229,14 +229,14 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             explPicture.Image = Properties.Resources.explo6;
             
             // Explosion PictureBox - Add to the panel where the impact is
-            this.addControl(explPicture);
+            this.AddControl(explPicture);
         }
         
-        public void addControl(Control contr)
+        public void AddControl(Control contr)
         {
             if (this.InvokeRequired)
             {
-                AddControlCallback d = new AddControlCallback(this.addControl);
+                AddControlCallback d = new AddControlCallback(this.AddControl);
                 this.Invoke(d, new object[] { contr });
             }
             else
@@ -248,13 +248,13 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         #region Mouse-Events
-        public void p_Clicked(object sender, MouseEventArgs e)
+        public void P_Clicked(object sender, MouseEventArgs e)
         {
             // Only start if both players are ready
-            if (BattleshipsForm.opponentReady2Play && BattleshipsForm.playerReady2Play)
+            if (BattleshipsForm.OpponentReadyToPlay && BattleshipsForm.PlayerReadyToPlay)
             {
                 // can only shoot if it is your turn
-                if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
+                if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
                 {
                     Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
                     switch (e.Button)
@@ -263,15 +263,15 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                             // has a game been joined?
                             if (BattleshipsForm.clientGameForm != null)
                             {
-                                if (BattleshipsForm.clientGameForm.m_clientSocket != null)
+                                if (BattleshipsForm.clientGameForm.MainClientSocket != null)
                                 {
                                     try
                                     {
                                         object sendData = tmp.Name;
-                                        byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
+                                        byte[] byteData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
                                         // Send coordinates of the current field to server
-                                        BattleshipsForm.clientGameForm.m_clientSocket.Send(byData);
+                                        BattleshipsForm.clientGameForm.MainClientSocket.Send(byteData);
 
                                         // Wait for a response (HIT\MISS\WIN\LOSE)
                                         BattleshipsForm.clientGameForm.WaitForData();
@@ -287,23 +287,23 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                             // Or do I host a game myself?
                                 try
                                 {
-                                    if (BattleshipsForm.hostGameForm.m_workerSocket != null)
+                                    if (BattleshipsForm.hostGameForm.MainWorkerSocket != null)
                                     {
                                         try
                                         {
                                             object sendData = tmp.Name;
-                                            byte[] byData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
+                                            byte[] byteData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
                                             // Send coordinates of the current field to Server
-                                            BattleshipsForm.hostGameForm.m_workerSocket.Send(byData);
+                                            BattleshipsForm.hostGameForm.MainWorkerSocket.Send(byteData);
 
                                             // wait for an answer (HIT\MISS\WIN\LOSE)
-                                            BattleshipsForm.hostGameForm.WaitForData(BattleshipsForm.hostGameForm.m_workerSocket);
+                                            BattleshipsForm.hostGameForm.WaitForData(BattleshipsForm.hostGameForm.MainWorkerSocket);
                                         }
                                         catch (Exception ex)
                                         {
                                             BattleshipsForm.hostGameForm.SetText(ex.ToString());
-                                            BattleshipsForm.hostGameForm.m_clientCount--;
+                                            BattleshipsForm.hostGameForm.MainClientCount--;
                                         }
                                     }
                                 }
@@ -320,7 +320,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
 
         public void p_MouseEnter(object sender, EventArgs e)
         {
-            if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
+            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
                 Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
@@ -339,7 +339,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
 
         public void p_MouseLeave(object sender, EventArgs e)
         {
-            if (BattleshipsForm.whosTurn == BattleshipsForm.spielzug.player)
+            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
                 Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
@@ -368,9 +368,9 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         {
             IconInfo tmp = new IconInfo();
             GetIconInfo(bmp.GetHicon(), ref tmp);
-            tmp.xHotspot = xHotSpot;
-            tmp.yHotspot = yHotSpot;
-            tmp.fIcon = false;
+            tmp.ParameteryHotspot = xHotSpot;
+            tmp.ParameteryHotspot = yHotSpot;
+            tmp.ParameterfIcon = false;
             return new Cursor(CreateIconIndirect(ref tmp));
         }
     }

@@ -27,5 +27,4 @@ public class DoubleBufferedForm : Form
       this.UpdateStyles();
     }
   }
-
 }
