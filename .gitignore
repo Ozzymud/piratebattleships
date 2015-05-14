@@ -7,3 +7,9 @@ obj/**
 battleships_icon.ico
 *.7z
 StyleCop*.*
+Help/**
+Help/Working/**
+Help/Working/obj/**
+Help/Working/Output/**
+Help/Working/xmlComp/**
+Battleships Pirate Edition.shfbproj
