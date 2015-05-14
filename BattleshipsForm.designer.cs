@@ -17,14 +17,14 @@ namespace Battleships
     public partial class BattleshipsForm
     {
         /// <summary>
-        /// Erforderliche Designervariable.
+        /// Required form designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Verwendete Ressourcen bereinigen.
+        /// Clean up resources used.
         /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        /// <param name="disposing">True if managed resources should be deleted; otherwise false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (this.components != null))
@@ -38,8 +38,8 @@ namespace Battleships
         #region Vom Windows Form-Designer generierter Code
 
         /// <summary>
-        /// Erforderliche Methode für die Designerunterstützung.
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// Required method for the form designer support.
+        /// The contents of the method must not be changed with the code editor.
         /// </summary>
         private void InitializeComponent()
         {

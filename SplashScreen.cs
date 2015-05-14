@@ -33,7 +33,7 @@ public partial class SplashScreen : Battleships.DoubleBufferedForm
         }
 
         /// <summary>
-        /// Blendet die Form langsam ein
+        /// Displays the form slowly and play a sound.
         /// </summary>
         public void ShowForm()
         {

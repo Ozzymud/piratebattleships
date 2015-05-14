@@ -53,7 +53,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         //// private System.IO.MemoryStream ms = new System.IO.MemoryStream(Battleships.Properties.Resources.MyCursor);
 
         /// <summary>
-        /// Position color (When moving mouse over box)
+        /// Position color (When moving mouse over box).
         /// </summary>
         private Color positionColor;
 
@@ -99,10 +99,10 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Displays a destroyed boat on the enemies playing field
+        /// Displays a destroyed boat on the enemies playing field.
         /// </summary>
-        /// <param name="args">Contains the coordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically</param>
+        /// <param name="args">Contains the coordinates of the vessel.</param>
+        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
         public void ShowDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
@@ -131,10 +131,10 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        ///  Displays a ruined cruiser on the enemy field
+        ///  Displays a ruined cruiser on the enemy field.
         /// </summary>
-        /// <param name="args">the co-ordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically</param>
+        /// <param name="args">The co-ordinates of the vessel.</param>
+        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
         public void ShowDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
@@ -168,10 +168,10 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// sets a hit on the specified field
+        /// Sets a hit on the specified field.
         /// </summary>
-        /// <param name="x">X Coordinate of the hit</param>
-        /// <param name="y">Y Coordinate of the hit</param>
+        /// <param name="x">X Coordinate of the hit.</param>
+        /// <param name="y">Y Coordinate of the hit.</param>
         public void SetImpact(int x, int y)
         {
             try
@@ -186,10 +186,10 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// sets a missed shot on the specified field
+        /// Sets a missed shot on the specified field.
         /// </summary>
-        /// <param name="x">X coordinate of the missed shot</param>
-        /// <param name="y">Y coordinate of the missed shot</param>
+        /// <param name="x">X coordinate of the missed shot.</param>
+        /// <param name="y">Y coordinate of the missed shot.</param>
         public void SetMiss(int x, int y)
         {
             BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
@@ -212,10 +212,10 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Decide based on the stored image in the panel which explosion should be presented
+        /// Decide based on the stored image in the panel which explosion should be presented.
         /// </summary>
-        /// <param name="x">X Coordinate of the hit</param>
-        /// <param name="y">Y Coordinate of the hit</param>
+        /// <param name="x">X Coordinate of the hit.</param>
+        /// <param name="y">Y Coordinate of the hit.</param>
         public void DrawExplosion(int x, int y)
         {
             PictureBox explPicture = new PictureBox();
@@ -358,12 +358,12 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         #endregion
 
         /// <summary>
-        /// Creates a cursor from a bitmap (PNG, JPEG is also good)
+        /// Creates a cursor from a bitmap (PNG, JPEG is also good).
         /// </summary>
-        /// <param name="bmp">The image file to be displayed as the cursor</param>
-        /// <param name="hotSpotX">x value of the hotspot</param>
-        /// <param name="hotSpotY">y value of the hotspot</param>
-        /// <returns>the created cursor</returns>
+        /// <param name="bmp">The image file to be displayed as the cursor.</param>
+        /// <param name="hotSpotX">X value of the hotspot.</param>
+        /// <param name="hotSpotY">Y value of the hotspot.</param>
+        /// <returns>The created cursor.</returns>
         public static Cursor CreateCursor(Bitmap bmp, int hotSpotX, int hotSpotY)
         {
             IconInfo tmp = new IconInfo();

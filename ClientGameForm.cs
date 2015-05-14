@@ -175,10 +175,11 @@ using System.Windows.Forms;
         }
 
         /// <summary>
-        /// Wertet die Nachricht vom Server aus und entscheidet welche entsprechende Operation ausgeführt werden soll
+        /// The message from the server.
+        /// evaluates and decides what appropriate operation should be carried out.
         /// </summary>
-        /// <param name="data">Nachricht vom Server</param>
-        /// <returns>False wenn Verbindung geschlossen werden soll (z.B. bei vollem Server)</returns>
+        /// <param name="data">Data received from the server.</param>
+        /// <returns>False if the connection should be closed (e.g. if the server is full).</returns>
         private bool Services(string data)
         {
             // Server has confirmed connection
@@ -394,22 +395,21 @@ using System.Windows.Forms;
         }
 
         /// <summary>
-        /// Ermittelt die interne IP-Adresse des PCs
+        /// Determines the internal IP address of your PC.
         /// </summary>
-        /// <returns>interne IP-Adresse (String)</returns>
+        /// <returns>IP address as a string.</returns>
         private string GetIP()
         {
             string strHostName = Dns.GetHostName();
 
             // Find host by name
-            ////Dns.GetHostByName(strHostName);
             IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
 
             // Grab the first IP addresses
             string stringCurrentIP = string.Empty;
             foreach (IPAddress ipaddress in iphostentry.AddressList)
             {
-                // Die erste IPV4 Adresse aus der Adressliste wählen
+                // select the first IPV4 address from the address list
                 if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
                 {
                     stringCurrentIP = ipaddress.ToString();

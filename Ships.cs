@@ -24,14 +24,14 @@ using System.Linq;
 using System.Text;
 
 /// <summary>
-/// Maintains the position of all ships and their state
+/// Maintains the position of all ships and their state.
 /// </summary>
 public class Ships
     {
-        // Boat --> 2 Pixel
+        // Boat --> 2 parts.
         public struct Boat
         {
-            // Das boot besteht aus 2 Teilen
+            // Boat exists of 2 parts
             public bool Front;
             public bool Rear;
             public bool ShipDestryoed;
@@ -43,7 +43,7 @@ public class Ships
             public bool Horizontal;
         }
 
-        // Cruiser --> 3 Pixel
+        // Cruiser --> 3 parts.
         public struct Cruiser
         {
             public bool Front;
@@ -61,7 +61,7 @@ public class Ships
         }
 
         /// <summary>
-        /// Galley --> 4 Pixel
+        /// Galley --> 4 parts.
         /// </summary>
         public struct Galley
         {
@@ -83,7 +83,7 @@ public class Ships
         }
 
         /// <summary>
-        /// Galley --> 5 Pixel
+        /// Battleship --> 5 parts. (TODO: actually make this 5 parts).
         /// </summary>
         public struct Battleship
         {

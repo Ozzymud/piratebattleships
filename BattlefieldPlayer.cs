@@ -67,23 +67,24 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         public Battleships.DoubleBufferedPanel[,] Pb = new Battleships.DoubleBufferedPanel[10, 10];
 
         /// <summary>
-        /// Enthält eine Schattenkopie des Spielfeldes
+        /// Contains a shadow copy of the playing field.
         /// </summary>
         public Battleships.DoubleBufferedPanel[,] PbStore = new Battleships.DoubleBufferedPanel[10, 10];
 
         /// <summary>
-        /// Farbwert der angezeigt wird, wenn eine Kollsision beim Schiffe setzen erkannt wird
+        /// Color value will be displayed, if a collision at the ships detected.
         /// </summary>
         private Color collisionColor;
 
         /// <summary>
-        /// Flag welches angibt, ob ein Schiff horizontal oder vertikal gesetzt werden soll
+        /// Flag that indicates whether a ship is to be used horizontally or vertically.
         /// </summary>
         private bool horizontal;
 
         public BattlefieldPlayer(int x, int y)
         {
-            // Schiffe werden standardgemäß horizontal gesetzt (mit einem Klick auf die rechte Maustaste kann das geändert werden)
+            // Ships are used as standard horizontal
+            // with a click on the right mouse button this can be changed
             this.horizontal = true;
             this.collisionColor = new Color();
             this.collisionColor = Color.FromArgb(90, 210, 0, 0); // Ein helles Rot
@@ -183,11 +184,11 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         #endregion
 
         /// <summary>
-        /// Überprüft ob der Gegner etwas getroffen hat oder nicht
+        /// Checks whether the opponent has hit something or not.
         /// </summary>
-        /// <param name="x">X-Koordinate des Schusses</param>
-        /// <param name="y">Y-Koordniate des Schusses</param>
-        /// <returns>false wenn nicht getroffen, true wenn getroffen</returns>
+        /// <param name="x">X-Coordinate of the shot.</param>
+        /// <param name="y">Y-Coordinate of the shot.</param>
+        /// <returns>False if missed, true if hit.</returns>
         public bool HitOrMiss(int x, int y)
         {
             if (this.Pb[x, y].BackgroundImage == null)
@@ -201,18 +202,18 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Setzt einen Treffer auf das angegebene Feld
+        /// Sets a hit on the specified field.
         /// </summary>
-        /// <param name="x">X-Koordinate des Treffers</param>
-        /// <param name="y">Y-Koordinate des Treffers</param>
-        /// <returns>true or false if enemy won or not</returns>
+        /// <param name="x">X-coordinate of the hit.</param>
+        /// <param name="y">Y-coordinate of the hit.</param>
+        /// <returns>true or false if enemy won or not.</returns>
         public bool SetImpact(int x, int y)
         {
             try
             {
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion2.wav");
-                this.DrawExplosion(x, y); // Explosion auf dem Spielfeld darstellen
-                this.CheckShips(x, y); // Überprüfen welches Schiff wo getroffen wurde
+                this.DrawExplosion(x, y); // Draw an explosion on the field
+                this.CheckShips(x, y); // Check which ship was hit where
 
                 // Spielstatus prüfen
                 if (this.CheckGameStatus())
@@ -253,10 +254,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Shows a destroyed boat on the enemies playing field
+        /// Shows a destroyed boat on the enemies playing field.
         /// </summary>
-        /// <param name="args">Contains the coordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically</param>
+        /// <param name="args">Contains the coordinates of the vessel.</param>
+        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
         public void ShowDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
@@ -285,10 +286,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Displays on the enemy field a ruined cruiser
+        /// Displays on the enemy field a ruined cruiser.
         /// </summary>
-        /// <param name="args">the co-ordinates of the vessel</param>
-        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically</param>
+        /// <param name="args">The co-ordinates of the vessel.</param>
+        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
         public void ShowDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
@@ -322,11 +323,11 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Überprüft den Spielstatus (Sind alle Schiffe von mir zerstört, hat der Gegner gewonnen)
+        /// Checks the game status (If all my ships are destroyed, the opponent has won).
         /// </summary>
         /// <returns>
-        /// true wenn alle meine Schiffe zerstört sind
-        /// false wenn auch nur noch ein Schiff von mir existiert
+        /// True if all my ships have been destroyed.
+        /// False if at least one of my ships exists.
         /// </returns>
         private bool CheckGameStatus()
         {
@@ -370,10 +371,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Findet heraus welches Schiff an welchem Teil getroffen wurde und ob ein Schiff komplett zerstört wurde
+        /// Find out what ship was hit, on which part, and if a ship was completely destroyed.
         /// </summary>
-        /// <param name="x">X-Koordinate des Treffers</param>
-        /// <param name="y">Y-Koordinate des Treffers</param>
+        /// <param name="x">X-Coordinate of the hit.</param>
+        /// <param name="y">Y-Coordinate of the hit.</param>
         private void CheckShips(int x, int y)
         {
             // Herausfinden welches Schiff getroffen wurde
@@ -543,10 +544,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Entscheidet anhand des bereits im Panel gespeicherten Bildes welche Explosion dargestellt werden soll
+        /// Decides which explosion is to be displayed in the panel.
         /// </summary>
-        /// <param name="x">X-Koordinate des Treffers</param>
-        /// <param name="y">Y-Koordinate des Treffers</param>
+        /// <param name="x">X coordinate of the hit.</param>
+        /// <param name="y">Y coordinate of the hit.</param>
         public void DrawExplosion(int x, int y)
         {
             // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
@@ -563,9 +564,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Setzt die Schiffsteile an den jeweiligen Positionen fest (Bei einem MouseClick-Event)
+        /// Sets the ship parts to the respective positions.
+        /// (For a Mouse Click event).
         /// </summary>
-        /// <param name="tmp">Das Panel welches das MouseClick-Event ausgelöst hat (als Referenz)</param>
+        /// <param name="tmp">The Panel, which has thrown the MouseClick event (as a reference).</param>
         private void SetShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
@@ -1319,9 +1321,10 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
 
         /// <summary>
-        /// Zeichnet die Schiffe an die entsprechende Stelle (Bei einem MouseEnter-Event auf ein Panel)
+        /// Draws the ships at the appropriate place.
+        /// From a MouseEnter event on a Panel.
         /// </summary>
-        /// <param name="tmp">Das Panel welches das MouseEnter-Event ausgelöst hat (Als Referenz)</param>
+        /// <param name="tmp">The panel which has thrown the MouseEnter event (as a reference).</param>
         private void DrawShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;

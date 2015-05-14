@@ -34,9 +34,10 @@ using System.Windows.Forms;
 public partial class HostGameForm : Battleships.DoubleBufferedForm
     {
         /// <summary>
-        /// Schickt einen Request an die Seite "http://checkip.dyndns.org/" und wertet den erhaltenen Response (Externe IP-Adresse) aus
+        /// Sends a request to an external web page.
+        /// Then evaluates the received response (external IP).
         /// </summary>
-        /// <returns>Externe IP-Adresse (String)</returns>
+        /// <returns>External IP Address (String).</returns>
         private static string GetExternalIP()
         {
             WebClient client = new WebClient();
@@ -259,9 +260,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         }
 
         /// <summary>
-        /// Processes the received data and performs the appropriate operation
+        /// Processes the received data and performs the appropriate operation.
         /// </summary>
-        /// <param name="data">Receive data from the other player</param>
+        /// <param name="data">Receive data from the other player.</param>
         private void Services(string data)
         {
             // Koordinaten vom Gegner erhalten (Auswerten ob an den Koords ein Schiff gesetzt ist oder nicht)
@@ -451,9 +452,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         }
 
         /// <summary>
-        /// Ermittelt die interne IP-Adresse des PCs
+        /// Determine the internal IP address of the PC.
         /// </summary>
-        /// <returns>interne IP-Adresse (String)</returns>
+        /// <returns>internal IP-Address as a string.</returns>
         private string GetIP()
         {
             string strHostName = Dns.GetHostName();

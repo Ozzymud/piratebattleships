@@ -29,29 +29,29 @@ using System.Threading;
 using System.Windows.Forms;
 
 /// <summary>
-/// Game upper surface (?? machine translated from German: Spieloberfläche)
+/// The main game interface.
 /// </summary>
 public partial class BattleshipsForm : Battleships.DoubleBufferedForm
     {
         /// <summary>
-        /// Client Form
+        /// Client Form.
         /// </summary> 
         public static ClientGameForm ClientGameForm;
 
         /// <summary>
-        /// Host Form
+        /// Host Form.
         /// </summary>
         public static HostGameForm HostGameForm;
 
         /// <summary>
-        /// Soundwiedergabe Objekt
+        /// Sound playback object.
         /// </summary>
         public static SoundClass SoundPlayer;
 
         public static InfoForm InfoForm;
 
         /// <summary>
-        /// Label der den Status des Spiels anzeigt
+        /// The label displays the status of the game.
         /// </summary>
         public static Label LabelStatus;
 
@@ -65,26 +65,28 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         public static ToolStripMenuItem InfoMenuItem;
 
         /// <summary>
-        /// Das Schlachtfeld des Spielers
+        /// The battlefield of the player.
         /// </summary>
         public static BattlefieldPlayer BattlefieldPlayer;
 
         /// <summary>
-        /// Das Schlachtfeld des Gegners
+        /// The battlefield of the enemy.
         /// </summary>
         public static BattlefieldOpponent BattlefieldOpponent;
 
         /// <summary>
-        /// Flag der angibt ob der Spieler bereit ist
+        /// Flag indicating whether the player is ready.
         /// </summary>
         public static bool PlayerReadyToPlay;
 
         /// <summary>
-        /// Flag der angibt ob der Gegner bereit ist
+        /// Flag indicating whether the enemy is ready.
         /// </summary>
         public static bool OpponentReadyToPlay;
 
-        // List of the moves
+        /// <summary>
+        /// List of players.
+        /// </summary>
         public enum TurnIdentifier
         {
             player = 0,
@@ -112,7 +114,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
 
         /// <summary>
         /// Initializes a new instance of the BattleshipsForm class.
-        /// The game's interface constructor
+        /// The game's interface constructor.
         /// </summary>
         public BattleshipsForm()
         {
