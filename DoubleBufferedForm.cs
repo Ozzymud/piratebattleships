@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FormDoubleBuffered.cs" company="Ozzymud">
+// <copyright file="DoubleBufferedForm.cs" company="Ozzymud">
 // Copyright 2015 Ozzymud
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
