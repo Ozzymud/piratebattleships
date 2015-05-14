@@ -23,15 +23,21 @@ using System.Linq;
 using System.Media;
 using System.Text;
 
+/// <summary>
+/// Sound player class.
+/// </summary>
 public class SoundClass
     {
-        public void PlaySoundAsync(string resource)
+    /// <summary>
+    /// Load sound and play a sound from a compiled resource.
+    /// </summary>
+    /// <param name="resource">The name of the resource to play.</param>
+    public void PlaySoundAsync(string resource)
         {
             SoundPlayer sp = new SoundPlayer();
             
-            // load sound from compiled resource
             sp.Stream = this.GetType().Assembly.GetManifestResourceStream("Battleships.Sounds." + resource);
-            sp.Play(); // play sound
+            sp.Play();
         }
     }
 }
