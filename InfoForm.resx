@@ -606,4 +606,10 @@
         YfTPdbrBL/xC/9v89/9h9H8Y/esi+38Y/R9G/7oY/f8DPTxUq2GibSkAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="$this.DrawGrid" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <metadata name="$this.GridSize" type="System.Drawing.Size, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>2, 2</value>
+  </metadata>
 </root>

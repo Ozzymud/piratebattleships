@@ -54,7 +54,7 @@ using System.Windows.Forms;
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
             // See if we have text on the IP and Port text fields
-            if (this.textboxIP.Text == string.Empty || this.textboxPort.Text == string.Empty)
+            if (this.textboxIP.Text == String.Empty || this.textboxPort.Text == string.Empty)
             {
                 MessageBox.Show("IP Address and Port Number are required to connect to the Server");
                 return;

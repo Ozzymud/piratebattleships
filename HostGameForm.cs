@@ -15,7 +15,6 @@
 // <author>Markus Bohnert</author>
 // <team>Simon Hodler, Markus Bohnert</team>
 //-----------------------------------------------------------------------
-
 namespace Battleships
 {
 using System;
@@ -72,7 +71,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             try
             {
                 // Check the port value
-                if (this.textBoxPort.Text == string.Empty)
+                if (this.textBoxPort.Text == System.String.Empty)
                 {
                     MessageBox.Show("Bitte geben Sie einen Port an");
                     return;

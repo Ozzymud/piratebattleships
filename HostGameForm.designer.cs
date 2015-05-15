@@ -177,7 +177,7 @@ namespace Battleships
             this.btnInternIP.TabIndex = 24;
             this.btnInternIP.Text = "Interne IP \r\nfinden";
             this.toolTipButtons.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
-                    string.Empty);
+                    System.String.Empty);
             this.btnInternIP.UseVisualStyleBackColor = true;
             this.btnInternIP.Click += new System.EventHandler(this.ButtonInternalIP_Click);
             // 
