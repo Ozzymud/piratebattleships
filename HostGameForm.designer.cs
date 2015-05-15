@@ -64,33 +64,37 @@ namespace Battleships
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(85, 12);
+            this.textBoxIP.Location = new System.Drawing.Point(113, 15);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxIP.Name = "textBoxIP";
             this.textBoxIP.ReadOnly = true;
-            this.textBoxIP.Size = new System.Drawing.Size(120, 20);
+            this.textBoxIP.Size = new System.Drawing.Size(159, 22);
             this.textBoxIP.TabIndex = 16;
             // 
             // lblIP
             // 
-            this.lblIP.Location = new System.Drawing.Point(13, 12);
+            this.lblIP.Location = new System.Drawing.Point(17, 15);
+            this.lblIP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(56, 16);
+            this.lblIP.Size = new System.Drawing.Size(75, 20);
             this.lblIP.TabIndex = 15;
             this.lblIP.Text = "Server IP";
             // 
             // lblPort
             // 
-            this.lblPort.Location = new System.Drawing.Point(13, 36);
+            this.lblPort.Location = new System.Drawing.Point(17, 44);
+            this.lblPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPort.Name = "lblPort";
-            this.lblPort.Size = new System.Drawing.Size(48, 16);
+            this.lblPort.Size = new System.Drawing.Size(64, 20);
             this.lblPort.TabIndex = 14;
             this.lblPort.Text = "Port";
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(85, 36);
+            this.textBoxPort.Location = new System.Drawing.Point(113, 44);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(40, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(52, 22);
             this.textBoxPort.TabIndex = 13;
             this.textBoxPort.Text = "8000";
             // 
@@ -99,11 +103,12 @@ namespace Battleships
             this.btnCloseGame.BackColor = System.Drawing.Color.Red;
             this.btnCloseGame.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCloseGame.ForeColor = System.Drawing.Color.Yellow;
-            this.btnCloseGame.Location = new System.Drawing.Point(308, 58);
+            this.btnCloseGame.Location = new System.Drawing.Point(411, 71);
+            this.btnCloseGame.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseGame.Name = "btnCloseGame";
-            this.btnCloseGame.Size = new System.Drawing.Size(88, 40);
+            this.btnCloseGame.Size = new System.Drawing.Size(117, 49);
             this.btnCloseGame.TabIndex = 18;
-            this.btnCloseGame.Text = "Spiel beenden";
+            this.btnCloseGame.Text = "Stop Server";
             this.btnCloseGame.UseVisualStyleBackColor = false;
             this.btnCloseGame.Click += new System.EventHandler(this.ButtonCloseGame_Click);
             // 
@@ -112,20 +117,22 @@ namespace Battleships
             this.btnHostGame.BackColor = System.Drawing.Color.Blue;
             this.btnHostGame.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHostGame.ForeColor = System.Drawing.Color.Yellow;
-            this.btnHostGame.Location = new System.Drawing.Point(308, 12);
+            this.btnHostGame.Location = new System.Drawing.Point(411, 15);
+            this.btnHostGame.Margin = new System.Windows.Forms.Padding(4);
             this.btnHostGame.Name = "btnHostGame";
-            this.btnHostGame.Size = new System.Drawing.Size(88, 40);
+            this.btnHostGame.Size = new System.Drawing.Size(117, 49);
             this.btnHostGame.TabIndex = 17;
-            this.btnHostGame.Text = "Spiel starten";
-            this.toolTipButtons.SetToolTip(this.btnHostGame, "Starte ein Spiel, auf das sich ein Freund einlogen kann");
+            this.btnHostGame.Text = "Start Server";
+            this.toolTipButtons.SetToolTip(this.btnHostGame, "Start a game which others can join.");
             this.btnHostGame.UseVisualStyleBackColor = false;
             this.btnHostGame.Click += new System.EventHandler(this.ButtonHostGame_Click);
             // 
             // labelStatusMessage
             // 
-            this.labelStatusMessage.Location = new System.Drawing.Point(13, 89);
+            this.labelStatusMessage.Location = new System.Drawing.Point(17, 110);
+            this.labelStatusMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStatusMessage.Name = "labelStatusMessage";
-            this.labelStatusMessage.Size = new System.Drawing.Size(112, 16);
+            this.labelStatusMessage.Size = new System.Drawing.Size(149, 20);
             this.labelStatusMessage.TabIndex = 20;
             this.labelStatusMessage.Text = "Status Message:";
             // 
@@ -133,9 +140,11 @@ namespace Battleships
             // 
             this.listboxMessage.FormattingEnabled = true;
             this.listboxMessage.HorizontalScrollbar = true;
-            this.listboxMessage.Location = new System.Drawing.Point(16, 108);
+            this.listboxMessage.ItemHeight = 16;
+            this.listboxMessage.Location = new System.Drawing.Point(21, 133);
+            this.listboxMessage.Margin = new System.Windows.Forms.Padding(4);
             this.listboxMessage.Name = "listboxMessage";
-            this.listboxMessage.Size = new System.Drawing.Size(283, 121);
+            this.listboxMessage.Size = new System.Drawing.Size(376, 148);
             this.listboxMessage.TabIndex = 21;
             // 
             // btnRdy
@@ -144,9 +153,10 @@ namespace Battleships
             this.btnRdy.Enabled = false;
             this.btnRdy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRdy.ForeColor = System.Drawing.Color.Yellow;
-            this.btnRdy.Location = new System.Drawing.Point(308, 108);
+            this.btnRdy.Location = new System.Drawing.Point(411, 133);
+            this.btnRdy.Margin = new System.Windows.Forms.Padding(4);
             this.btnRdy.Name = "btnRdy";
-            this.btnRdy.Size = new System.Drawing.Size(88, 40);
+            this.btnRdy.Size = new System.Drawing.Size(117, 49);
             this.btnRdy.TabIndex = 22;
             this.btnRdy.Text = "Ready";
             this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
@@ -155,13 +165,13 @@ namespace Battleships
             // 
             // btnExtIp
             // 
-            this.btnExtIp.Location = new System.Drawing.Point(224, 12);
+            this.btnExtIp.Location = new System.Drawing.Point(299, 15);
+            this.btnExtIp.Margin = new System.Windows.Forms.Padding(4);
             this.btnExtIp.Name = "btnExtIp";
-            this.btnExtIp.Size = new System.Drawing.Size(75, 40);
+            this.btnExtIp.Size = new System.Drawing.Size(100, 49);
             this.btnExtIp.TabIndex = 23;
-            this.btnExtIp.Text = "Externe IP \r\nfinden";
-            this.toolTipButtons.SetToolTip(this.btnExtIp, "Ermittelt deine externe IP-Adresse um mit einem Freund über das Intenet spielen z" +
-                    "u können");
+            this.btnExtIp.Text = "Find External IP";
+            this.toolTipButtons.SetToolTip(this.btnExtIp, "Determine your external IP address  for internet play.");
             this.btnExtIp.UseVisualStyleBackColor = true;
             this.btnExtIp.Click += new System.EventHandler(this.ButtonExternalIp_Click);
             // 
@@ -171,21 +181,21 @@ namespace Battleships
             // 
             // btnInternIP
             // 
-            this.btnInternIP.Location = new System.Drawing.Point(224, 58);
+            this.btnInternIP.Location = new System.Drawing.Point(299, 71);
+            this.btnInternIP.Margin = new System.Windows.Forms.Padding(4);
             this.btnInternIP.Name = "btnInternIP";
-            this.btnInternIP.Size = new System.Drawing.Size(75, 40);
+            this.btnInternIP.Size = new System.Drawing.Size(100, 49);
             this.btnInternIP.TabIndex = 24;
-            this.btnInternIP.Text = "Interne IP \r\nfinden";
-            this.toolTipButtons.SetToolTip(this.btnInternIP, "Ermittelt deine interne IP-Adresse um mit einem Freund über LAN spielen zu können" +
-                    System.String.Empty);
+            this.btnInternIP.Text = "Find Internal IP";
+            this.toolTipButtons.SetToolTip(this.btnInternIP, "Determine your internal IP address for LAN play.");
             this.btnInternIP.UseVisualStyleBackColor = true;
             this.btnInternIP.Click += new System.EventHandler(this.ButtonInternalIP_Click);
             // 
             // HostGameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 237);
+            this.ClientSize = new System.Drawing.Size(544, 292);
             this.Controls.Add(this.btnInternIP);
             this.Controls.Add(this.btnExtIp);
             this.Controls.Add(this.btnRdy);
@@ -198,14 +208,15 @@ namespace Battleships
             this.Controls.Add(this.lblPort);
             this.Controls.Add(this.textBoxPort);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::Battleships.Properties.Resources.battleships_icon;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "HostGameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "HostGameForm";
+            this.Text = "Host Game";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HostGameForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

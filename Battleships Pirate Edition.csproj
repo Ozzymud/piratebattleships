@@ -117,6 +117,9 @@
     <EmbeddedResource Include="ClientGameForm.resx">
       <DependentUpon>ClientGameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HostGameForm.resx">
+      <DependentUpon>HostGameForm.designer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -63,33 +63,37 @@ namespace Battleships
             // lblIP
             // 
             this.lblIP.AutoSize = true;
-            this.lblIP.Location = new System.Drawing.Point(13, 20);
+            this.lblIP.Location = new System.Drawing.Point(17, 25);
+            this.lblIP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(54, 13);
+            this.lblIP.Size = new System.Drawing.Size(70, 17);
             this.lblIP.TabIndex = 0;
             this.lblIP.Text = "Server IP:";
             // 
             // textboxIP
             // 
-            this.textboxIP.Location = new System.Drawing.Point(73, 13);
+            this.textboxIP.Location = new System.Drawing.Point(97, 16);
+            this.textboxIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textboxIP.Name = "textboxIP";
-            this.textboxIP.Size = new System.Drawing.Size(124, 20);
+            this.textboxIP.Size = new System.Drawing.Size(164, 22);
             this.textboxIP.TabIndex = 1;
             // 
             // textboxPort
             // 
-            this.textboxPort.Location = new System.Drawing.Point(73, 39);
+            this.textboxPort.Location = new System.Drawing.Point(97, 48);
+            this.textboxPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textboxPort.Name = "textboxPort";
-            this.textboxPort.Size = new System.Drawing.Size(61, 20);
+            this.textboxPort.Size = new System.Drawing.Size(80, 22);
             this.textboxPort.TabIndex = 3;
             this.textboxPort.Text = "8000";
             // 
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(13, 46);
+            this.lblPort.Location = new System.Drawing.Point(17, 57);
+            this.lblPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPort.Name = "lblPort";
-            this.lblPort.Size = new System.Drawing.Size(29, 13);
+            this.lblPort.Size = new System.Drawing.Size(38, 17);
             this.lblPort.TabIndex = 2;
             this.lblPort.Text = "Port:";
             // 
@@ -98,9 +102,10 @@ namespace Battleships
             this.btnConnect.BackColor = System.Drawing.Color.Blue;
             this.btnConnect.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnConnect.ForeColor = System.Drawing.Color.Yellow;
-            this.btnConnect.Location = new System.Drawing.Point(224, 13);
+            this.btnConnect.Location = new System.Drawing.Point(299, 16);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(90, 46);
+            this.btnConnect.Size = new System.Drawing.Size(120, 57);
             this.btnConnect.TabIndex = 4;
             this.btnConnect.Text = "Connect";
             this.toolTipButtons.SetToolTip(this.btnConnect, "Verbinde dich mit einem Spiel (Über das Internet oder LAN)");
@@ -110,9 +115,10 @@ namespace Battleships
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 74);
+            this.label3.Location = new System.Drawing.Point(21, 91);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 13);
+            this.label3.Size = new System.Drawing.Size(147, 17);
             this.label3.TabIndex = 5;
             this.label3.Text = "Message from Server:";
             // 
@@ -121,9 +127,10 @@ namespace Battleships
             this.btnDisconnect.BackColor = System.Drawing.Color.Red;
             this.btnDisconnect.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnDisconnect.ForeColor = System.Drawing.Color.Yellow;
-            this.btnDisconnect.Location = new System.Drawing.Point(224, 65);
+            this.btnDisconnect.Location = new System.Drawing.Point(299, 80);
+            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(90, 46);
+            this.btnDisconnect.Size = new System.Drawing.Size(120, 57);
             this.btnDisconnect.TabIndex = 7;
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = false;
@@ -133,9 +140,11 @@ namespace Battleships
             // 
             this.listboxRx.FormattingEnabled = true;
             this.listboxRx.HorizontalScrollbar = true;
-            this.listboxRx.Location = new System.Drawing.Point(16, 90);
+            this.listboxRx.ItemHeight = 16;
+            this.listboxRx.Location = new System.Drawing.Point(21, 111);
+            this.listboxRx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listboxRx.Name = "listboxRx";
-            this.listboxRx.Size = new System.Drawing.Size(202, 121);
+            this.listboxRx.Size = new System.Drawing.Size(268, 148);
             this.listboxRx.TabIndex = 8;
             // 
             // btnRdy
@@ -144,9 +153,10 @@ namespace Battleships
             this.btnRdy.Enabled = false;
             this.btnRdy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnRdy.ForeColor = System.Drawing.Color.Yellow;
-            this.btnRdy.Location = new System.Drawing.Point(224, 117);
+            this.btnRdy.Location = new System.Drawing.Point(299, 144);
+            this.btnRdy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRdy.Name = "btnRdy";
-            this.btnRdy.Size = new System.Drawing.Size(90, 46);
+            this.btnRdy.Size = new System.Drawing.Size(120, 57);
             this.btnRdy.TabIndex = 9;
             this.btnRdy.Text = "Ready";
             this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du Bereit zum Spielen bist");
@@ -159,9 +169,9 @@ namespace Battleships
             // 
             // ClientGameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 218);
+            this.ClientSize = new System.Drawing.Size(431, 268);
             this.Controls.Add(this.btnRdy);
             this.Controls.Add(this.listboxRx);
             this.Controls.Add(this.btnDisconnect);
@@ -173,14 +183,15 @@ namespace Battleships
             this.Controls.Add(this.lblIP);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::Battleships.Properties.Resources.battleships_icon;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "ClientGameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ConnectGameForm";
+            this.Text = "Connect to Game";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClientGameFormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

@@ -71,7 +71,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             try
             {
                 // Check the port value
-                if (this.textBoxPort.Text == System.String.Empty)
+                if (this.textBoxPort.Text == string.Empty)
                 {
                     MessageBox.Show("Bitte geben Sie einen Port an");
                     return;
