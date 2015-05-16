@@ -52,8 +52,12 @@ namespace Battleships.Properties {
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
-            get { return resourceCulture; }
-            set { resourceCulture = value; }
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
         }
         
         /// <summary>
@@ -822,6 +826,16 @@ namespace Battleships.Properties {
         internal static System.Drawing.Bitmap kollision {
             get {
                 object obj = ResourceManager.GetObject("kollision", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo {
+            get {
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
