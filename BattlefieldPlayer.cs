@@ -33,16 +33,6 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
 
         private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
 
-        // Auflistung der Schiffsmodelle
-        public enum ShipModels
-        {
-            nothing = 0,
-            galley = 1,
-            battleship = 2,
-            cruiser = 3,
-            boat = 4
-        }
-
         /// <summary>
         /// Manages the position of the boats and the state.
         /// </summary>
@@ -83,10 +73,26 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             set { this.counterBoat = value; } 
         }
 
+        // Auflistung der Schiffsmodelle
+        public enum ShipModels
+        {
+            nothing = 0,
+            galley = 1,
+            battleship = 2,
+            cruiser = 3,
+            boat = 4
+        }
+
         /// <summary>
         /// Contains a collection of ship models.
         /// </summary>
-        public ShipModels Ships;
+        private ShipModels ships;
+
+        public ShipModels Ships
+        {
+            get { return this.ships; }
+            set { this.ships = value; }
+        }
 
         /// <summary>
         /// Contains the playing field and all ships.

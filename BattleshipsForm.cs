@@ -47,17 +47,35 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// Client Form.
         /// </summary> 
-        public static ClientGameForm ClientGameForm;
+        private static ClientGameForm clientGameForm;
+        
+        public static ClientGameForm ClientGameForm
+        {
+            get { return clientGameForm; }
+            set { clientGameForm = value; }
+        }
 
         /// <summary>
         /// Host Form.
         /// </summary>
-        public static HostGameForm HostGameForm;
+        private static HostGameForm hostGameForm;
+
+        public static HostGameForm HostGameForm
+        {
+            get { return hostGameForm; }
+            set { hostGameForm = value; }
+        }
 
         /// <summary>
         /// Sound playback object.
         /// </summary>
-        public static SoundClass SoundPlayer;
+        private static SoundClass soundPlayer;
+
+        public static SoundClass SoundPlayer
+        {
+            get { return soundPlayer; }
+            set { soundPlayer = value; }
+        }
 
         private static InfoForm infoForm;
         
@@ -76,17 +94,35 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// The battlefield of the enemy.
         /// </summary>
-        public static BattlefieldOpponent BattlefieldOpponent;
+        private static BattlefieldOpponent battlefieldOpponent;
+
+        public static BattlefieldOpponent BattlefieldOpponent
+        {
+            get { return battlefieldOpponent; }
+            set { battlefieldOpponent = value; }
+        }
 
         /// <summary>
         /// Flag indicating whether the player is ready.
         /// </summary>
-        public static bool PlayerReadyToPlay;
+        private static bool playerReadyToPlay;
+
+        public static bool PlayerReadyToPlay
+        {
+            get { return playerReadyToPlay; }
+            set { playerReadyToPlay = value; }
+        }
 
         /// <summary>
         /// Flag indicating whether the enemy is ready.
         /// </summary>
-        public static bool OpponentReadyToPlay;
+        private static bool opponentReadyToPlay;
+
+        public static bool OpponentReadyToPlay
+        {
+            get { return opponentReadyToPlay; }
+            set { opponentReadyToPlay = value; }
+        }
 
         /// <summary>
         /// List of players.
@@ -98,12 +134,45 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         }
 
         // Saves the state of whos turn it is
-        public static TurnIdentifier WhosTurn;
+        private static TurnIdentifier whosTurn;
+        
+        public static TurnIdentifier WhosTurn
+        {
+            get { return whosTurn; }
+            set { whosTurn = value; }
+        }
 
-        public static int CounterGalley = 0;
-        public static int CounterBattleship = 0;
-        public static int CounterCruiser = 0;
-        public static int CounterBoat = 0;
+        private static int counterGalley = 0;
+
+        public static int CounterGalley
+        {
+            get { return counterGalley; }
+            set { counterGalley = value; }
+        }
+
+        private static int counterBattleship = 0;
+
+        public static int CounterBattleship
+        {
+            get { return counterBattleship; }
+            set { counterBattleship = value; }
+        }
+
+        private static int counterCruiser = 0;
+
+        public static int CounterCruiser
+        {
+            get { return counterCruiser; }
+            set { counterCruiser = value; }
+        }
+
+        private static int counterBoat = 0;
+
+        public static int CounterBoat
+        {
+            get { return counterBoat; }
+            set { counterBoat = value; }
+        }
 
         private static int networkFormOpen = 0;
         

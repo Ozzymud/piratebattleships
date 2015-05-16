@@ -43,11 +43,10 @@ using System.Runtime.InteropServices;
 // Mark the assembly as CLSCompliant for use with all CLS languages
 [assembly: CLSCompliant(true)]
 
-// Version information for an assembly consists of the following four values:
+// The assembly version has following format :
 //
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+// Major.Minor.Build.Revision
+//
+// You can specify all the values or you can use the default the Revision and 
+// Build Numbers by using the '*' as shown below:
+[assembly: AssemblyVersion("1.1.*")]
