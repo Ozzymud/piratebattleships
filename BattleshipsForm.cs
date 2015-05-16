@@ -59,7 +59,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// </summary>
         public static SoundClass SoundPlayer;
 
-        private static InfoForm InfoForm;
+        private static InfoForm infoForm;
 
         /// <summary>
         /// The label displays the status of the game.
@@ -438,15 +438,15 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
 
         private void InfoMenuItem_Click(object sender, EventArgs e)
         {
-            if (InfoForm == null)
+            if (infoForm == null)
             {
-                InfoForm = new InfoForm();
-                InfoForm.ShowDialog();
+                infoForm = new InfoForm();
+                infoForm.ShowDialog();
             }
-            else if (!InfoForm.IsHandleCreated)
+            else if (!infoForm.IsHandleCreated)
             {
-                InfoForm = new InfoForm();
-                InfoForm.ShowDialog();
+                infoForm = new InfoForm();
+                infoForm.ShowDialog();
             }
         }
         #endregion 
