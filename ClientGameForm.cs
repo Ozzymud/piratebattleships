@@ -30,7 +30,10 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-    public partial class ClientGameForm : Battleships.DoubleBufferedForm
+/// <summary>
+/// The join game window.
+/// </summary>
+public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
         private Socket clientSocket;
 
@@ -40,10 +43,21 @@ using System.Windows.Forms;
             set { this.clientSocket = value; }
         }
 
+        /// <summary>
+        /// Read 10 bytes from the socket connection.
+        /// </summary>
         private byte[] mainDataBuffer = new byte[10];
         private IAsyncResult mainResult;
         private AsyncCallback pfnCallBack;
+
+        /// <summary>
+        /// Contains the value of the players roll of the dice.
+        /// </summary>
         private int roll;
+
+        /// <summary>
+        /// Contains the value of the opponents roll of the dice.
+        /// </summary>
         private string oroll;
 
         private delegate void SetRichTextBoxRxCallback(string text);
@@ -52,6 +66,9 @@ using System.Windows.Forms;
 
         private delegate void UpdateControlsCallback(bool listening);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientGameForm" /> class.
+        /// </summary>
         public ClientGameForm()
         {
             this.InitializeComponent();

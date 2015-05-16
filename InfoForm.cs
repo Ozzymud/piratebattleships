@@ -26,90 +26,93 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
+/// <summary>
+/// The help about window.
+/// </summary>
 public partial class InfoForm : Battleships.DoubleBufferedForm
     {
-        public InfoForm()
-        {
-            this.InitializeComponent();
-            this.Text = string.Format("Info über {0}", this.AssemblyTitle);
-            this.labelProductName.Text = this.AssemblyProduct;
-            this.labelVersion.Text = string.Format("Version {0}", this.AssemblyVersion);
-            this.labelCopyright.Text = this.AssemblyCopyright;
-            this.labelCompanyName.Text = this.AssemblyCompany;
-            this.textBoxDescription.Text = this.AssemblyDescription;
-        }
+    public InfoForm()
+    {
+        this.InitializeComponent();
+        this.Text = string.Format("Info über {0}", this.AssemblyTitle);
+        this.labelProductName.Text = this.AssemblyProduct;
+        this.labelVersion.Text = string.Format("Version {0}", this.AssemblyVersion);
+        this.labelCopyright.Text = this.AssemblyCopyright;
+        this.labelCompanyName.Text = this.AssemblyCompany;
+        this.textBoxDescription.Text = this.AssemblyDescription;
+    }
 
-        #region Assembly attribute accessors
+    #region Assembly attribute accessors
 
-        private string AssemblyTitle
+    private string AssemblyTitle
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            if (attributes.Length > 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length > 0)
+                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                if (titleAttribute.Title != string.Empty)
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != string.Empty)
-                    {
-                        return titleAttribute.Title;
-                    }
+                    return titleAttribute.Title;
                 }
-
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
-        }
 
-        private string AssemblyVersion
+            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+        }
+    }
+
+    private string AssemblyVersion
+    {
+        get
         {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
+    }
 
-        private string AssemblyDescription
+    private string AssemblyDescription
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                return string.Empty;
             }
-        }
 
-        private string AssemblyProduct
+            return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+        }
+    }
+
+    private string AssemblyProduct
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-
-                return ((AssemblyProductAttribute)attributes[0]).Product;
+                return string.Empty;
             }
-        }
 
-        private string AssemblyCopyright
+            return ((AssemblyProductAttribute)attributes[0]).Product;
+        }
+    }
+
+    private string AssemblyCopyright
+    {
+        get
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return string.Empty;
-                }
-
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                return string.Empty;
             }
-        }
 
-        private string AssemblyCompany
+            return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+        }
+    }
+
+    private string AssemblyCompany
         {
             get
             {
@@ -122,6 +125,6 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
+    #endregion
     }
 }

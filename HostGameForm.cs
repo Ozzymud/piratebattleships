@@ -30,6 +30,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+/// <summary>
+/// The host server game window.
+/// </summary>
 public partial class HostGameForm : Battleships.DoubleBufferedForm
     {
         /// <summary>
@@ -63,9 +66,24 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             set { this.clientCount = value; }
         }
 
+        /// <summary>
+        /// Define a callback.
+        /// </summary>
         private AsyncCallback pfnWorkerCallBack;
+
+        /// <summary>
+        /// The main socket between host and client.
+        /// </summary>
         private Socket mainSocket;
+
+        /// <summary>
+        /// Contains the value of the players roll of the dice.
+        /// </summary>
         private int roll;
+
+        /// <summary>
+        /// Contains the value of the opponents roll of the dice.
+        /// </summary>
         private string oroll;
 
         private delegate void SetTextCallback(string text);
@@ -74,6 +92,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
         private delegate void UpdateControlsCallback(bool listening);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HostGameForm" /> class.
+        /// </summary>
         public HostGameForm()
         {
             this.InitializeComponent();

@@ -25,113 +25,138 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+/// <summary>
+/// The players battlefield.
+/// </summary>
 public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
     {
-        private delegate void AddControlCallback(Control contr, int x, int y);
+    private delegate void AddControlCallback(Control contr, int x, int y);
 
-        private delegate void SetTextCallback(string text);
+    private delegate void SetTextCallback(string text);
 
-        private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
+    private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
 
-        /// <summary>
-        /// Manages the position of the boats and the state.
-        /// </summary>
-        private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boote
-        private Ships.Cruiser[] cruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
-        private Ships.Galley galleyReference = new Ships.Galley();                     // 1 Galley
-        private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
+    /// <summary>
+    /// Manages the position of the boats and the state.
+    /// </summary>
+    private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boote
+    private Ships.Cruiser[] cruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
+    private Ships.Galley galleyReference = new Ships.Galley();                     // 1 Galley
+    private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
 
-        private int counterGalley = 0;
+    private int counterGalley = 0;
 
-        public int CounterGalley
-        {
-            get { return this.counterGalley; }
-            set { this.counterGalley = value; } 
-        }
+    public int CounterGalley
+    {
+        get { return this.counterGalley; }
+        set { this.counterGalley = value; } 
+    }
 
-        private int counterBattleship = 0;
+    private int counterBattleship = 0;
 
-        public int CounterBattleship
+    public int CounterBattleship
         {
             get { return this.counterBattleship; }
             set { this.counterBattleship = value; } 
         }
 
-        private int counterCruiser = 0;
+    private int counterCruiser = 0;
 
-        public int CounterCruiser
+    public int CounterCruiser
         {
             get { return this.counterCruiser; }
             set { this.counterCruiser = value; } 
         }
 
-        private int counterBoat = 0;
+    private int counterBoat = 0;
 
-        public int CounterBoat
+    public int CounterBoat
                 {
             get { return this.counterBoat; }
             set { this.counterBoat = value; } 
         }
 
-        // Auflistung der Schiffsmodelle
-        public enum ShipModels
+    /// <summary>
+    /// Collection of ship models.
+    /// </summary>
+    public enum ShipModels
         {
+            /// <summary>
+            /// No ship.
+            /// </summary>
             nothing = 0,
+
+            /// <summary>
+            /// A galley.
+            /// </summary>
             galley = 1,
+
+            /// <summary>
+            /// A battleship.
+            /// </summary>
             battleship = 2,
+
+            /// <summary>
+            /// A cruiser.
+            /// </summary>
             cruiser = 3,
+
+            /// <summary>
+            /// A boat.
+            /// </summary>
             boat = 4
         }
 
-        /// <summary>
-        /// Contains a collection of ship models.
-        /// </summary>
-        private ShipModels ships;
+    /// <summary>
+    /// Public access to ShipModels.
+    /// </summary>
+    private ShipModels ships;
 
-        public ShipModels Ships
+    public ShipModels Ships
         {
             get { return this.ships; }
             set { this.ships = value; }
         }
 
-        /// <summary>
-        /// Contains the playing field and all ships.
-        /// </summary>
-        private Battleships.DoubleBufferedPanel[,] pf = new Battleships.DoubleBufferedPanel[10, 10];
+    /// <summary>
+    /// Contains the playing field and all ships.
+    /// </summary>
+    private Battleships.DoubleBufferedPanel[,] pf = new Battleships.DoubleBufferedPanel[10, 10];
 
-        /// <summary>
-        /// Contains a shadow copy of the playing field.
-        /// </summary>
-        private Battleships.DoubleBufferedPanel[,] playfieldStore = new Battleships.DoubleBufferedPanel[10, 10];
+    /// <summary>
+    /// Contains a shadow copy of the playing field.
+    /// </summary>
+    private Battleships.DoubleBufferedPanel[,] playfieldStore = new Battleships.DoubleBufferedPanel[10, 10];
 
-        /// <summary>
-        /// Color value will be displayed, if a collision at the ships detected.
-        /// </summary>
-        private Color collisionColor;
+    /// <summary>
+    /// Color value will be displayed, if a collision at the ships detected.
+    /// </summary>
+    private Color collisionColor;
 
-        /// <summary>
-        /// Flag that indicates whether a ship is to be used horizontally or vertically.
-        /// </summary>
-        private bool horizontal;
+    /// <summary>
+    /// Flag that indicates whether a ship is to be used horizontally or vertically.
+    /// </summary>
+    private bool horizontal;
 
-        public BattlefieldPlayer(int x, int y)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BattlefieldPlayer" /> class.
+    /// by default the ships are placed horizontally.
+    /// with a right click this changes to vertical
+    /// </summary>
+    /// <param name="x">X coordinate on the grid.</param>
+    /// <param name="y">Y  coordinate on the grid.</param>
+    public BattlefieldPlayer(int x, int y)
         {
-            // Ships are used as standard horizontal
-            // with a click on the right mouse button this can be changed
             this.horizontal = true;
             this.collisionColor = new Color();
-            this.collisionColor = Color.FromArgb(90, 210, 0, 0); // Ein helles Rot
+            this.collisionColor = Color.FromArgb(90, 210, 0, 0); // Bright red, A/R/G/B.
             this.Location = new Point(x, y);
             this.Width = 300;
             this.Height = 300;
             this.Size = new Size(300, 300);
-            //// this.BackgroundImageLayout = ImageLayout.Stretch;
-            //// this.BackgroundImage = Battleships.Properties.Resources.sea_player;
             this.BackColor = Color.Transparent;
-            //// this.BorderStyle = BorderStyle.FixedSingle;
-            //// this.BorderStyle = BorderStyle.None;
 
-            // Matrix Spieler
+            // Players grid.
             for (int i = 0; i < this.pf.GetLength(0); i++)
             {
                 for (int j = 0; j < this.pf.GetLength(1); j++)
@@ -146,47 +171,45 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                     p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
                     p.MouseEnter += new EventHandler(this.PlayerMouseEnter);
                     p.MouseLeave += new EventHandler(this.PlayerMouseLeave);
-                    //// p.Visible = false;
                     p.BackColor = Color.Transparent;
                     p.BorderStyle = BorderStyle.None;
                     this.pf[i, j] = p;
                     this.Controls.Add(p);
-
                     this.playfieldStore[i, j] = new Battleships.DoubleBufferedPanel();
                 }
             }
         }
 
-        #region Mouse-Events
+    #region Mouse-Events
         private void PlayerMouse_Click(object sender, MouseEventArgs e)
         {
-            // Das Panel holen, welches das MouseClick-Event ausgelöst hat
+            // Get the Panel which has thrown the MouseClick event.
             Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
-            // Linke Maustaste gedrückt
+            // Left mouse button pressed.
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                // Schiff an angeklickte Position setzen
+                // Set the ship to clicked position.
                 this.SetShips(ref tmp);
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                // Loop through the fields (PictureBox)
+                // Loop through the fields (PictureBox).
                 for (int i = 0; i < this.pf.GetLength(0); i++)
                 {
                     for (int j = 0; j < this.pf.GetLength(1); j++)
                     {
-                        // Prüfen ob Feld ein Schiffsteil beihnaltet (Tag = 1)
+                        // Check if field contains a part of the ship (Tag = 1).
                         if ((int)this.pf[i, j].Tag != (int)1)
                         {
-                            // Wenn nein, dann Bild im Feld löschen
+                            // If no, then delete image box.
                             this.pf[i, j].BackgroundImage = null;
                         }
                     }
                 }
 
-                this.horizontal = !this.horizontal; // Wert negieren
-                this.DrawShips(ref tmp); // Schiff zeichnen
+                this.horizontal = !this.horizontal; // Negate Value.
+                this.DrawShips(ref tmp); // Draw ship.
             }
         }
 
@@ -216,13 +239,13 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         }
         #endregion
 
-        /// <summary>
-        /// Checks whether the opponent has hit something or not.
-        /// </summary>
-        /// <param name="x">X-Coordinate of the shot.</param>
-        /// <param name="y">Y-Coordinate of the shot.</param>
-        /// <returns>False if missed, true if hit.</returns>
-        public bool HitOrMiss(int x, int y)
+    /// <summary>
+    /// Checks whether the opponent has hit something or not.
+    /// </summary>
+    /// <param name="x">X-Coordinate of the shot.</param>
+    /// <param name="y">Y-Coordinate of the shot.</param>
+    /// <returns>False if missed, true if hit.</returns>
+    public bool HitOrMiss(int x, int y)
         {
             if (this.pf[x, y].BackgroundImage == null)
             {
@@ -234,13 +257,13 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        /// <summary>
-        /// Sets a hit on the specified field.
-        /// </summary>
-        /// <param name="x">X-coordinate of the hit.</param>
-        /// <param name="y">Y-coordinate of the hit.</param>
-        /// <returns>true or false if enemy won or not.</returns>
-        public bool SetImpact(int x, int y)
+    /// <summary>
+    /// Sets a hit on the specified field.
+    /// </summary>
+    /// <param name="x">X-coordinate of the hit.</param>
+    /// <param name="y">Y-coordinate of the hit.</param>
+    /// <returns>true or false if enemy won or not.</returns>
+    public bool SetImpact(int x, int y)
         {
             try
             {
@@ -263,13 +286,13 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        public void SetMiss(int x, int y)
-        {
-            BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
-            this.DrawMiss(x, y); // Fehlschuss auf dem Spielfeld darstellen
-        }
+    public void SetMiss(int x, int y)
+    {
+        BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
+        this.DrawMiss(x, y); // Fehlschuss auf dem Spielfeld darstellen
+    }
 
-        private void DrawMiss(int x, int y)
+    private void DrawMiss(int x, int y)
         {
             // PictureBox missPicture = new PictureBox();
             // missPicture.Name = "miss_" + x.ToString() + ":" + y.ToString();
@@ -286,12 +309,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             this.pf[x, y].Tag = 1;
         }
 
-        /// <summary>
-        /// Shows a destroyed boat on the enemies playing field.
-        /// </summary>
-        /// <param name="args">Contains the coordinates of the vessel.</param>
-        /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
-        private void ShowDestroyedBoat(int[] args, bool horizontal)
+    /// <summary>
+    /// Shows a destroyed boat on the enemies playing field.
+    /// </summary>
+    /// <param name="args">Contains the coordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
+    private void ShowDestroyedBoat(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -318,12 +341,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        /// <summary>
-        /// Display on the enemy field a ruined cruiser.
-        /// </summary>
-        /// <param name="args">The co-ordinates of the vessel.</param>
-        /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-        private void ShowDestroyedCruiser(int[] args, bool horizontal)
+    /// <summary>
+    /// Display on the enemy field a ruined cruiser.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    private void ShowDestroyedCruiser(int[] args, bool horizontal)
         {
             if (this.InvokeRequired)
             {
@@ -355,14 +378,14 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        /// <summary>
-        /// Checks the game status (If all my ships are destroyed, the opponent has won).
-        /// </summary>
-        /// <returns>
-        /// True if all my ships have been destroyed.
-        /// False if at least one of my ships exists.
-        /// </returns>
-        private bool CheckGameStatus()
+    /// <summary>
+    /// Checks the game status (If all my ships are destroyed, the opponent has won).
+    /// </summary>
+    /// <returns>
+    /// True if all my ships have been destroyed.
+    /// False if at least one of my ships exists.
+    /// </returns>
+    private bool CheckGameStatus()
         {
             // Alle boote überprüfen
             for (int i = 0; i < this.boatReference.Length; i++)
@@ -403,12 +426,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             return true; // Wurden ALLE Schiffe zerstört, dann ist das Spiel vorbei und DU hast verloren!!
         }
 
-        /// <summary>
-        /// Find out what ship was hit, on which part, and if a ship was completely destroyed.
-        /// </summary>
-        /// <param name="x">X-Coordinate of the hit.</param>
-        /// <param name="y">Y-Coordinate of the hit.</param>
-        private void CheckShips(int x, int y)
+    /// <summary>
+    /// Find out what ship was hit, on which part, and if a ship was completely destroyed.
+    /// </summary>
+    /// <param name="x">X-Coordinate of the hit.</param>
+    /// <param name="y">Y-Coordinate of the hit.</param>
+    private void CheckShips(int x, int y)
         {
             // Herausfinden welches Schiff getroffen wurde
             // Wurde ein Boot getroffen?
@@ -422,12 +445,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                 // Welchen Teil des Schiffes hat es erwischt?
                 switch (boatPart)
                 {
-                    case ("Rear"):
+                    case "Rear":
                         // heck wurde getroffen (horizontal)
                         this.boatReference[boatNr].Rear = true;
                         this.SetTextLblStatus("Boat Nr. " + boatNr.ToString() + " wurde am heck getroffen!\n");
                         break;
-                    case ("Front"):
+                    case "Front":
                         // Front wurde getroffen (horizontal)
                         this.boatReference[boatNr].Front = true;
                         this.SetTextLblStatus("Boat Nr. " + boatNr.ToString() + " wurde an der Front getroffen!\n");
@@ -465,17 +488,17 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                 // Welchen Teil des Schiffes hat es erwischt?
                 switch (cruiserPart)
                 {
-                    case ("Rear"):
+                    case "Rear":
                         // heck wurde getroffen (horizontal)
                         this.cruiserReference[cruiserNr].Rear = true;
                         this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde am heck getroffen!\n");
                         break;
-                    case ("Middle"):
+                    case "Middle":
                         // Mittelteil wurde getroffen
                         this.cruiserReference[cruiserNr].Middle = true;
                         this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde am Mittelteil getroffen!\n");
                         break;
-                    case ("Front"):
+                    case "Front":
                         // Front wurde getroffen (horizontal)
                         this.cruiserReference[cruiserNr].Front = true;
                         this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde an der Front getroffen!\n");
@@ -515,19 +538,19 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                 // Welchen Teil des Schiffes hat es erwischt?
                 switch (galleyPart)
                 {
-                    case ("Rear"):
+                    case "Rear":
                         this.galleyReference.Rear = true;
                         this.SetTextLblStatus("Galley wurde am heck getroffen!\n");
                         break;
-                    case ("Middle1"):
+                    case "Middle1":
                         this.galleyReference.MiddleFirstPart = true;
                         this.SetTextLblStatus("Galley wurde am Mittelteil 1 getroffen!\n");
                         break;
-                    case ("Middle2"):
+                    case "Middle2":
                         this.galleyReference.MiddleSecondPart = true;
                         this.SetTextLblStatus("Galley wurde am Mittelteil 2 getroffen!\n");
                         break;
-                    case ("Front"):
+                    case "Front":
                         this.galleyReference.Front = true;
                         this.SetTextLblStatus("Galley wurde an der Front getroffen!\n");
                         break;
@@ -549,19 +572,19 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                 // Welchen Teil des Schiffes hat es erwischt?
                 switch (battleshipPart)
                 {
-                    case ("Rear"):
+                    case "Rear":
                         this.battleshipReference.Rear = true;
                         this.SetTextLblStatus("Battleship wurde am heck getroffen!\n");
                         break;
-                    case ("Middle1"):
+                    case "Middle1":
                         this.battleshipReference.MiddleFirstPart = true;
                         this.SetTextLblStatus("Battleship wurde am Mittelteil 1 getroffen!\n");
                         break;
-                    case ("Middle2"):
+                    case "Middle2":
                         this.battleshipReference.MiddleSecondPart = true;
                         this.SetTextLblStatus("Battleship wurde am Mittelteil 2 getroffen!\n");
                         break;
-                    case ("Front"):
+                    case "Front":
                         this.battleshipReference.Front = true;
                         this.SetTextLblStatus("Battleship wurde an der Front getroffen!\n");
                         break;
@@ -576,12 +599,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        /// <summary>
-        /// Decides which explosion is to be displayed in the panel.
-        /// </summary>
-        /// <param name="x">X coordinate of the hit.</param>
-        /// <param name="y">Y coordinate of the hit.</param>
-        public void DrawExplosion(int x, int y)
+    /// <summary>
+    /// Decides which explosion is to be displayed in the panel.
+    /// </summary>
+    /// <param name="x">X coordinate of the hit.</param>
+    /// <param name="y">Y coordinate of the hit.</param>
+    public void DrawExplosion(int x, int y)
         {
             // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
             PictureBox explPicture = new PictureBox();
@@ -596,12 +619,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             this.AddControl(explPicture, x, y); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
         }
 
-        /// <summary>
-        /// Sets the ship parts to the respective positions.
-        /// (For a Mouse Click event).
-        /// </summary>
-        /// <param name="tmp">The Panel, which has thrown the MouseClick event (as a reference).</param>
-        private void SetShips(ref Battleships.DoubleBufferedPanel tmp)
+    /// <summary>
+    /// Sets the ship parts to the respective positions.
+    /// (For a Mouse Click event).
+    /// </summary>
+    /// <param name="tmp">The Panel, which has thrown the MouseClick event (as a reference).</param>
+    private void SetShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
@@ -1353,12 +1376,12 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        /// <summary>
-        /// Draws the ships at the appropriate place.
-        /// From a MouseEnter event on a Panel.
-        /// </summary>
-        /// <param name="tmp">The panel which has thrown the MouseEnter event (as a reference).</param>
-        private void DrawShips(ref Battleships.DoubleBufferedPanel tmp)
+    /// <summary>
+    /// Draws the ships at the appropriate place.
+    /// From a MouseEnter event on a Panel.
+    /// </summary>
+    /// <param name="tmp">The panel which has thrown the MouseEnter event (as a reference).</param>
+    private void DrawShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
@@ -1575,7 +1598,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        protected virtual void SetTextLblStatus(string text)
+    protected virtual void SetTextLblStatus(string text)
         {
             if (BattleshipsForm.LabelStatus.InvokeRequired)
             {
@@ -1590,7 +1613,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
             }
         }
 
-        protected virtual void AddControl(Control contr, int x, int y)
+    protected virtual void AddControl(Control contr, int x, int y)
         {
             if (this.InvokeRequired)
             {

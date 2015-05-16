@@ -82,14 +82,32 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// <summary>
         /// The label displays the status of the game.
         /// </summary>
-        public static Label LabelStatus;
+        private static Label labelStatus;
 
-        public static Battleships.DoubleBufferedPanel PanelStatus;
+        public static Label LabelStatus
+        {
+            get { return labelStatus; }
+            set { labelStatus = value; }
+        }
+
+        private static DoubleBufferedPanel panelStatus;
+
+        public static DoubleBufferedPanel PanelStatus
+        {
+            get { return panelStatus; }
+            set { panelStatus = value; }
+        }
 
         /// <summary>
         /// The battlefield of the player.
         /// </summary>
-        public static BattlefieldPlayer BattlefieldPlayer;
+        private static BattlefieldPlayer battlefieldPlayer;
+
+        public static BattlefieldPlayer BattlefieldPlayer
+        {
+            get { return battlefieldPlayer; }
+            set { battlefieldPlayer = value; }
+        }
 
         /// <summary>
         /// The battlefield of the enemy.
@@ -129,7 +147,14 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// </summary>
         public enum TurnIdentifier
         {
+            /// <summary>
+            /// The player.
+            /// </summary>
             player = 0,
+
+            /// <summary>
+            /// The enemy.
+            /// </summary>
             enemy = 1
         }
 
@@ -219,7 +244,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 // LabelStatus.Dock = DockStyle.Fill;
                 LabelStatus.TextAlign = ContentAlignment.TopLeft;
                 LabelStatus.AutoSize = true;
-                LabelStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                LabelStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0);
                 PanelStatus.Controls.Add(LabelStatus);
 
                 this.Controls.Add(PanelStatus);
@@ -285,7 +310,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnGalley.Enabled = false;
                         }
                         
-                        this.lblGalley.Text = "Number: " + (MaxNumberGalley - (CounterGalley)).ToString();
+                        this.lblGalley.Text = "Number: " + (MaxNumberGalley - CounterGalley).ToString();
                     }
 
                     break;
@@ -312,7 +337,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnBattleship.Enabled = false;
                         }
                         
-                        this.lblBattleship.Text = "Number: " + (MaxNumberBattleship - (CounterBattleship)).ToString();
+                        this.lblBattleship.Text = "Number: " + (MaxNumberBattleship - CounterBattleship).ToString();
                     }
 
                     break;
@@ -338,7 +363,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnCruiser.Enabled = false;
                         }
                         
-                        this.lblCruiser.Text = "Number: " + (MaxNumberCruiser - (CounterCruiser)).ToString();
+                        this.lblCruiser.Text = "Number: " + (MaxNumberCruiser - CounterCruiser).ToString();
                     }
 
                     break;
@@ -364,7 +389,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnBoat.Enabled = false;
                         }
 
-                        this.lblBoat.Text = "Number: " + (MaxNumberBoat - (CounterBoat)).ToString();
+                        this.lblBoat.Text = "Number: " + (MaxNumberBoat - CounterBoat).ToString();
                     }
 
                     break;

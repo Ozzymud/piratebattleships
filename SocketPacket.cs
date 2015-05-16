@@ -28,16 +28,28 @@ using System.Text;
 /// </summary>
 internal class SocketPacket
     {
+    /// <summary>
+    /// The current connection between host and client.
+    /// </summary>
     private System.Net.Sockets.Socket currentSocket;
 
+    /// <summary>
+    /// Gets or sets to SocketPacket.currentSocket (public access).
+    /// </summary>
     public System.Net.Sockets.Socket CurrentSocket
     {
         get { return this.currentSocket; }
         set { this.currentSocket = value; }
     }
 
+    /// <summary>
+    /// A packet of 10 bytes sent between host and client.
+    /// </summary>
     private byte[] dataBuffer = new byte[10];
 
+    /// <summary>
+    /// Gets or sets data in the SocketPacket data buffer.
+    /// </summary>
     public byte[] DataBuffer
     {
         get { return this.dataBuffer; }

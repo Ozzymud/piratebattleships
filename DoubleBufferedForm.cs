@@ -19,9 +19,15 @@ namespace Battleships
 using System.Drawing;
 using System.Windows.Forms;
 
+/// <summary>
+/// Sets control styles to use double buffering.
+/// </summary>
 public class DoubleBufferedForm : Form
-        {
-        public DoubleBufferedForm()
+    {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DoubleBufferedForm" /> class.
+    /// </summary>
+    public DoubleBufferedForm()
     {
       this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
       this.UpdateStyles();
