@@ -104,11 +104,11 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     public static Cursor CreateCursor(Bitmap bmp, int hotSpotX, int hotSpotY)
         {
             IconInfo tmp = new IconInfo();
-            GetIconInfo(bmp.GetHicon(), ref tmp);
+            NativeMethods.GetIconInfo(bmp.GetHicon(), ref tmp);
             tmp.HotspotX = hotSpotX;
             tmp.HotspotY = hotSpotY;
             tmp.ParameterfIcon = false;
-            return new Cursor(CreateIconIndirect(ref tmp));
+            return new Cursor(NativeMethods.CreateIconIndirect(ref tmp));
         }
     #endregion
 
@@ -181,15 +181,6 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             s[0].BringToFront();
         }
     }
-    #endregion
-
-    #region private static
-    [DllImport("user32.dll")]
-    private static extern IntPtr CreateIconIndirect(ref IconInfo icon);
-
-    [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
     #endregion
 
     #region private Mouse-Events
@@ -397,11 +388,11 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <summary>
     /// Information for formatting icons.
     /// </summary>
-    private struct IconInfo
+    public struct IconInfo
     {
-        internal bool ParameterfIcon;
-        internal int HotspotX;
-        internal int HotspotY;
+        public bool ParameterfIcon;
+        public int HotspotX;
+        public int HotspotY;
         private IntPtr hbmMask;
         private IntPtr hbmColor;
     }

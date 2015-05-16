@@ -31,7 +31,6 @@ namespace Battleships
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BattleshipsForm));
             this.btnCruiser = new System.Windows.Forms.Button();
             this.btnBattleship = new System.Windows.Forms.Button();
             this.btnBoat = new System.Windows.Forms.Button();
@@ -257,14 +256,14 @@ namespace Battleships
             // hostToolStripMenuItem
             // 
             this.hostToolStripMenuItem.Name = "hostToolStripMenuItem";
-            this.hostToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.hostToolStripMenuItem.Size = new System.Drawing.Size(111, 24);
             this.hostToolStripMenuItem.Text = "&Host";
             this.hostToolStripMenuItem.Click += new System.EventHandler(this.HostToolStripMenuItemClick);
             // 
             // joinToolStripMenuItem
             // 
             this.joinToolStripMenuItem.Name = "joinToolStripMenuItem";
-            this.joinToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.joinToolStripMenuItem.Size = new System.Drawing.Size(111, 24);
             this.joinToolStripMenuItem.Text = "&Join";
             this.joinToolStripMenuItem.Click += new System.EventHandler(this.JoinToolStripMenuItemClick);
             // 
@@ -333,7 +332,7 @@ namespace Battleships
             this.Controls.Add(this.menuStripMain);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Battleships.Properties.Resources.battleships_icon;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "BattleshipsForm";

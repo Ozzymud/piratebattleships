@@ -498,13 +498,6 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_enter;
             }
         }
-
-        private void ButtonOne_Click(object sender, EventArgs e)
-        {
-            LabelStatus.Text += "Test\n";
-            PanelStatus.VerticalScroll.Value += PanelStatus.VerticalScroll.SmallChange;
-            PanelStatus.Refresh();
-        }
         #endregion
 
         #region ToolStripMenuItems-Events

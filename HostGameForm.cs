@@ -70,7 +70,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
     public HostGameForm()
         {
             this.InitializeComponent();
-            this.textBoxIP.Text = this.GetIP();
+            this.textBoxIP.Text = GetIP();
         }
     #endregion constructor
 
@@ -272,6 +272,33 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
     #endregion
 
     #region private static
+    /// <summary>
+    /// Determines the internal IP address of the PC.
+    /// </summary>
+    /// <returns>Internal IP-Address as a string.</returns>
+    private static string GetIP()
+        {
+            string strHostName = Dns.GetHostName();
+
+            // Find host by name
+            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
+            //// Dns.GetHostByName(strHostName);
+
+            // Grab the first IP addresses
+            string stringCurrentIP = string.Empty;
+            foreach (IPAddress ipaddress in iphostentry.AddressList)
+            {     
+                // Die erste IPV4 Adresse aus der Adressliste wählen
+                if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    stringCurrentIP = ipaddress.ToString();
+                    return stringCurrentIP;
+                }                  
+            }
+
+            return stringCurrentIP;
+        }
+
     private static string GetExternalIP()
         {
             // Other services:
@@ -451,33 +478,6 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             this.SetTextLblStatus("Server closed!");
         }
 
-    /// <summary>
-    /// Determines the internal IP address of the PC.
-    /// </summary>
-    /// <returns>Internal IP-Address as a string.</returns>
-    private string GetIP()
-        {
-            string strHostName = Dns.GetHostName();
-
-            // Find host by name
-            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-            //// Dns.GetHostByName(strHostName);
-
-            // Grab the first IP addresses
-            string stringCurrentIP = string.Empty;
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {     
-                // Die erste IPV4 Adresse aus der Adressliste wählen
-                if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    stringCurrentIP = ipaddress.ToString();
-                    return stringCurrentIP;
-                }                  
-            }
-
-            return stringCurrentIP;
-        }
-
     private void HostGameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.CloseSockets();
@@ -599,7 +599,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
     private void ButtonInternalIP_Click(object sender, EventArgs e)
         {
-            this.textBoxIP.Text = this.GetIP();
+            this.textBoxIP.Text = GetIP();
         }
     #endregion
     #endregion
