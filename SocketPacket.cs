@@ -32,30 +32,16 @@ internal class SocketPacket
 
     public System.Net.Sockets.Socket CurrentSocket
     {
-        get
-        {
-            return this.currentSocket;
-        }
-        
-        set
-        {
-            this.currentSocket = value;
-        }
+        get { return this.currentSocket; }
+        set { this.currentSocket = value; }
     }
 
     private byte[] dataBuffer = new byte[10];
 
     public byte[] DataBuffer
     {
-        get
-        {
-            return this.dataBuffer;
-        }
-        
-        set
-        {
-            this.dataBuffer = value;
-        }
+        get { return this.dataBuffer; }
+        set { this.dataBuffer = value; }
     }
 }
 }

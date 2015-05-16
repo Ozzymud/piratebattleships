@@ -83,7 +83,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                     p.Location = new Point(i * 30, j * 30);
                     p.Tag = 0;
                     p.Margin = new Padding(0);
-                    p.Name = "pb_" + i.ToString() + ":" + j.ToString();
+                    p.Name = "pf_" + i.ToString() + ":" + j.ToString();
                     p.Size = new Size(30, 30);
                     p.BorderStyle = BorderStyle.FixedSingle;
                     p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);

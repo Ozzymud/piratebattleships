@@ -51,30 +51,16 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
         public Socket WorkerSocket
         {
-            get
-            {
-                return this.workerSocket;
-            }
-
-            set
-            {
-            this.workerSocket = value;
-            }
+            get { return this.workerSocket; }
+            set { this.workerSocket = value; }
         }
 
         private int clientCount = 0;
 
         public int ClientCount
         {
-            get
-            {
-                return this.clientCount;
-            }
-
-            set
-            {
-            this.clientCount = value;
-            }
+            get { return this.clientCount; }
+            set { this.clientCount = value; }
         }
 
         private AsyncCallback pfnWorkerCallBack;
@@ -285,7 +271,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         private void Services(string data)
         {
             // Koordinaten vom Gegner erhalten (Auswerten ob an den Koords ein Schiff gesetzt ist oder nicht)
-            if (data.Contains("pb_"))
+            if (data.Contains("pf_"))
             {
                 // Erhaltene koordinaten ausgeben
                 this.SetText("Coords received: " + data);

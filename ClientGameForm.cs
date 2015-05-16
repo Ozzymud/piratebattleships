@@ -36,15 +36,8 @@ using System.Windows.Forms;
 
         public Socket ClientSocket
         {
-            get
-            {
-                return this.clientSocket;
-            }
-
-            set
-            {
-            this.clientSocket = value;
-            }
+            get { return this.clientSocket; }
+            set { this.clientSocket = value; }
         }
 
         private byte[] mainDataBuffer = new byte[10];
@@ -197,7 +190,7 @@ using System.Windows.Forms;
         {
             // Server has confirmed connection
             // else if: Server is full, close connection
-            // else if: get coordinates (pb_) from an opponent (evaluate whether a ship is set to the coords or not) 
+            // else if: get coordinates (pf_) from an opponent (evaluate whether a ship is set to the coords or not) 
             if (data.StartsWith("ACK"))
             {
                 this.SetTextLblStatus("Server hat Verbindung bestätigt (ACK)");
@@ -215,7 +208,7 @@ using System.Windows.Forms;
 
                 return false;
             }
-            else if (data.Contains("pb_"))
+            else if (data.Contains("pf_"))
             {
                 // Erhaltene koordinaten ausgeben
                 this.SetText("Coords received: " + data);
