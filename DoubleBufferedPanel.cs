@@ -16,14 +16,17 @@
 
 namespace Battleships
 {
+#region directives
 using System.Drawing;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// Sets control styles to use double buffering.
 /// </summary>
 public class DoubleBufferedPanel : Panel
     {
+    #region constructor
     /// <summary>
     /// Initializes a new instance of the <see cref="DoubleBufferedPanel" /> class.
     /// </summary>
@@ -32,5 +35,6 @@ public class DoubleBufferedPanel : Panel
       this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
       this.UpdateStyles();
     }
+    #endregion constructor
   }
 }

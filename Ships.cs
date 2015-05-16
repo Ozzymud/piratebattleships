@@ -18,20 +18,23 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#endregion
 
 /// <summary>
 /// Maintains the position of all ships and their state.
 /// </summary>
 public class Ships
     {
-        /// <summary>
-        /// Boat --> 2 parts.
-        /// </summary>
-        public struct Boat
+    #region struct
+    /// <summary>
+    /// Boat --> 2 parts.
+    /// </summary>
+    public struct Boat
         {
             public bool Front;
             public bool Rear;
@@ -44,10 +47,10 @@ public class Ships
             public bool Horizontal;
         }
 
-        /// <summary>
-        /// Cruiser --> 3 parts.
-        /// </summary>
-        public struct Cruiser
+    /// <summary>
+    /// Cruiser --> 3 parts.
+    /// </summary>
+    public struct Cruiser
         {
             public bool Front;
             public bool Rear;
@@ -63,10 +66,10 @@ public class Ships
             public bool Horizontal;
         }
 
-        /// <summary>
-        /// Galley --> 4 parts.
-        /// </summary>
-        public struct Galley
+    /// <summary>
+    /// Galley --> 4 parts.
+    /// </summary>
+    public struct Galley
         {
             public bool Front;
             public bool Rear;
@@ -85,11 +88,11 @@ public class Ships
             public bool Horizontal;
         }
 
-        /// <summary>
-        /// Battleship --> 5 parts.
-        /// TODO: actually make this 5 parts.
-        /// </summary>
-        public struct Battleship
+    /// <summary>
+    /// Battleship --> 5 parts.
+    /// TODO: actually make this 5 parts.
+    /// </summary>
+    public struct Battleship
         {
             public bool Front;
             public bool Rear;
@@ -107,5 +110,6 @@ public class Ships
             public string ShipName;
             public bool Horizontal;
         }
+    #endregion
     }
 }

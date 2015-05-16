@@ -18,6 +18,7 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The main game interface.
@@ -44,169 +46,63 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         private const int BattlefieldOpponentY = 180;
         #endregion
 
+        #region fields
         /// <summary>
         /// Client Form.
         /// </summary> 
         private static ClientGameForm clientGameForm;
-        
-        public static ClientGameForm ClientGameForm
-        {
-            get { return clientGameForm; }
-            set { clientGameForm = value; }
-        }
 
-        /// <summary>
-        /// Host Form.
-        /// </summary>
         private static HostGameForm hostGameForm;
 
-        public static HostGameForm HostGameForm
-        {
-            get { return hostGameForm; }
-            set { hostGameForm = value; }
-        }
+        private static int counterCruiser = 0;
 
-        /// <summary>
-        /// Sound playback object.
-        /// </summary>
-        private static SoundClass soundPlayer;
+        private static int networkFormOpen = 0;
 
-        public static SoundClass SoundPlayer
-        {
-            get { return soundPlayer; }
-            set { soundPlayer = value; }
-        }
+        private static int counterBoat = 0;
 
-        private static InfoForm infoForm;
-        
-        /// <summary>
-        /// The label displays the status of the game.
-        /// </summary>
-        private static Label labelStatus;
+        private static int counterBattleship = 0;
 
-        public static Label LabelStatus
-        {
-            get { return labelStatus; }
-            set { labelStatus = value; }
-        }
+        private static int counterGalley = 0;
 
-        private static DoubleBufferedPanel panelStatus;
-
-        public static DoubleBufferedPanel PanelStatus
-        {
-            get { return panelStatus; }
-            set { panelStatus = value; }
-        }
-
-        /// <summary>
-        /// The battlefield of the player.
-        /// </summary>
-        private static BattlefieldPlayer battlefieldPlayer;
-
-        public static BattlefieldPlayer BattlefieldPlayer
-        {
-            get { return battlefieldPlayer; }
-            set { battlefieldPlayer = value; }
-        }
-
-        /// <summary>
-        /// The battlefield of the enemy.
-        /// </summary>
-        private static BattlefieldOpponent battlefieldOpponent;
-
-        public static BattlefieldOpponent BattlefieldOpponent
-        {
-            get { return battlefieldOpponent; }
-            set { battlefieldOpponent = value; }
-        }
-
-        /// <summary>
-        /// Flag indicating whether the player is ready.
-        /// </summary>
-        private static bool playerReadyToPlay;
-
-        public static bool PlayerReadyToPlay
-        {
-            get { return playerReadyToPlay; }
-            set { playerReadyToPlay = value; }
-        }
+        // Saves the state of whos turn it is
+        private static TurnIdentifier whosTurn;
 
         /// <summary>
         /// Flag indicating whether the enemy is ready.
         /// </summary>
         private static bool opponentReadyToPlay;
 
-        public static bool OpponentReadyToPlay
-        {
-            get { return opponentReadyToPlay; }
-            set { opponentReadyToPlay = value; }
-        }
+        /// <summary>
+        /// Flag indicating whether the player is ready.
+        /// </summary>
+        private static bool playerReadyToPlay;
 
         /// <summary>
-        /// List of players.
+        /// The battlefield of the enemy.
         /// </summary>
-        public enum TurnIdentifier
-        {
-            /// <summary>
-            /// The player.
-            /// </summary>
-            player = 0,
+        private static BattlefieldOpponent battlefieldOpponent;
 
-            /// <summary>
-            /// The enemy.
-            /// </summary>
-            enemy = 1
-        }
+        private static DoubleBufferedPanel panelStatus;
 
-        // Saves the state of whos turn it is
-        private static TurnIdentifier whosTurn;
-        
-        public static TurnIdentifier WhosTurn
-        {
-            get { return whosTurn; }
-            set { whosTurn = value; }
-        }
+        /// <summary>
+        /// The battlefield of the player.
+        /// </summary>
+        private static BattlefieldPlayer battlefieldPlayer;
 
-        private static int counterGalley = 0;
+        private static Label labelStatus;
 
-        public static int CounterGalley
-        {
-            get { return counterGalley; }
-            set { counterGalley = value; }
-        }
+        /// <summary>
+        /// Sound playback object.
+        /// </summary>
+        private static SoundClass soundPlayer;
 
-        private static int counterBattleship = 0;
+        /// <summary>
+        /// The label displays the status of the game.
+        /// </summary>
+        private static InfoForm infoForm;
+        #endregion
 
-        public static int CounterBattleship
-        {
-            get { return counterBattleship; }
-            set { counterBattleship = value; }
-        }
-
-        private static int counterCruiser = 0;
-
-        public static int CounterCruiser
-        {
-            get { return counterCruiser; }
-            set { counterCruiser = value; }
-        }
-
-        private static int counterBoat = 0;
-
-        public static int CounterBoat
-        {
-            get { return counterBoat; }
-            set { counterBoat = value; }
-        }
-
-        private static int networkFormOpen = 0;
-        
-        public static int NetworkFormOpen
-        {
-            get { return networkFormOpen; }
-            set { networkFormOpen = value; }
-        }
-
+        #region constructors
         /// <summary>
         /// Initializes a new instance of the BattleshipsForm class.
         /// The game's interface constructor.
@@ -278,6 +174,117 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 //// MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
             ////}
         }
+        #endregion
+
+        #region enum
+        /// <summary>
+        /// List of players.
+        /// </summary>
+        public enum TurnIdentifier
+        {
+            /// <summary>
+            /// The player.
+            /// </summary>
+            player = 0,
+
+            /// <summary>
+            /// The enemy.
+            /// </summary>
+            enemy = 1
+        }
+        #endregion
+
+        #region properties
+        public static ClientGameForm ClientGameForm
+        {
+            get { return clientGameForm; }
+            set { clientGameForm = value; }
+        }
+
+        public static HostGameForm HostGameForm
+        {
+            get { return hostGameForm; }
+            set { hostGameForm = value; }
+        }
+
+        public static SoundClass SoundPlayer
+        {
+            get { return soundPlayer; }
+            set { soundPlayer = value; }
+        }
+
+        public static Label LabelStatus
+        {
+            get { return labelStatus; }
+            set { labelStatus = value; }
+        }
+
+        public static DoubleBufferedPanel PanelStatus
+        {
+            get { return panelStatus; }
+            set { panelStatus = value; }
+        }
+
+        public static BattlefieldPlayer BattlefieldPlayer
+        {
+            get { return battlefieldPlayer; }
+            set { battlefieldPlayer = value; }
+        }
+
+        public static BattlefieldOpponent BattlefieldOpponent
+        {
+            get { return battlefieldOpponent; }
+            set { battlefieldOpponent = value; }
+        }
+
+        public static bool PlayerReadyToPlay
+        {
+            get { return playerReadyToPlay; }
+            set { playerReadyToPlay = value; }
+        }
+
+        public static bool OpponentReadyToPlay
+        {
+            get { return opponentReadyToPlay; }
+            set { opponentReadyToPlay = value; }
+        }
+
+        public static TurnIdentifier WhosTurn
+        {
+            get { return whosTurn; }
+            set { whosTurn = value; }
+        }
+
+        public static int CounterGalley
+        {
+            get { return counterGalley; }
+            set { counterGalley = value; }
+        }
+
+        public static int CounterBattleship
+        {
+            get { return counterBattleship; }
+            set { counterBattleship = value; }
+        }
+
+        public static int CounterCruiser
+        {
+            get { return counterCruiser; }
+            set { counterCruiser = value; }
+        }
+
+        public static int CounterBoat
+        {
+            get { return counterBoat; }
+            set { counterBoat = value; }
+        }
+
+        public static int NetworkFormOpen
+        {
+            get { return networkFormOpen; }
+            set { networkFormOpen = value; }
+        }
+        #endregion
 
         #region Form-Events
         private void BattleshipsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -491,7 +498,14 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_enter;
             }
         }
-        #endregion      
+
+        private void ButtonOne_Click(object sender, EventArgs e)
+        {
+            LabelStatus.Text += "Test\n";
+            PanelStatus.VerticalScroll.Value += PanelStatus.VerticalScroll.SmallChange;
+            PanelStatus.Refresh();
+        }
+        #endregion
 
         #region ToolStripMenuItems-Events
         private void ExitToolStripMenuItemClick(object sender, EventArgs e)
@@ -566,26 +580,5 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
         #endregion 
-        
-        private void ButtonOne_Click(object sender, EventArgs e)
-        {
-            LabelStatus.Text += "Test\n";
-            PanelStatus.VerticalScroll.Value += PanelStatus.VerticalScroll.SmallChange;
-            PanelStatus.Refresh();
-        }
-
-        private void PanelStatusScroll(object sender, ScrollEventArgs e)
-        {
-            MessageBox.Show("TEst");
-        }
-
-        private void PanelStatusSizeChanged(object sender, EventArgs e)
-        {
-            MessageBox.Show("TEst");
-        }
-
-        private void BattleshipsForm_Load(object sender, EventArgs e)
-        {
-        }
     }
 }

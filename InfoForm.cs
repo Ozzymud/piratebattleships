@@ -18,6 +18,7 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,12 +26,17 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The help about window.
 /// </summary>
 public partial class InfoForm : Battleships.DoubleBufferedForm
     {
+    #region constructor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InfoForm" /> class. 
+    /// </summary>
     public InfoForm()
     {
         this.InitializeComponent();
@@ -41,6 +47,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         this.labelCompanyName.Text = this.AssemblyCompany;
         this.textBoxDescription.Text = this.AssemblyDescription;
     }
+    #endregion
 
     #region Assembly attribute accessors
 

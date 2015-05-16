@@ -18,21 +18,32 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#endregion
 
 /// <summary>
 /// Read 10 bytes from a network socket.
 /// </summary>
 internal class SocketPacket
     {
+    #region properties
+    #region private
+    /// <summary>
+    /// A packet of 10 bytes sent between host and client.
+    /// </summary>
+    private byte[] dataBuffer = new byte[10];
+
     /// <summary>
     /// The current connection between host and client.
     /// </summary>
     private System.Net.Sockets.Socket currentSocket;
+    #endregion
 
+    #region public
     /// <summary>
     /// Gets or sets to SocketPacket.currentSocket (public access).
     /// </summary>
@@ -43,11 +54,6 @@ internal class SocketPacket
     }
 
     /// <summary>
-    /// A packet of 10 bytes sent between host and client.
-    /// </summary>
-    private byte[] dataBuffer = new byte[10];
-
-    /// <summary>
     /// Gets or sets data in the SocketPacket data buffer.
     /// </summary>
     public byte[] DataBuffer
@@ -55,5 +61,7 @@ internal class SocketPacket
         get { return this.dataBuffer; }
         set { this.dataBuffer = value; }
     }
-}
+    #endregion
+    #endregion
+    }
 }

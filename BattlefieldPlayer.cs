@@ -18,105 +18,25 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The players battlefield.
 /// </summary>
-public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
+public class BattlefieldPlayer : DoubleBufferedPanel
     {
-    private delegate void AddControlCallback(Control contr, int x, int y);
-
-    private delegate void SetTextCallback(string text);
-
-    private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
-
-    /// <summary>
-    /// Manages the position of the boats and the state.
-    /// </summary>
-    private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boote
-    private Ships.Cruiser[] cruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
-    private Ships.Galley galleyReference = new Ships.Galley();                     // 1 Galley
-    private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
-
-    private int counterGalley = 0;
-
-    public int CounterGalley
-    {
-        get { return this.counterGalley; }
-        set { this.counterGalley = value; } 
-    }
-
-    private int counterBattleship = 0;
-
-    public int CounterBattleship
-        {
-            get { return this.counterBattleship; }
-            set { this.counterBattleship = value; } 
-        }
-
-    private int counterCruiser = 0;
-
-    public int CounterCruiser
-        {
-            get { return this.counterCruiser; }
-            set { this.counterCruiser = value; } 
-        }
-
-    private int counterBoat = 0;
-
-    public int CounterBoat
-                {
-            get { return this.counterBoat; }
-            set { this.counterBoat = value; } 
-        }
-
-    /// <summary>
-    /// Collection of ship models.
-    /// </summary>
-    public enum ShipModels
-        {
-            /// <summary>
-            /// No ship.
-            /// </summary>
-            nothing = 0,
-
-            /// <summary>
-            /// A galley.
-            /// </summary>
-            galley = 1,
-
-            /// <summary>
-            /// A battleship.
-            /// </summary>
-            battleship = 2,
-
-            /// <summary>
-            /// A cruiser.
-            /// </summary>
-            cruiser = 3,
-
-            /// <summary>
-            /// A boat.
-            /// </summary>
-            boat = 4
-        }
-
+    #region fields
     /// <summary>
     /// Public access to ShipModels.
     /// </summary>
     private ShipModels ships;
-
-    public ShipModels Ships
-        {
-            get { return this.ships; }
-            set { this.ships = value; }
-        }
 
     /// <summary>
     /// Contains the playing field and all ships.
@@ -138,6 +58,21 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
     /// </summary>
     private bool horizontal;
 
+    private int counterGalley = 0;
+    private int counterBattleship = 0;
+    private int counterCruiser = 0;
+    private int counterBoat = 0;
+
+    /// <summary>
+    /// Manages the position of the boats and the state.
+    /// </summary>
+    private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boote
+    private Ships.Cruiser[] cruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
+    private Ships.Galley galleyReference = new Ships.Galley();                     // 1 Galley
+    private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
+    #endregion
+
+    #region constructor
     /// <summary>
     /// Initializes a new instance of the <see cref="BattlefieldPlayer" /> class.
     /// by default the ships are placed horizontally.
@@ -179,65 +114,102 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                 }
             }
         }
+    #endregion
 
-    #region Mouse-Events
-        private void PlayerMouse_Click(object sender, MouseEventArgs e)
+    #region delegate
+    private delegate void AddControlCallback(Control contr, int x, int y);
+
+    private delegate void SetTextCallback(string text);
+
+    private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
+    #endregion
+
+    #region enum
+    /// <summary>
+    /// Collection of ship models.
+    /// </summary>
+    public enum ShipModels
         {
-            // Get the Panel which has thrown the MouseClick event.
-            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
+            /// <summary>
+            /// No ship.
+            /// </summary>
+            nothing = 0,
 
-            // Left mouse button pressed.
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                // Set the ship to clicked position.
-                this.SetShips(ref tmp);
-            }
-            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                // Loop through the fields (PictureBox).
-                for (int i = 0; i < this.pf.GetLength(0); i++)
+            /// <summary>
+            /// A galley.
+            /// </summary>
+            galley = 1,
+
+            /// <summary>
+            /// A battleship.
+            /// </summary>
+            battleship = 2,
+
+            /// <summary>
+            /// A cruiser.
+            /// </summary>
+            cruiser = 3,
+
+            /// <summary>
+            /// A boat.
+            /// </summary>
+            boat = 4
+        }
+    #endregion
+
+    #region properties
+    public ShipModels Ships
+        {
+            get { return this.ships; }
+            set { this.ships = value; }
+        }
+
+    public int CounterGalley
+    {
+        get { return this.counterGalley; }
+        set { this.counterGalley = value; } 
+    }
+
+    public int CounterBattleship
+        {
+            get { return this.counterBattleship; }
+            set { this.counterBattleship = value; } 
+        }
+
+    public int CounterCruiser
+        {
+            get { return this.counterCruiser; }
+            set { this.counterCruiser = value; } 
+        }
+
+    public int CounterBoat
                 {
-                    for (int j = 0; j < this.pf.GetLength(1); j++)
-                    {
-                        // Check if field contains a part of the ship (Tag = 1).
-                        if ((int)this.pf[i, j].Tag != (int)1)
-                        {
-                            // If no, then delete image box.
-                            this.pf[i, j].BackgroundImage = null;
-                        }
-                    }
-                }
-
-                this.horizontal = !this.horizontal; // Negate Value.
-                this.DrawShips(ref tmp); // Draw ship.
-            }
+            get { return this.counterBoat; }
+            set { this.counterBoat = value; } 
         }
+    #endregion
 
-        private void PlayerMouseEnter(object sender, EventArgs e)
+    #region methods
+    #region public
+    /// <summary>
+    /// Decides which explosion is to be displayed in the panel.
+    /// </summary>
+    /// <param name="x">X coordinate of the hit.</param>
+    /// <param name="y">Y coordinate of the hit.</param>
+    public void DrawExplosion(int x, int y)
         {
-            // Event wurde von einer Panel_DoubleBuffered ausgelöst...
-            // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
-            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
-            this.DrawShips(ref tmp); // Schiff zeichnen
+            // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
+            PictureBox explPicture = new PictureBox();
+            explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
+            //// explPicture.Location = new Point(x * 30, y * 30);
+            explPicture.Size = new Size(30, 30);
+            explPicture.Margin = new Padding(0);
+            explPicture.Padding = new Padding(0);
+            explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            explPicture.BackColor = Color.Transparent;
+            explPicture.Image = Properties.Resources.explo6;
+            this.AddControl(explPicture, x, y); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
         }
-
-        private void PlayerMouseLeave(object sender, EventArgs e)
-        {
-            // Alle Panels durchlaufen
-            for (int x = 0; x < this.pf.GetLength(0); x++)
-            {
-                for (int y = 0; y < this.pf.GetLength(1); y++)
-                {
-                    // If no image is saved set current panel
-                    if ((int)this.pf[x, y].Tag != (int)1)
-                    {
-                        this.pf[x, y].BackgroundImage = null; // Dann Bild löschen
-                        this.pf[x, y].Tag = 0; // Bildflag auf false
-                    }
-                }
-            }
-        }
-        #endregion
 
     /// <summary>
     /// Checks whether the opponent has hit something or not.
@@ -291,6 +263,101 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
         BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
         this.DrawMiss(x, y); // Fehlschuss auf dem Spielfeld darstellen
     }
+    #endregion
+
+    #region protected methods
+    protected virtual void SetTextLblStatus(string text)
+        {
+            if (BattleshipsForm.LabelStatus.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(this.SetTextLblStatus);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                BattleshipsForm.LabelStatus.Text += text;
+                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
+                BattleshipsForm.PanelStatus.Refresh();
+            }
+        }
+
+    protected virtual void AddControl(Control contr, int x, int y)
+        {
+            if (this.InvokeRequired)
+            {
+                AddControlCallback d = new AddControlCallback(this.AddControl);
+                this.Invoke(d, new object[] { contr, x, y });
+            }
+            else
+            {
+                // Die Explosion dem Panel zuordnen, in dem der Treffer war (Die Explosion wird somit vor dem Panelbild angezeigt)
+                this.pf[x, y].Controls.Add(contr);
+                //// Control[] s = this.Controls.Find(contr.ShipName, false);
+                //// Die PictureBox in den Fordergrund bringen
+                //// s[0].BringToFront();
+            }
+        }
+    #endregion
+    
+    #region private methods
+    #region Mouse-Events
+    private void PlayerMouse_Click(object sender, MouseEventArgs e)
+        {
+            // Get the Panel which has thrown the MouseClick event.
+            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
+
+            // Left mouse button pressed.
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                // Set the ship to clicked position.
+                this.SetShips(ref tmp);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                // Loop through the fields (PictureBox).
+                for (int i = 0; i < this.pf.GetLength(0); i++)
+                {
+                    for (int j = 0; j < this.pf.GetLength(1); j++)
+                    {
+                        // Check if field contains a part of the ship (Tag = 1).
+                        if ((int)this.pf[i, j].Tag != (int)1)
+                        {
+                            // If no, then delete image box.
+                            this.pf[i, j].BackgroundImage = null;
+                        }
+                    }
+                }
+
+                this.horizontal = !this.horizontal; // Negate Value.
+                this.DrawShips(ref tmp); // Draw ship.
+            }
+        }
+
+    private void PlayerMouseEnter(object sender, EventArgs e)
+        {
+            // Event wurde von einer Panel_DoubleBuffered ausgelöst...
+            // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
+            Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
+            this.DrawShips(ref tmp); // Schiff zeichnen
+        }
+
+    private void PlayerMouseLeave(object sender, EventArgs e)
+        {
+            // Alle Panels durchlaufen
+            for (int x = 0; x < this.pf.GetLength(0); x++)
+            {
+                for (int y = 0; y < this.pf.GetLength(1); y++)
+                {
+                    // If no image is saved set current panel
+                    if ((int)this.pf[x, y].Tag != (int)1)
+                    {
+                        this.pf[x, y].BackgroundImage = null; // Dann Bild löschen
+                        this.pf[x, y].Tag = 0; // Bildflag auf false
+                    }
+                }
+            }
+        }
+    #endregion
 
     private void DrawMiss(int x, int y)
         {
@@ -597,26 +664,6 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                     this.SetTextLblStatus("Battleship destroyed!\n");
                 }
             }
-        }
-
-    /// <summary>
-    /// Decides which explosion is to be displayed in the panel.
-    /// </summary>
-    /// <param name="x">X coordinate of the hit.</param>
-    /// <param name="y">Y coordinate of the hit.</param>
-    public void DrawExplosion(int x, int y)
-        {
-            // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
-            PictureBox explPicture = new PictureBox();
-            explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
-            //// explPicture.Location = new Point(x * 30, y * 30);
-            explPicture.Size = new Size(30, 30);
-            explPicture.Margin = new Padding(0);
-            explPicture.Padding = new Padding(0);
-            explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            explPicture.BackColor = Color.Transparent;
-            explPicture.Image = Properties.Resources.explo6;
-            this.AddControl(explPicture, x, y); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
         }
 
     /// <summary>
@@ -1597,37 +1644,7 @@ public class BattlefieldPlayer : Battleships.DoubleBufferedPanel
                     break;
             }
         }
-
-    protected virtual void SetTextLblStatus(string text)
-        {
-            if (BattleshipsForm.LabelStatus.InvokeRequired)
-            {
-                SetTextCallback d = new SetTextCallback(this.SetTextLblStatus);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                BattleshipsForm.LabelStatus.Text += text;
-                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
-                BattleshipsForm.PanelStatus.Refresh();
-            }
-        }
-
-    protected virtual void AddControl(Control contr, int x, int y)
-        {
-            if (this.InvokeRequired)
-            {
-                AddControlCallback d = new AddControlCallback(this.AddControl);
-                this.Invoke(d, new object[] { contr, x, y });
-            }
-            else
-            {
-                // Die Explosion dem Panel zuordnen, in dem der Treffer war (Die Explosion wird somit vor dem Panelbild angezeigt)
-                this.pf[x, y].Controls.Add(contr);
-                //// Control[] s = this.Controls.Find(contr.ShipName, false);
-                //// Die PictureBox in den Fordergrund bringen
-                //// s[0].BringToFront();
-            }
-        }
+    #endregion
+    #endregion
     }
 }

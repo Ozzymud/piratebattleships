@@ -18,6 +18,7 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,42 +26,23 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The opponents battlefield.
 /// </summary>
-public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
+public class BattlefieldOpponent : DoubleBufferedPanel
     {
-    /// <summary>
-    /// Information for formatting icons.
-    /// </summary>
-    private struct IconInfo
-    {
-        internal bool ParameterfIcon;
-        internal int HotspotX;
-        internal int HotspotY;
-        private IntPtr hbmMask;
-        private IntPtr hbmColor;
-    }
-
-    [DllImport("user32.dll")]
-    private static extern IntPtr CreateIconIndirect(ref IconInfo icon);
-
-    [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
-
-    private Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
-
-    private delegate void AddControlCallback(Control contr);
-
-    private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
-
+    #region fields
     /// <summary>
     /// Position color (When moving mouse over box).
     /// </summary>
     private Color positionColor;
 
+    private Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
+    #endregion
+
+    #region constructor
     /// <summary>
     /// Initializes a new instance of the <see cref="BattlefieldOpponent" /> class.
     /// </summary>
@@ -102,76 +84,35 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             }
         }
     }
-    
+    #endregion
+
+    #region delegate
+    private delegate void AddControlCallback(Control contr);
+
+    private delegate void ShowDestroyedShipsCallback(int[] args, bool horizontal);
+    #endregion
+
+    #region methods
+    #region public static
     /// <summary>
-    /// Displays a destroyed boat on the enemies playing field.
+    /// Creates a cursor from a bitmap (PNG, JPEG is also good).
     /// </summary>
-    /// <param name="args">Contains the coordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
-    private void ShowDestroyedBoat(int[] args, bool horizontal)
-    {
-        if (this.InvokeRequired)
+    /// <param name="bmp">The image file to be displayed as the cursor.</param>
+    /// <param name="hotSpotX">X value of the hotspot.</param>
+    /// <param name="hotSpotY">Y value of the hotspot.</param>
+    /// <returns>The created cursor.</returns>
+    public static Cursor CreateCursor(Bitmap bmp, int hotSpotX, int hotSpotY)
         {
-            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
-            this.Invoke(d, new object[] { args, horizontal });
+            IconInfo tmp = new IconInfo();
+            GetIconInfo(bmp.GetHicon(), ref tmp);
+            tmp.HotspotX = hotSpotX;
+            tmp.HotspotY = hotSpotY;
+            tmp.ParameterfIcon = false;
+            return new Cursor(CreateIconIndirect(ref tmp));
         }
-        else
-        {
-            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+    #endregion
 
-            // remove explosion picture at the specified position (remove--> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            if (horizontal)
-            {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
-            }
-            else
-            {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
-            }
-        }
-    }
-
-    /// <summary>
-    ///  Displays a ruined cruiser on the enemy field.
-    /// </summary>
-    /// <param name="args">The co-ordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-    private void ShowDestroyedCruiser(int[] args, bool horizontal)
-    {
-        if (this.InvokeRequired)
-        {
-            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedCruiser);
-            this.Invoke(d, new object[] { args, horizontal });
-        }
-        else
-        {
-            // TODO: show destroyed cruiser
-            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-            // At the entered point remove explosion image (remove --> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-
-            if (horizontal)
-            {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
-            }
-            else
-            {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
-            }
-        }
-    }
-    
+    #region public
     /// <summary>
     /// Sets a hit on the specified field.
     /// </summary>
@@ -199,25 +140,6 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
     {
         BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
         this.DrawMiss(x, y);
-    }
-
-    /// <summary>
-    /// Draws a missed shot on the opponent's battlefield
-    /// </summary>
-    /// <param name="x">X parameter of the missed shot.</param>
-    /// <param name="y">Y parameter of the missed shot.</param>
-    private void DrawMiss(int x, int y)
-    {
-        PictureBox missPicture = new PictureBox();
-        missPicture.Name = "miss_" + x.ToString() + ":" + y.ToString();
-        missPicture.Location = new Point(x * 30, y * 30);
-        missPicture.Size = new Size(30, 30);
-        missPicture.Margin = new Padding(0);
-        missPicture.Padding = new Padding(0);
-        missPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
-        missPicture.BackColor = Color.Transparent;
-        missPicture.Image = Properties.Resources.splash;
-        this.AddControl(missPicture);
     }
 
     /// <summary>
@@ -259,8 +181,18 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
             s[0].BringToFront();
         }
     }
+    #endregion
 
-    #region Mouse-Events
+    #region private static
+    [DllImport("user32.dll")]
+    private static extern IntPtr CreateIconIndirect(ref IconInfo icon);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
+    #endregion
+
+    #region private Mouse-Events
     private void PlayerMouse_Click(object sender, MouseEventArgs e)
         {
             // Only start if both players are ready
@@ -370,21 +302,109 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
         }
     #endregion
 
+    #region private
     /// <summary>
-    /// Creates a cursor from a bitmap (PNG, JPEG is also good).
+    /// Displays a destroyed boat on the enemies playing field.
     /// </summary>
-    /// <param name="bmp">The image file to be displayed as the cursor.</param>
-    /// <param name="hotSpotX">X value of the hotspot.</param>
-    /// <param name="hotSpotY">Y value of the hotspot.</param>
-    /// <returns>The created cursor.</returns>
-    public static Cursor CreateCursor(Bitmap bmp, int hotSpotX, int hotSpotY)
+    /// <param name="args">Contains the coordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
+    private void ShowDestroyedBoat(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
         {
-            IconInfo tmp = new IconInfo();
-            GetIconInfo(bmp.GetHicon(), ref tmp);
-            tmp.HotspotX = hotSpotX;
-            tmp.HotspotY = hotSpotY;
-            tmp.ParameterfIcon = false;
-            return new Cursor(CreateIconIndirect(ref tmp));
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
+            this.Invoke(d, new object[] { args, horizontal });
         }
+        else
+        {
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // remove explosion picture at the specified position (remove--> PictureBox control)
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            if (horizontal)
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
+            }
+            else
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+            }
+        }
+    }
+
+    /// <summary>
+    ///  Displays a ruined cruiser on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    private void ShowDestroyedCruiser(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
+        {
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedCruiser);
+            this.Invoke(d, new object[] { args, horizontal });
+        }
+        else
+        {
+            // TODO: show destroyed cruiser
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // At the entered point remove explosion image (remove --> PictureBox control)
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+
+            if (horizontal)
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+            }
+            else
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Draws a missed shot on the opponent's battlefield
+    /// </summary>
+    /// <param name="x">X parameter of the missed shot.</param>
+    /// <param name="y">Y parameter of the missed shot.</param>
+    private void DrawMiss(int x, int y)
+    {
+        PictureBox missPicture = new PictureBox();
+        missPicture.Name = "miss_" + x.ToString() + ":" + y.ToString();
+        missPicture.Location = new Point(x * 30, y * 30);
+        missPicture.Size = new Size(30, 30);
+        missPicture.Margin = new Padding(0);
+        missPicture.Padding = new Padding(0);
+        missPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
+        missPicture.BackColor = Color.Transparent;
+        missPicture.Image = Properties.Resources.splash;
+        this.AddControl(missPicture);
+    }
+    #endregion
+    #endregion
+
+    #region struct
+    /// <summary>
+    /// Information for formatting icons.
+    /// </summary>
+    private struct IconInfo
+    {
+        internal bool ParameterfIcon;
+        internal int HotspotX;
+        internal int HotspotY;
+        private IntPtr hbmMask;
+        private IntPtr hbmColor;
+    }
+    #endregion
     }
 }

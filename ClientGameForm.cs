@@ -18,6 +18,7 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,53 +30,169 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The join game window.
 /// </summary>
 public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
-        private Socket clientSocket;
+    #region fields
+    private IAsyncResult mainResult;
+    private AsyncCallback pfnCallBack;
 
-        public Socket ClientSocket
+    /// <summary>
+    /// Read 10 bytes from the socket connection.
+    /// </summary>
+    private byte[] mainDataBuffer = new byte[10];
+
+    /// <summary>
+    /// Contains the value of the players roll of the dice.
+    /// </summary>
+    private int roll;
+
+    /// <summary>
+    /// Contains the value of the opponents roll of the dice.
+    /// </summary>
+    private string oroll;
+
+    private Socket clientSocket;
+    #endregion
+
+    #region constructor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ClientGameForm" /> class.
+    /// </summary>
+    public ClientGameForm()
+        {
+            this.InitializeComponent();
+            this.textboxIP.Text = this.GetIP();
+        }
+    #endregion
+
+    #region delegate
+    private delegate void SetRichTextBoxRxCallback(string text);
+
+    private delegate void SetTextMainFormCallback(string text);
+
+    private delegate void UpdateControlsCallback(bool listening);
+    #endregion
+
+    #region method
+    #region public method
+    public Socket ClientSocket
         {
             get { return this.clientSocket; }
             set { this.clientSocket = value; }
         }
 
-        /// <summary>
-        /// Read 10 bytes from the socket connection.
-        /// </summary>
-        private byte[] mainDataBuffer = new byte[10];
-        private IAsyncResult mainResult;
-        private AsyncCallback pfnCallBack;
-
-        /// <summary>
-        /// Contains the value of the players roll of the dice.
-        /// </summary>
-        private int roll;
-
-        /// <summary>
-        /// Contains the value of the opponents roll of the dice.
-        /// </summary>
-        private string oroll;
-
-        private delegate void SetRichTextBoxRxCallback(string text);
-
-        private delegate void SetTextMainFormCallback(string text);
-
-        private delegate void UpdateControlsCallback(bool listening);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClientGameForm" /> class.
-        /// </summary>
-        public ClientGameForm()
+    public void WaitForData()
         {
-            this.InitializeComponent();
-            this.textboxIP.Text = this.GetIP();
+            try
+            {
+                if (this.pfnCallBack == null)
+                {
+                    this.pfnCallBack = new AsyncCallback(this.OnDataReceived);
+                }
+
+                SocketPacket theSocPkt = new SocketPacket();
+                theSocPkt.CurrentSocket = this.ClientSocket;
+
+                // Start listening to the data asynchronously
+                this.mainResult = this.ClientSocket.BeginReceive(
+                    theSocPkt.DataBuffer,
+                    0,
+                    theSocPkt.DataBuffer.Length,
+                    SocketFlags.None,
+                    this.pfnCallBack,
+                    theSocPkt);
+            }
+            catch (SocketException se)
+            {
+                if (se.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    this.SetText("Server closed!\n");
+                    this.SetTextLblStatus("Server closed!");
+                    this.ClientSocket.Close();
+                    this.UpdateControls(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.SetText("WaitForData: Socket has been closed. Socket error: " + ex.Message.ToString());
+                this.CloseSocket();
+                this.UpdateControls(false);
+            }
         }
 
-        private void ButtonConnect_Click(object sender, EventArgs e)
+    public void OnDataReceived(IAsyncResult asyn)
+        {
+            try
+            {
+                SocketPacket theSockId = (SocketPacket)asyn.AsyncState;
+                int iRx = theSockId.CurrentSocket.EndReceive(asyn);
+                char[] chars = new char[iRx + 1];
+                Decoder d = Encoding.UTF8.GetDecoder();
+                int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);
+                string data = new string(chars);
+
+                // Ankommende Daten verarbeiten und Service auswählen
+                if (this.Services(data))
+                {
+                    // Auf ankommende Daten warten
+                    this.WaitForData();
+                }
+            }
+            catch (SocketException se)
+            {
+                if (se.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    this.SetText("Server closed!\n");
+                    this.SetTextLblStatus("Server closed!");
+                    this.UpdateControls(false);
+                }
+                ////MessageBox.Show(se.Message);
+            }
+            catch (Exception ex)
+            {
+                this.SetText("OnDataReceived: Socket has been closed Socket error: " + ex.Message.ToString());
+                this.CloseSocket();
+            }
+        }
+
+    public void SetText(string text)
+        {
+            if (this.listboxRx.InvokeRequired)
+            {
+                SetRichTextBoxRxCallback d = new SetRichTextBoxRxCallback(this.SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.listboxRx.Items.Add(text);
+                this.listboxRx.SelectedIndex = this.listboxRx.Items.Count - 1;
+            }
+        }
+
+    public void SetTextLblStatus(string text)
+        {
+            if (BattleshipsForm.LabelStatus.InvokeRequired)
+            {
+                SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                BattleshipsForm.LabelStatus.Text += text;
+                BattleshipsForm.LabelStatus.Text += "\n";
+                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
+                BattleshipsForm.PanelStatus.Refresh();
+            }
+        }
+    #endregion
+
+    #region private method
+    private void ButtonConnect_Click(object sender, EventArgs e)
         {
             // See if we have text on the IP and Port text fields
             if (this.textboxIP.Text == string.Empty || this.textboxPort.Text == string.Empty)
@@ -123,87 +240,13 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        public void WaitForData()
-        {
-            try
-            {
-                if (this.pfnCallBack == null)
-                {
-                    this.pfnCallBack = new AsyncCallback(this.OnDataReceived);
-                }
-
-                SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.CurrentSocket = this.ClientSocket;
-
-                // Start listening to the data asynchronously
-                this.mainResult = this.ClientSocket.BeginReceive(
-                    theSocPkt.DataBuffer,
-                    0,
-                    theSocPkt.DataBuffer.Length,
-                    SocketFlags.None,
-                    this.pfnCallBack,
-                    theSocPkt);
-            }
-            catch (SocketException se)
-            {
-                if (se.SocketErrorCode == SocketError.ConnectionReset)
-                {
-                    this.SetText("Server closed!\n");
-                    this.SetTextLblStatus("Server closed!");
-                    this.ClientSocket.Close();
-                    this.UpdateControls(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                this.SetText("WaitForData: Socket has been closed. Socket error: " + ex.Message.ToString());
-                this.CloseSocket();
-                this.UpdateControls(false);
-            }
-        }
-
-        public void OnDataReceived(IAsyncResult asyn)
-        {
-            try
-            {
-                SocketPacket theSockId = (SocketPacket)asyn.AsyncState;
-                int iRx = theSockId.CurrentSocket.EndReceive(asyn);
-                char[] chars = new char[iRx + 1];
-                Decoder d = Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);
-                string data = new string(chars);
-
-                // Ankommende Daten verarbeiten und Service auswählen
-                if (this.Services(data))
-                {
-                    // Auf ankommende Daten warten
-                    this.WaitForData();
-                }
-            }
-            catch (SocketException se)
-            {
-                if (se.SocketErrorCode == SocketError.ConnectionReset)
-                {
-                    this.SetText("Server closed!\n");
-                    this.SetTextLblStatus("Server closed!");
-                    this.UpdateControls(false);
-                }
-                ////MessageBox.Show(se.Message);
-            }
-            catch (Exception ex)
-            {
-                this.SetText("OnDataReceived: Socket has been closed Socket error: " + ex.Message.ToString());
-                this.CloseSocket();
-            }
-        }
-
-        /// <summary>
-        /// The message from the server.
-        /// evaluates and decides what appropriate operation should be carried out.
-        /// </summary>
-        /// <param name="data">Data received from the server.</param>
-        /// <returns>False if the connection should be closed (e.g. if the server is full).</returns>
-        private bool Services(string data)
+    /// <summary>
+    /// The message from the server.
+    /// evaluates and decides what appropriate operation should be carried out.
+    /// </summary>
+    /// <param name="data">Data received from the server.</param>
+    /// <returns>False if the connection should be closed (e.g. if the server is full).</returns>
+    private bool Services(string data)
         {
             // Server has confirmed connection
             // else if: Server is full, close connection
@@ -356,7 +399,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             return true;
         }
 
-        private void ButtonReady_Click(object sender, EventArgs e)
+    private void ButtonReady_Click(object sender, EventArgs e)
         {
             // Überprüfen ob alle Schiffe verteilt wurden
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
@@ -418,11 +461,11 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        /// <summary>
-        /// Determines the internal IP address of your PC.
-        /// </summary>
-        /// <returns>IP address as a string.</returns>
-        private string GetIP()
+    /// <summary>
+    /// Determines the internal IP address of your PC.
+    /// </summary>
+    /// <returns>IP address as a string.</returns>
+    private string GetIP()
         {
             string strHostName = Dns.GetHostName();
 
@@ -444,37 +487,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             return stringCurrentIP;
         }
 
-        public void SetText(string text)
-        {
-            if (this.listboxRx.InvokeRequired)
-            {
-                SetRichTextBoxRxCallback d = new SetRichTextBoxRxCallback(this.SetText);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                this.listboxRx.Items.Add(text);
-                this.listboxRx.SelectedIndex = this.listboxRx.Items.Count - 1;
-            }
-        }
-
-        public void SetTextLblStatus(string text)
-        {
-            if (BattleshipsForm.LabelStatus.InvokeRequired)
-            {
-                SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                BattleshipsForm.LabelStatus.Text += text;
-                BattleshipsForm.LabelStatus.Text += "\n";
-                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
-                BattleshipsForm.PanelStatus.Refresh();
-            }
-        }
-
-        private void UpdateControls(bool status)
+    private void UpdateControls(bool status)
         {
             if (this.btnConnect.InvokeRequired)
             {
@@ -489,7 +502,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void CloseSocket()
+    private void CloseSocket()
         {
             if (this.ClientSocket != null)
             {
@@ -504,15 +517,17 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             this.UpdateControls(false);
         }
 
-        private void ButtonDisconnect_Click(object sender, EventArgs e)
+    private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
             this.CloseSocket();         
         }
 
-        private void ClientGameFormClosed(object sender, FormClosedEventArgs e)
+    private void ClientGameFormClosed(object sender, FormClosedEventArgs e)
         {
             this.CloseSocket();
             Battleships.BattleshipsForm.NetworkFormOpen = 0;
         }
+    #endregion
+    #endregion
     }
 }

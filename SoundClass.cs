@@ -16,12 +16,14 @@
 
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Media;
 using System.Text;
+#endregion
 
 /// <summary>
 /// Sound player class.

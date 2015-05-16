@@ -340,7 +340,6 @@ namespace Battleships
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Battleships - The Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BattleshipsForm_FormClosing);
-            this.Load += new System.EventHandler(this.BattleshipsForm_Load);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);

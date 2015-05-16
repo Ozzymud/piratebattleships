@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------------
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,120 +30,184 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// The host server game window.
 /// </summary>
 public partial class HostGameForm : Battleships.DoubleBufferedForm
     {
-        /// <summary>
-        /// Sends a request to an external web page.
-        /// The received response is the external IP.
-        /// </summary>
-        /// <returns>External IP Address (String).</returns>
-        private static string GetExternalIP()
+    #region field
+    private Socket workerSocket;
+
+    private int clientCount = 0;
+
+    /// <summary>
+    /// Define a callback.
+    /// </summary>
+    private AsyncCallback pfnWorkerCallBack;
+
+    /// <summary>
+    /// The main socket between host and client.
+    /// </summary>
+    private Socket mainSocket;
+
+    /// <summary>
+    /// Contains the value of the players roll of the dice.
+    /// </summary>
+    private int roll;
+
+    /// <summary>
+    /// Contains the value of the opponents roll of the dice.
+    /// </summary>
+    private string oroll;
+    #endregion
+
+    #region constructor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HostGameForm" /> class.
+    /// </summary>
+    public HostGameForm()
         {
-            // Other services:
-            // http://icanhazip.com
-            // http://bot.whatismyipaddress.com
-            // http://ipinfo.io/ip
-            string externalip = new WebClient().DownloadString("http://api.ipify.org").ToString();
-            return externalip;
+            this.InitializeComponent();
+            this.textBoxIP.Text = this.GetIP();
         }
+    #endregion constructor
 
-        private Socket workerSocket;
+    #region delegate
+    private delegate void SetTextCallback(string text);
 
-        public Socket WorkerSocket
+    private delegate void SetTextMainFormCallback(string text);
+
+    private delegate void UpdateControlsCallback(bool listening);
+    #endregion
+
+    #region method
+    #region public
+    public Socket WorkerSocket
         {
             get { return this.workerSocket; }
             set { this.workerSocket = value; }
         }
 
-        private int clientCount = 0;
-
-        public int ClientCount
+    public int ClientCount
         {
             get { return this.clientCount; }
             set { this.clientCount = value; }
         }
 
-        /// <summary>
-        /// Define a callback.
-        /// </summary>
-        private AsyncCallback pfnWorkerCallBack;
-
-        /// <summary>
-        /// The main socket between host and client.
-        /// </summary>
-        private Socket mainSocket;
-
-        /// <summary>
-        /// Contains the value of the players roll of the dice.
-        /// </summary>
-        private int roll;
-
-        /// <summary>
-        /// Contains the value of the opponents roll of the dice.
-        /// </summary>
-        private string oroll;
-
-        private delegate void SetTextCallback(string text);
-
-        private delegate void SetTextMainFormCallback(string text);
-
-        private delegate void UpdateControlsCallback(bool listening);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HostGameForm" /> class.
-        /// </summary>
-        public HostGameForm()
+    public void SetText(string text)
         {
-            this.InitializeComponent();
-            this.textBoxIP.Text = this.GetIP();
+            if (this.listboxMessage.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(this.SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.listboxMessage.Items.Add(text);
+                this.listboxMessage.SelectedIndex = this.listboxMessage.Items.Count - 1;
+            }
         }
 
-        private void ButtonHostGame_Click(object sender, EventArgs e)
+    public void SetTextLblStatus(string text)
+        {
+            if (BattleshipsForm.LabelStatus.InvokeRequired)
+            {
+                SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                BattleshipsForm.LabelStatus.Text += text;
+                BattleshipsForm.LabelStatus.Text += "\n";
+                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
+                BattleshipsForm.PanelStatus.Refresh();
+            }
+        }
+
+    // Start waiting for data from the client
+    public void WaitForData(System.Net.Sockets.Socket soc)
         {
             try
             {
-                // Check the port value
-                if (this.textBoxPort.Text == string.Empty)
+                if (this.pfnWorkerCallBack == null)
                 {
-                    MessageBox.Show("Bitte geben Sie einen Port an");
-                    return;
+                    // Specify the call back function which is to be 
+                    // invoked when there is any write activity by the 
+                    // connected client
+                    this.pfnWorkerCallBack = new AsyncCallback(this.OnDataReceived);
                 }
 
-                string portStr = this.textBoxPort.Text;
-                    int port = System.Convert.ToInt32(portStr);
+                SocketPacket theSocPkt = new SocketPacket();
+                theSocPkt.CurrentSocket = soc;
 
-                    // Create the listening socket...
-                    this.mainSocket = new Socket(
-                                       AddressFamily.InterNetwork,
-                                       SocketType.Stream,
-                                       ProtocolType.Tcp);
-                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
-
-                    // Bind to local IP Address...
-                    this.mainSocket.Bind(endPoint);
-
-                    // Start listening...
-                    this.listboxMessage.Items.Add("Initialize Server...");
-                    this.mainSocket.Listen(1);
-                    this.listboxMessage.Items.Add("Server initialized");
-
-                    // Create the call back for any client connections...
-                    this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
-
-                    this.UpdateControls(true);
-                    this.listboxMessage.Items.Add("Waiting for Client...");
+                // Start receiving any data written by the connected client
+                // asynchronously
+                soc.BeginReceive(theSocPkt.DataBuffer, 0, theSocPkt.DataBuffer.Length, SocketFlags.None, this.pfnWorkerCallBack, theSocPkt);
             }
             catch (SocketException se)
             {
                 this.SetText(se.Message);
+                --this.clientCount;     
             }
         }
 
-        public void OnClientConnect(IAsyncResult asyn)
+    // This the call back function which will be invoked when the socket
+    // detects any client writing of data on the stream
+    public void OnDataReceived(IAsyncResult asyn)
+        {
+            try
+            {
+                SocketPacket socketData = (SocketPacket)asyn.AsyncState;
+
+                int iRx = 0;
+
+                // Complete the BeginReceive() asynchronous call by EndReceive() method
+                // which will return the number of characters written to the stream 
+                // by the client
+                iRx = socketData.CurrentSocket.EndReceive(asyn);
+                char[] chars = new char[iRx + 1];
+                Decoder d = Encoding.UTF8.GetDecoder();
+                int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
+                string data = new string(chars);
+                //// richTextBoxReceivedMsg.AppendText(data);
+                //// SetTextRichTextBox(data);
+
+                // Empfangene Daten verarbeiten und entsperchenden Service auswählen
+                this.Services(data);
+
+                // Continue the waiting for data on the Socket
+                this.WaitForData(socketData.CurrentSocket);
+            }
+            catch (SocketException se)
+            {
+                if (se.SocketErrorCode == SocketError.ConnectionReset)
+                {
+                    this.SetText("Client at " + this.WorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
+                    this.Activate();
+                    try
+                    {
+                        this.WorkerSocket.Close();
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    this.WorkerSocket = null;
+                    this.clientCount--;
+                }
+
+                // MessageBox.Show(se.Message);
+            }
+            catch (Exception ex)
+            {
+                this.SetText("OnDataReceived: Socket has been closed Socket error: " + ex.Message.ToString());
+                this.CloseSockets();
+            }
+        }
+
+    public void OnClientConnect(IAsyncResult asyn)
         {
             try
             {
@@ -204,93 +269,26 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 this.SetText(se.Message);
             }
         }
+    #endregion
 
-        // Start waiting for data from the client
-        public void WaitForData(System.Net.Sockets.Socket soc)
+    #region private static
+    private static string GetExternalIP()
         {
-            try
-            {
-                if (this.pfnWorkerCallBack == null)
-                {
-                    // Specify the call back function which is to be 
-                    // invoked when there is any write activity by the 
-                    // connected client
-                    this.pfnWorkerCallBack = new AsyncCallback(this.OnDataReceived);
-                }
-
-                SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.CurrentSocket = soc;
-
-                // Start receiving any data written by the connected client
-                // asynchronously
-                soc.BeginReceive(theSocPkt.DataBuffer, 0, theSocPkt.DataBuffer.Length, SocketFlags.None, this.pfnWorkerCallBack, theSocPkt);
-            }
-            catch (SocketException se)
-            {
-                this.SetText(se.Message);
-                --this.clientCount;     
-            }
+            // Other services:
+            // http://icanhazip.com
+            // http://bot.whatismyipaddress.com
+            // http://ipinfo.io/ip
+            string externalip = new WebClient().DownloadString("http://api.ipify.org").ToString();
+            return externalip;
         }
+    #endregion
 
-        // This the call back function which will be invoked when the socket
-        // detects any client writing of data on the stream
-        public void OnDataReceived(IAsyncResult asyn)
-        {
-            try
-            {
-                SocketPacket socketData = (SocketPacket)asyn.AsyncState;
-
-                int iRx = 0;
-
-                // Complete the BeginReceive() asynchronous call by EndReceive() method
-                // which will return the number of characters written to the stream 
-                // by the client
-                iRx = socketData.CurrentSocket.EndReceive(asyn);
-                char[] chars = new char[iRx + 1];
-                Decoder d = Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
-                string data = new string(chars);
-                //// richTextBoxReceivedMsg.AppendText(data);
-                //// SetTextRichTextBox(data);
-
-                // Empfangene Daten verarbeiten und entsperchenden Service auswählen
-                this.Services(data);
-
-                // Continue the waiting for data on the Socket
-                this.WaitForData(socketData.CurrentSocket);
-            }
-            catch (SocketException se)
-            {
-                if (se.SocketErrorCode == SocketError.ConnectionReset)
-                {
-                    this.SetText("Client at " + this.WorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
-                    this.Activate();
-                    try
-                    {
-                        this.WorkerSocket.Close();
-                    }
-                    catch (Exception)
-                    {
-                    }
-
-                    this.WorkerSocket = null;
-                    this.clientCount--;
-                }
-
-                // MessageBox.Show(se.Message);
-            }
-            catch (Exception ex)
-            {
-                this.SetText("OnDataReceived: Socket has been closed Socket error: " + ex.Message.ToString());
-                this.CloseSockets();
-            }
-        }
-
-        /// <summary>
-        /// Processes the received data and performs the appropriate operation.
-        /// </summary>
-        /// <param name="data">Receive data from the other player.</param>
-        private void Services(string data)
+    #region private
+    /// <summary>
+    /// Processes the received data and performs the appropriate operation.
+    /// </summary>
+    /// <param name="data">Receive data from the other player.</param>
+    private void Services(string data)
         {
             // Koordinaten vom Gegner erhalten (Auswerten ob an den Koords ein Schiff gesetzt ist oder nicht)
             if (data.Contains("pf_"))
@@ -419,7 +417,116 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        private void ButtonReady_Click(object sender, EventArgs e)
+    private void UpdateControls(bool listening)
+        {
+            if (this.btnCloseGame.InvokeRequired)
+            {
+                UpdateControlsCallback d = new UpdateControlsCallback(this.UpdateControls);
+                this.Invoke(d, new object[] { listening });
+            }
+            else
+            {
+                this.btnHostGame.Enabled = !listening;
+                this.btnCloseGame.Enabled = listening;
+                this.btnRdy.Enabled = listening;
+            }
+        }
+
+    private void CloseSockets()
+        {
+            if (this.mainSocket != null)
+            {
+                this.mainSocket.Close();
+            }
+
+            if (this.WorkerSocket != null)
+            {
+                this.WorkerSocket.Close(1);
+                this.WorkerSocket = null;
+            }
+
+            BattleshipsForm.PlayerReadyToPlay = false;
+            BattleshipsForm.OpponentReadyToPlay = false;
+            this.SetText("Server closed!");
+            this.SetTextLblStatus("Server closed!");
+        }
+
+    /// <summary>
+    /// Determines the internal IP address of the PC.
+    /// </summary>
+    /// <returns>Internal IP-Address as a string.</returns>
+    private string GetIP()
+        {
+            string strHostName = Dns.GetHostName();
+
+            // Find host by name
+            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
+            //// Dns.GetHostByName(strHostName);
+
+            // Grab the first IP addresses
+            string stringCurrentIP = string.Empty;
+            foreach (IPAddress ipaddress in iphostentry.AddressList)
+            {     
+                // Die erste IPV4 Adresse aus der Adressliste wählen
+                if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    stringCurrentIP = ipaddress.ToString();
+                    return stringCurrentIP;
+                }                  
+            }
+
+            return stringCurrentIP;
+        }
+
+    private void HostGameForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.CloseSockets();
+            Battleships.BattleshipsForm.NetworkFormOpen = 0;
+        }
+
+    #region mouse events
+    private void ButtonHostGame_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check the port value
+                if (this.textBoxPort.Text == string.Empty)
+                {
+                    MessageBox.Show("Bitte geben Sie einen Port an");
+                    return;
+                }
+
+                string portStr = this.textBoxPort.Text;
+                    int port = System.Convert.ToInt32(portStr);
+
+                    // Create the listening socket...
+                    this.mainSocket = new Socket(
+                                       AddressFamily.InterNetwork,
+                                       SocketType.Stream,
+                                       ProtocolType.Tcp);
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
+
+                    // Bind to local IP Address...
+                    this.mainSocket.Bind(endPoint);
+
+                    // Start listening...
+                    this.listboxMessage.Items.Add("Initialize Server...");
+                    this.mainSocket.Listen(1);
+                    this.listboxMessage.Items.Add("Server initialized");
+
+                    // Create the call back for any client connections...
+                    this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
+
+                    this.UpdateControls(true);
+                    this.listboxMessage.Items.Add("Waiting for Client...");
+            }
+            catch (SocketException se)
+            {
+                this.SetText(se.Message);
+            }
+        }
+
+    private void ButtonReady_Click(object sender, EventArgs e)
         {
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
@@ -479,117 +586,23 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-        /// <summary>
-        /// Determines the internal IP address of the PC.
-        /// </summary>
-        /// <returns>Internal IP-Address as a string.</returns>
-        private string GetIP()
-        {
-            string strHostName = Dns.GetHostName();
-
-            // Find host by name
-            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-            //// Dns.GetHostByName(strHostName);
-
-            // Grab the first IP addresses
-            string stringCurrentIP = string.Empty;
-            foreach (IPAddress ipaddress in iphostentry.AddressList)
-            {     
-                // Die erste IPV4 Adresse aus der Adressliste wählen
-                if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    stringCurrentIP = ipaddress.ToString();
-                    return stringCurrentIP;
-                }                  
-            }
-
-            return stringCurrentIP;
-        }
-
-        public void SetText(string text)
-        {
-            if (this.listboxMessage.InvokeRequired)
-            {
-                SetTextCallback d = new SetTextCallback(this.SetText);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                this.listboxMessage.Items.Add(text);
-                this.listboxMessage.SelectedIndex = this.listboxMessage.Items.Count - 1;
-            }
-        }
-
-        public void SetTextLblStatus(string text)
-        {
-            if (BattleshipsForm.LabelStatus.InvokeRequired)
-            {
-                SetTextMainFormCallback d = new SetTextMainFormCallback(this.SetTextLblStatus);
-                this.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                BattleshipsForm.LabelStatus.Text += text;
-                BattleshipsForm.LabelStatus.Text += "\n";
-                BattleshipsForm.PanelStatus.VerticalScroll.Value += BattleshipsForm.PanelStatus.VerticalScroll.SmallChange;
-                BattleshipsForm.PanelStatus.Refresh();
-            }
-        }
-
-        private void UpdateControls(bool listening)
-        {
-            if (this.btnCloseGame.InvokeRequired)
-            {
-                UpdateControlsCallback d = new UpdateControlsCallback(this.UpdateControls);
-                this.Invoke(d, new object[] { listening });
-            }
-            else
-            {
-                this.btnHostGame.Enabled = !listening;
-                this.btnCloseGame.Enabled = listening;
-                this.btnRdy.Enabled = listening;
-            }
-        }
-
-        private void ButtonCloseGame_Click(object sender, EventArgs e)
+    private void ButtonCloseGame_Click(object sender, EventArgs e)
         {
             this.CloseSockets();
             this.UpdateControls(false);
         }
 
-        private void CloseSockets()
-        {
-            if (this.mainSocket != null)
-            {
-                this.mainSocket.Close();
-            }
-
-            if (this.WorkerSocket != null)
-            {
-                this.WorkerSocket.Close(1);
-                this.WorkerSocket = null;
-            }
-
-            BattleshipsForm.PlayerReadyToPlay = false;
-            BattleshipsForm.OpponentReadyToPlay = false;
-            this.SetText("Server closed!");
-            this.SetTextLblStatus("Server closed!");
-        }
-
-        private void HostGameForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.CloseSockets();
-            Battleships.BattleshipsForm.NetworkFormOpen = 0;
-        }
-
-        private void ButtonExternalIp_Click(object sender, EventArgs e)
+    private void ButtonExternalIp_Click(object sender, EventArgs e)
         {
             this.textBoxIP.Text = GetExternalIP();
         }
 
-        private void ButtonInternalIP_Click(object sender, EventArgs e)
+    private void ButtonInternalIP_Click(object sender, EventArgs e)
         {
             this.textBoxIP.Text = this.GetIP();
         }
+    #endregion
+    #endregion
+    #endregion
     }
 }

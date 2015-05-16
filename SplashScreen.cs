@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------------
 namespace Battleships
 {
+#region directives
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,12 +26,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+#endregion
 
 /// <summary>
 /// Splash screen for the program.
 /// </summary>
 public partial class SplashScreen : Battleships.DoubleBufferedForm
     {
+        #region constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="SplashScreen" /> class.
         /// </summary>
@@ -41,7 +44,9 @@ public partial class SplashScreen : Battleships.DoubleBufferedForm
             this.Visible = false;
             this.Opacity = 0;
         }
+        #endregion
 
+        #region methods
         /// <summary>
         /// Fade the form in slowly and play a sound.
         /// </summary>
@@ -70,5 +75,6 @@ public partial class SplashScreen : Battleships.DoubleBufferedForm
             this.BringToFront();
             Application.DoEvents();
         }
+        #endregion
     }
 }
