@@ -212,7 +212,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 }
 
                 SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.MainCurrentSocket = soc;
+                theSocPkt.CurrentSocket = soc;
 
                 // Start receiving any data written by the connected client
                 // asynchronously
@@ -238,7 +238,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 // Complete the BeginReceive() asynchronous call by EndReceive() method
                 // which will return the number of characters written to the stream 
                 // by the client
-                iRx = socketData.MainCurrentSocket.EndReceive(asyn);
+                iRx = socketData.CurrentSocket.EndReceive(asyn);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
@@ -250,7 +250,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 this.Services(data);
 
                 // Continue the waiting for data on the Socket
-                this.WaitForData(socketData.MainCurrentSocket);
+                this.WaitForData(socketData.CurrentSocket);
             }
             catch (SocketException se)
             {

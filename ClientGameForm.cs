@@ -123,7 +123,7 @@ using System.Windows.Forms;
                 }
 
                 SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.MainCurrentSocket = this.ClientSocket;
+                theSocPkt.CurrentSocket = this.ClientSocket;
 
                 // Start listening to the data asynchronously
                 this.mainResult = this.ClientSocket.BeginReceive(
@@ -157,7 +157,7 @@ using System.Windows.Forms;
             try
             {
                 SocketPacket theSockId = (SocketPacket)asyn.AsyncState;
-                int iRx = theSockId.MainCurrentSocket.EndReceive(asyn);
+                int iRx = theSockId.CurrentSocket.EndReceive(asyn);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);

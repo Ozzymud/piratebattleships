@@ -28,7 +28,34 @@ using System.Text;
 /// </summary>
 internal class SocketPacket
     {
-    public System.Net.Sockets.Socket MainCurrentSocket;
-    public byte[] DataBuffer = new byte[10];
+    private System.Net.Sockets.Socket currentSocket;
+
+    public System.Net.Sockets.Socket CurrentSocket
+    {
+        get
+        {
+            return this.currentSocket;
+        }
+        
+        set
+        {
+            this.currentSocket = value;
+        }
+    }
+
+    private byte[] dataBuffer = new byte[10];
+
+    public byte[] DataBuffer
+    {
+        get
+        {
+            return this.dataBuffer;
+        }
+        
+        set
+        {
+            this.dataBuffer = value;
+        }
+    }
 }
 }
