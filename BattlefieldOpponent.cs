@@ -263,7 +263,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                             // has a game been joined?
                             if (BattleshipsForm.ClientGameForm != null)
                             {
-                                if (BattleshipsForm.ClientGameForm.MainClientSocket != null)
+                                if (BattleshipsForm.ClientGameForm.ClientSocket != null)
                                 {
                                     try
                                     {
@@ -271,7 +271,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                                         byte[] byteData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
                                         // Send coordinates of the current field to server
-                                        BattleshipsForm.ClientGameForm.MainClientSocket.Send(byteData);
+                                        BattleshipsForm.ClientGameForm.ClientSocket.Send(byteData);
 
                                         // Wait for a response (HIT\MISS\WIN\LOSE)
                                         BattleshipsForm.ClientGameForm.WaitForData();
@@ -287,7 +287,7 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                             // Or do I host a game myself?
                                 try
                                 {
-                                    if (BattleshipsForm.HostGameForm.MainWorkerSocket != null)
+                                    if (BattleshipsForm.HostGameForm.WorkerSocket != null)
                                     {
                                         try
                                         {
@@ -295,15 +295,15 @@ public class BattlefieldOpponent : Battleships.DoubleBufferedPanel
                                             byte[] byteData = System.Text.Encoding.ASCII.GetBytes(sendData.ToString());
 
                                             // Send coordinates of the current field to Server
-                                            BattleshipsForm.HostGameForm.MainWorkerSocket.Send(byteData);
+                                            BattleshipsForm.HostGameForm.WorkerSocket.Send(byteData);
 
                                             // wait for an answer (HIT\MISS\WIN\LOSE)
-                                            BattleshipsForm.HostGameForm.WaitForData(BattleshipsForm.HostGameForm.MainWorkerSocket);
+                                            BattleshipsForm.HostGameForm.WaitForData(BattleshipsForm.HostGameForm.WorkerSocket);
                                         }
                                         catch (Exception ex)
                                         {
                                             BattleshipsForm.HostGameForm.SetText(ex.ToString());
-                                            BattleshipsForm.HostGameForm.MainClientCount--;
+                                            BattleshipsForm.HostGameForm.ClientCount--;
                                         }
                                     }
                                 }

@@ -32,7 +32,21 @@ using System.Windows.Forms;
 
     public partial class ClientGameForm : Battleships.DoubleBufferedForm
     {
-        public Socket MainClientSocket;
+        private Socket clientSocket;
+
+        public Socket ClientSocket
+        {
+            get
+            {
+                return this.clientSocket;
+            }
+
+            set
+            {
+            this.clientSocket = value;
+            }
+        }
+
         private byte[] mainDataBuffer = new byte[10];
         private IAsyncResult mainResult;
         private AsyncCallback pfnCallBack;
@@ -65,7 +79,7 @@ using System.Windows.Forms;
                 this.UpdateControls(false);
 
                 // Create the socket instance
-                this.MainClientSocket = new Socket(
+                this.ClientSocket = new Socket(
                     AddressFamily.InterNetwork,
                     SocketType.Stream,
                     ProtocolType.Tcp);
@@ -78,8 +92,8 @@ using System.Windows.Forms;
                 IPEndPoint endPoint = new IPEndPoint(ip, internetPortNumber);
 
                 // Connect to the remote host
-                this.MainClientSocket.Connect(endPoint);
-                if (this.MainClientSocket.Connected)
+                this.ClientSocket.Connect(endPoint);
+                if (this.ClientSocket.Connected)
                 {
                     this.listboxRx.Items.Add("Connected to Server...");
                     this.UpdateControls(true);
@@ -109,10 +123,10 @@ using System.Windows.Forms;
                 }
 
                 SocketPacket theSocPkt = new SocketPacket();
-                theSocPkt.MainCurrentSocket = this.MainClientSocket;
+                theSocPkt.MainCurrentSocket = this.ClientSocket;
 
                 // Start listening to the data asynchronously
-                this.mainResult = this.MainClientSocket.BeginReceive(
+                this.mainResult = this.ClientSocket.BeginReceive(
                     theSocPkt.DataBuffer,
                     0,
                     theSocPkt.DataBuffer.Length,
@@ -126,7 +140,7 @@ using System.Windows.Forms;
                 {
                     this.SetText("Server closed!\n");
                     this.SetTextLblStatus("Server closed!");
-                    this.MainClientSocket.Close();
+                    this.ClientSocket.Close();
                     this.UpdateControls(false);
                 }
             }
@@ -191,10 +205,10 @@ using System.Windows.Forms;
             else if (data.StartsWith("FULL"))
             {
                 this.SetText("Server is full...closing connection!");
-                if (this.MainClientSocket != null)
+                if (this.ClientSocket != null)
                 {
-                    this.MainClientSocket.Close();
-                    this.MainClientSocket = null;
+                    this.ClientSocket.Close();
+                    this.ClientSocket = null;
                     this.UpdateControls(false);
                     this.SetText("Disconnected from Server!");
                 }
@@ -237,9 +251,9 @@ using System.Windows.Forms;
                 byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
                 // Antwort an Gegner schicken
-                if (this.MainClientSocket.Connected)
+                if (this.ClientSocket.Connected)
                 {
-                    this.MainClientSocket.Send(byteData);
+                    this.ClientSocket.Send(byteData);
                 }
 
                 // If opponent has won, then players may no longer have a turn...
@@ -337,9 +351,9 @@ using System.Windows.Forms;
             // Überprüfen ob alle Schiffe verteilt wurden
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
-                if (this.MainClientSocket != null)
+                if (this.ClientSocket != null)
                 {
-                    if (this.MainClientSocket.Connected)
+                    if (this.ClientSocket.Connected)
                     {
                         BattleshipsForm.PlayerReadyToPlay = true;
                         this.btnRdy.Enabled = false;
@@ -350,9 +364,9 @@ using System.Windows.Forms;
                         byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
                         // Antwort an Gegner schicken
-                        if (this.MainClientSocket.Connected)
+                        if (this.ClientSocket.Connected)
                         {
-                            this.MainClientSocket.Send(byteData);
+                            this.ClientSocket.Send(byteData);
                         }
 
                         this.SetTextLblStatus("You rolled: " + this.roll.ToString());
@@ -466,10 +480,10 @@ using System.Windows.Forms;
 
         private void CloseSocket()
         {
-            if (this.MainClientSocket != null)
+            if (this.ClientSocket != null)
             {
-                this.MainClientSocket.Close();
-                this.MainClientSocket = null;
+                this.ClientSocket.Close();
+                this.ClientSocket = null;
             }
 
             BattleshipsForm.PlayerReadyToPlay = false;

@@ -47,8 +47,36 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             return externalip;
         }
 
-        public Socket MainWorkerSocket;
-        public int MainClientCount = 0;
+        private Socket workerSocket;
+
+        public Socket WorkerSocket
+        {
+            get
+            {
+                return this.workerSocket;
+            }
+
+            set
+            {
+            this.workerSocket = value;
+            }
+        }
+
+        private int clientCount = 0;
+
+        public int ClientCount
+        {
+            get
+            {
+                return this.clientCount;
+            }
+
+            set
+            {
+            this.clientCount = value;
+            }
+        }
+
         private AsyncCallback pfnWorkerCallBack;
         private Socket mainSocket;
         private int roll;
@@ -111,19 +139,19 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         {
             try
             {
-                if (this.MainClientCount < 1)
+                if (this.clientCount < 1)
                 {
                     // Here we complete/end the BeginAccept() asynchronous call
                     // by calling EndAccept() - which returns the reference to
                     // a new Socket object
-                    this.MainWorkerSocket = this.mainSocket.EndAccept(asyn);
+                    this.WorkerSocket = this.mainSocket.EndAccept(asyn);
 
                     // Let the worker Socket do the further processing for the
                     // just connected client
-                    this.WaitForData(this.MainWorkerSocket);
+                    this.WaitForData(this.WorkerSocket);
 
                     // Display this client connection as a status message on the GUI
-                    string str = string.Format("Client at {0} connected", this.MainWorkerSocket.RemoteEndPoint.ToString());
+                    string str = string.Format("Client at {0} connected", this.WorkerSocket.RemoteEndPoint.ToString());
                     //// textBoxMsg.Text = str;
                     this.SetText(str);
                     this.SetTextLblStatus(str);
@@ -131,16 +159,16 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     // Ack zum Client schicken (Verbindungsbestätigung)
                     object objData = "ACK";
                     byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
-                    if (this.MainWorkerSocket != null)
+                    if (this.WorkerSocket != null)
                     {
-                        if (this.MainWorkerSocket.Connected)
+                        if (this.WorkerSocket.Connected)
                         {
-                            this.MainWorkerSocket.Send(byteData);
+                            this.WorkerSocket.Send(byteData);
                         }
                     }
                    
                     // Now increment the client count
-                    ++this.MainClientCount;
+                    ++this.clientCount;
 
                     // Since the main Socket is now free, it can go back and wait for
                     // other clients who are attempting to connect
@@ -193,7 +221,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             catch (SocketException se)
             {
                 this.SetText(se.Message);
-                --this.MainClientCount;     
+                --this.clientCount;     
             }
         }
 
@@ -228,17 +256,17 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             {
                 if (se.SocketErrorCode == SocketError.ConnectionReset)
                 {
-                    this.SetText("Client at " + this.MainWorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
+                    this.SetText("Client at " + this.WorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
                     try
                     {
-                        this.MainWorkerSocket.Close();
+                        this.WorkerSocket.Close();
                     }
                     catch (Exception)
                     {
                     }
 
-                    this.MainWorkerSocket = null;
-                    this.MainClientCount--;
+                    this.WorkerSocket = null;
+                    this.clientCount--;
                 }
 
                 // MessageBox.Show(se.Message);
@@ -293,9 +321,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
                 // Send answer to enemy
-                if (this.MainWorkerSocket.Connected)
+                if (this.WorkerSocket.Connected)
                 {
-                    this.MainWorkerSocket.Send(byteData);
+                    this.WorkerSocket.Send(byteData);
                 }
 
                 // If opponent has won, then players may no longer have a turn...
@@ -387,9 +415,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         {
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
-                if (this.MainWorkerSocket != null)
+                if (this.WorkerSocket != null)
                 {
-                    if (this.MainWorkerSocket.Connected)
+                    if (this.WorkerSocket.Connected)
                     {
                         BattleshipsForm.PlayerReadyToPlay = true;
                         this.btnRdy.Enabled = false;
@@ -400,9 +428,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                         byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
                         // Antwort an Gegner schicken
-                        if (this.MainWorkerSocket.Connected)
+                        if (this.WorkerSocket.Connected)
                         {
-                            this.MainWorkerSocket.Send(byteData);
+                            this.WorkerSocket.Send(byteData);
                             this.SetTextLblStatus("You rolled: " + this.roll.ToString());
                         }
 
@@ -527,10 +555,10 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 this.mainSocket.Close();
             }
 
-            if (this.MainWorkerSocket != null)
+            if (this.WorkerSocket != null)
             {
-                this.MainWorkerSocket.Close(1);
-                this.MainWorkerSocket = null;
+                this.WorkerSocket.Close(1);
+                this.WorkerSocket = null;
             }
 
             BattleshipsForm.PlayerReadyToPlay = false;
