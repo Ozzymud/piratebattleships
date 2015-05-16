@@ -60,20 +60,13 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         public static SoundClass SoundPlayer;
 
         private static InfoForm infoForm;
-
+        
         /// <summary>
         /// The label displays the status of the game.
         /// </summary>
         public static Label LabelStatus;
 
         public static Battleships.DoubleBufferedPanel PanelStatus;
-
-        // MenuItems
-        private static ToolStripMenuItem networkMenuItem;
-        public static ToolStripMenuItem JoinGameMenuItem;
-        public static ToolStripMenuItem HostGameMenuItem;
-        private static ToolStripMenuItem helpMenuItem;
-        private static ToolStripMenuItem infoMenuItem;
 
         /// <summary>
         /// The battlefield of the player.
@@ -112,6 +105,14 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         public static int CounterCruiser = 0;
         public static int CounterBoat = 0;
 
+        private static int networkFormOpen = 0;
+        
+        public static int NetworkFormOpen
+        {
+            get { return networkFormOpen; }
+            set { networkFormOpen = value; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the BattleshipsForm class.
         /// The game's interface constructor.
@@ -126,15 +127,15 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 PlayerReadyToPlay = false;
                 OpponentReadyToPlay = false;
 
-                networkMenuItem = new ToolStripMenuItem("&Network");
-                JoinGameMenuItem = new ToolStripMenuItem("&Join game");
-                HostGameMenuItem = new ToolStripMenuItem("&Host game");
-                helpMenuItem = new ToolStripMenuItem("&Help");
-                infoMenuItem = new ToolStripMenuItem("&About");
+                ////this.networkToolStripMenuItem = new ToolStripMenuItem("&Network");
+                ////this.joinToolStripMenuItem = new ToolStripMenuItem("&Join game");
+                ////this.hostToolStripMenuItem = new ToolStripMenuItem("&Host game");
+                ////this.helpToolStripMenuItem = new ToolStripMenuItem("&Help");
+                ////this.aboutToolStripMenuItem = new ToolStripMenuItem("&About");
 
-                JoinGameMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItem_Click);
-                HostGameMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItem_Click);
-                infoMenuItem.Click += new EventHandler(this.InfoMenuItem_Click);
+                ////this.joinToolStripMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItem_Click);
+                ////this.hostToolStripMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItem_Click);
+                ////this.aboutToolStripMenuItem.Click += new EventHandler(this.AboutMenuItem_Click);
 
                 PanelStatus = new Battleships.DoubleBufferedPanel();
                 PanelStatus.Location = new Point(597, 47);
@@ -154,11 +155,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
 
                 this.Controls.Add(PanelStatus);
 
-                networkMenuItem.DropDownItems.Add(HostGameMenuItem);
-                networkMenuItem.DropDownItems.Add(JoinGameMenuItem);
-                helpMenuItem.DropDownItems.Add(infoMenuItem);
-                this.menuStripMain.Items.Add(networkMenuItem);
-                this.menuStripMain.Items.Add(helpMenuItem);
+                ////this.networkToolStripMenuItem.DropDownItems.Add(hostToolStripMenuItem);
+                ////this.networkToolStripMenuItem.DropDownItems.Add(joinToolStripMenuItem);
+                ////this.helpToolStripMenuItem.DropDownItems.Add(aboutToolStripMenuItem);
+                ////this.menuStripMain.Items.Add(networkToolStripMenuItem);
+                ////this.menuStripMain.Items.Add(helpToolStripMenuItem);
 
                 SoundPlayer = new SoundClass();
 
@@ -399,44 +400,65 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         #endregion      
 
         #region ToolStripMenuItems-Events
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();        
         }
 
-        private void JoinGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NetworkToolStripMenuItemClick(object sender, System.EventArgs e)
         {
+            if (BattleshipsForm.networkFormOpen == 0)
+            {
+                this.joinToolStripMenuItem.Enabled = true;
+                this.hostToolStripMenuItem.Enabled = true;
+            }
+            else if (BattleshipsForm.networkFormOpen == 1)
+            {
+                ClientGameForm.WindowState = FormWindowState.Normal;
+                ClientGameForm.Activate();
+            }
+            else if (BattleshipsForm.networkFormOpen == 2)
+            {
+                HostGameForm.WindowState = FormWindowState.Normal;
+                HostGameForm.Activate();
+            }
+        }
+
+        private void JoinToolStripMenuItemClick(object sender, EventArgs e)
+        {
+                BattleshipsForm.NetworkFormOpen = 1;
+                this.hostToolStripMenuItem.Enabled = false;
+                this.joinToolStripMenuItem.Enabled = false;
             if (ClientGameForm == null)
             { 
                 ClientGameForm = new ClientGameForm();
-                HostGameMenuItem.Enabled = false;
                 ClientGameForm.Show(this);
             }
             else if (!ClientGameForm.IsHandleCreated)
             {
                 ClientGameForm = new ClientGameForm();
-                HostGameMenuItem.Enabled = false;
                 ClientGameForm.Show(this);
             }
-        }
+       }
 
-        private void HostGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HostToolStripMenuItemClick(object sender, EventArgs e)
         {
+            BattleshipsForm.NetworkFormOpen = 2;
+            this.hostToolStripMenuItem.Enabled = false;
+            this.joinToolStripMenuItem.Enabled = false;
             if (HostGameForm == null)
             {
                 HostGameForm = new HostGameForm();
-                JoinGameMenuItem.Enabled = false;
                 HostGameForm.Show(this);
             }
             else if (!HostGameForm.IsHandleCreated)
             {
                 HostGameForm = new HostGameForm();
-                JoinGameMenuItem.Enabled = false;
                 HostGameForm.Show(this);
             }
         }
-
-        private void InfoMenuItem_Click(object sender, EventArgs e)
+        
+        private void AboutToolStripMenuItemClick(object sender, System.EventArgs e)
         {
             if (infoForm == null)
             {
@@ -450,7 +472,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             }
         }
         #endregion 
-
+        
         private void ButtonOne_Click(object sender, EventArgs e)
         {
             LabelStatus.Text += "Test\n";

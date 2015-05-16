@@ -44,6 +44,11 @@ namespace Battleships
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.joinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerLabel = new System.Windows.Forms.Label();
             this.enemyLabel = new System.Windows.Forms.Label();
             this.menuStripMain.SuspendLayout();
@@ -212,7 +217,9 @@ namespace Battleships
             this.menuStripMain.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStripMain.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                    this.fileToolStripMenuItem});
+                                    this.fileToolStripMenuItem,
+                                    this.networkToolStripMenuItem,
+                                    this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(0);
@@ -235,7 +242,46 @@ namespace Battleships
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
             this.exitToolStripMenuItem.Text = "&Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
+            // 
+            // networkToolStripMenuItem
+            // 
+            this.networkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                                    this.hostToolStripMenuItem,
+                                    this.joinToolStripMenuItem});
+            this.networkToolStripMenuItem.Name = "networkToolStripMenuItem";
+            this.networkToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.networkToolStripMenuItem.Text = "&Network";
+            this.networkToolStripMenuItem.Click += new System.EventHandler(this.NetworkToolStripMenuItemClick);
+            // 
+            // hostToolStripMenuItem
+            // 
+            this.hostToolStripMenuItem.Name = "hostToolStripMenuItem";
+            this.hostToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.hostToolStripMenuItem.Text = "&Host";
+            this.hostToolStripMenuItem.Click += new System.EventHandler(this.HostToolStripMenuItemClick);
+            // 
+            // joinToolStripMenuItem
+            // 
+            this.joinToolStripMenuItem.Name = "joinToolStripMenuItem";
+            this.joinToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.joinToolStripMenuItem.Text = "&Join";
+            this.joinToolStripMenuItem.Click += new System.EventHandler(this.JoinToolStripMenuItemClick);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                                    this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
             // 
             // playerLabel
             // 
@@ -300,6 +346,11 @@ namespace Battleships
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem joinToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hostToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem networkToolStripMenuItem;
 
         private System.Windows.Forms.Label enemyLabel;
         private System.Windows.Forms.Label playerLabel;

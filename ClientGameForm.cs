@@ -349,6 +349,7 @@ using System.Windows.Forms;
                     if (this.ClientSocket.Connected)
                     {
                         BattleshipsForm.PlayerReadyToPlay = true;
+                        this.WindowState = FormWindowState.Minimized;
                         this.btnRdy.Enabled = false;
 
                         Random rnd = new Random();
@@ -494,7 +495,7 @@ using System.Windows.Forms;
         private void ClientGameFormClosed(object sender, FormClosedEventArgs e)
         {
             this.CloseSocket();
-            BattleshipsForm.HostGameMenuItem.Enabled = true;
+            Battleships.BattleshipsForm.NetworkFormOpen = 0;
         }
     }
 }

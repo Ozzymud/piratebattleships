@@ -113,7 +113,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
 
                     this.UpdateControls(true);
-                    this.listboxMessage.Items.Add("Waiting for Client...");   
+                    this.listboxMessage.Items.Add("Waiting for Client...");
             }
             catch (SocketException se)
             {
@@ -243,6 +243,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 if (se.SocketErrorCode == SocketError.ConnectionReset)
                 {
                     this.SetText("Client at " + this.WorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
+                    this.Activate();
                     try
                     {
                         this.WorkerSocket.Close();
@@ -406,6 +407,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     if (this.WorkerSocket.Connected)
                     {
                         BattleshipsForm.PlayerReadyToPlay = true;
+                        this.WindowState = FormWindowState.Minimized;                    
                         this.btnRdy.Enabled = false;
 
                         Random rnd = new Random();
@@ -556,7 +558,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
         private void HostGameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.CloseSockets();
-            BattleshipsForm.JoinGameMenuItem.Enabled = true;
+            Battleships.BattleshipsForm.NetworkFormOpen = 0;
         }
 
         private void ButtonExternalIp_Click(object sender, EventArgs e)
