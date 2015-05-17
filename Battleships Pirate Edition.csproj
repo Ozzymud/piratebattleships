@@ -136,10 +136,6 @@
     <None Include="Images\17392-schiffe-versenken.jpg" />
     <None Include="Images\2496592065_7d6a6cb6a2_o.jpg" />
     <EmbeddedResource Include="Images\aim.png" />
-    <EmbeddedResource Include="Images\aimcursor.cur">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <LogicalName>aimcursor.cur</LogicalName>
-    </EmbeddedResource>
     <None Include="Images\aoe.jpg" />
     <None Include="Images\aoe2.jpg" />
     <None Include="Images\attackcarrier_shinano.jpg" />

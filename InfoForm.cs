@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -40,9 +41,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     public InfoForm()
     {
         this.InitializeComponent();
-        this.Text = string.Format("Info über {0}", this.AssemblyTitle);
+        this.Text = string.Format(CultureInfo.InvariantCulture, "About {0}", this.AssemblyTitle);
         this.labelProductName.Text = this.AssemblyProduct;
-        this.labelVersion.Text = string.Format("Version {0}", this.AssemblyVersion);
+        this.labelVersion.Text = string.Format(CultureInfo.InvariantCulture, "Version {0}", this.AssemblyVersion);
         this.labelCopyright.Text = this.AssemblyCopyright;
         this.labelCompanyName.Text = this.AssemblyCompany;
         this.textBoxDescription.Text = this.AssemblyDescription;
@@ -59,7 +60,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
             if (attributes.Length > 0)
             {
                 AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                if (titleAttribute.Title != string.Empty)
+                if (!string.IsNullOrEmpty(titleAttribute.Title))
                 {
                     return titleAttribute.Title;
                 }

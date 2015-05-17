@@ -202,7 +202,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
             catch (Exception ex)
             {
-                this.SetText("OnDataReceived: Socket has been closed Socket error: " + ex.Message.ToString());
+                this.SetText("OnDataReceived: " + ex.Message.ToString());
                 this.CloseSockets();
             }
         }
@@ -490,7 +490,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             try
             {
                 // Check the port value
-                if (this.textBoxPort.Text == string.Empty)
+                if (string.IsNullOrEmpty(this.textBoxPort.Text))
                 {
                     MessageBox.Show("Bitte geben Sie einen Port an");
                     return;

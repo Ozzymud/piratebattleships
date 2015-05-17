@@ -221,9 +221,9 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
     private void ButtonConnect_Click(object sender, EventArgs e)
         {
             // See if we have text on the IP and Port text fields
-            if (this.textboxIP.Text == string.Empty || this.textboxPort.Text == string.Empty)
+            if (string.IsNullOrEmpty(this.textboxIP.Text) || string.IsNullOrEmpty(this.textboxPort.Text))
             {
-                MessageBox.Show("IP Address and Port Number are required to connect to the Server");
+                MessageBox.Show("IP Address and Port Number are required to connect to a server.");
                 return;
             }
 

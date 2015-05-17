@@ -109,70 +109,40 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         /// </summary>
         public BattleshipsForm()
         {
-            ////try
-            ////{
-                this.InitializeComponent();
+            this.InitializeComponent();
 
-                // Spieler ist noch nicht bereit (Start des Spiels)
-                PlayerReadyToPlay = false;
-                OpponentReadyToPlay = false;
+            // Player is not yet ready (start of the game)
+            PlayerReadyToPlay = false;
+            OpponentReadyToPlay = false;
+            PanelStatus = new Battleships.DoubleBufferedPanel();
+            PanelStatus.Location = new Point(597, 47);
+            PanelStatus.Size = new System.Drawing.Size(197, 100);
+            PanelStatus.AutoScroll = true;
+            PanelStatus.BackColor = Color.Transparent;
+            PanelStatus.VerticalScroll.SmallChange = 50;
+            PanelStatus.HorizontalScroll.Enabled = true;
+            LabelStatus = new Label();
 
-                ////this.networkToolStripMenuItem = new ToolStripMenuItem("&Network");
-                ////this.joinToolStripMenuItem = new ToolStripMenuItem("&Join game");
-                ////this.hostToolStripMenuItem = new ToolStripMenuItem("&Host game");
-                ////this.helpToolStripMenuItem = new ToolStripMenuItem("&Help");
-                ////this.aboutToolStripMenuItem = new ToolStripMenuItem("&About");
+            // LabelStatus.Dock = DockStyle.Fill;
+            LabelStatus.TextAlign = ContentAlignment.TopLeft;
+            LabelStatus.AutoSize = true;
+            LabelStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0);
+            PanelStatus.Controls.Add(LabelStatus);
+            this.Controls.Add(PanelStatus);
+            SoundPlayer = new SoundClass();
+            BattlefieldPlayer = new BattlefieldPlayer(BattlefieldPlayerX, BattlefieldPlayerY);
+            BattlefieldOpponent = new BattlefieldOpponent(BattlefieldOpponentX, BattlefieldOpponentY);
 
-                ////this.joinToolStripMenuItem.Click += new EventHandler(this.JoinGameToolStripMenuItem_Click);
-                ////this.hostToolStripMenuItem.Click += new EventHandler(this.HostGameToolStripMenuItem_Click);
-                ////this.aboutToolStripMenuItem.Click += new EventHandler(this.AboutMenuItem_Click);
+            // Add the battlefield forms.
+            this.Controls.Add(BattlefieldPlayer);
+            this.Controls.Add(BattlefieldOpponent);
 
-                PanelStatus = new Battleships.DoubleBufferedPanel();
-                PanelStatus.Location = new Point(597, 47);
-                PanelStatus.Size = new System.Drawing.Size(197, 100);
-                PanelStatus.AutoScroll = true;
-                PanelStatus.BackColor = Color.Transparent;
-                PanelStatus.VerticalScroll.SmallChange = 50;
-                PanelStatus.HorizontalScroll.Enabled = true;
-
-                LabelStatus = new Label();
-
-                // LabelStatus.Dock = DockStyle.Fill;
-                LabelStatus.TextAlign = ContentAlignment.TopLeft;
-                LabelStatus.AutoSize = true;
-                LabelStatus.Font = new System.Drawing.Font("Book Antiqua", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0);
-                PanelStatus.Controls.Add(LabelStatus);
-
-                this.Controls.Add(PanelStatus);
-
-                ////this.networkToolStripMenuItem.DropDownItems.Add(hostToolStripMenuItem);
-                ////this.networkToolStripMenuItem.DropDownItems.Add(joinToolStripMenuItem);
-                ////this.helpToolStripMenuItem.DropDownItems.Add(aboutToolStripMenuItem);
-                ////this.menuStripMain.Items.Add(networkToolStripMenuItem);
-                ////this.menuStripMain.Items.Add(helpToolStripMenuItem);
-
-                SoundPlayer = new SoundClass();
-
-                BattlefieldPlayer = new BattlefieldPlayer(BattlefieldPlayerX, BattlefieldPlayerY);
-                BattlefieldOpponent = new BattlefieldOpponent(BattlefieldOpponentX, BattlefieldOpponentY);
-
-                // Schlachtfelder der Hautpform Hinzufügen
-                this.Controls.Add(BattlefieldPlayer);
-                this.Controls.Add(BattlefieldOpponent);
-
-                SplashScreen splash = new SplashScreen();
-                splash.ShowForm(); // Splashscreen anzeigen (langsam einblenden)
-                Thread.Sleep(1000); // Splashscreen für 1sek. anzeigen
-                splash.Close(); // Splashscreen schließen
-                splash.Dispose(); // Ressourcen freigeben
-            ////}
-            ////finally
-            ////{
-                // HACK: this throws an error, but caught errors need to be fixed eventually i think
-                // sloppy change to at least run program without crash on start
-                //// catch (Exception ex)
-                //// MessageBox.Show(this, ex.Message + " " + ex.InnerException.ToString());
-            ////}
+            SplashScreen splash = new SplashScreen();
+            splash.ShowForm(); // Show splash screen (slow fade-in).
+            Thread.Sleep(1000); // Show Splash Screen for 1 sec.
+            splash.Close(); // Splash screen close.
+            splash.Dispose(); // Release resources.
+            this.UpdateRichText("Hello");
         }
         #endregion
 
@@ -289,7 +259,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         #region Form-Events
         private void BattleshipsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Wollen Sie das Spiel wirklich beenden?", "Beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+            if (MessageBox.Show("Do you want to quit the game?", "Exit?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
             {
                 e.Cancel = true;
             }
@@ -301,7 +271,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         {
             switch (e.Button)
             {
-                // Linksklick
+                // Left click
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
 
@@ -384,7 +354,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
 
-                    // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
+                    // Ship may be selected only when a ship is not already selected
                     if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
                     {
                         BattlefieldPlayer.CounterBoat = CounterBoat;

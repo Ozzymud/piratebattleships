@@ -54,12 +54,11 @@ internal class SocketPacket
     }
 
     /// <summary>
-    /// Gets or sets data in the SocketPacket data buffer.
+    /// Gets data in the SocketPacket data buffer.
     /// </summary>
     public byte[] DataBuffer
     {
         get { return this.dataBuffer; }
-        set { this.dataBuffer = value; }
     }
     #endregion
     #endregion
