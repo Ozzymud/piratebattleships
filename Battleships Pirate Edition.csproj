@@ -22,6 +22,8 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <AssemblyOriginatorKeyFile>Battleships Pirate Edition.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <RunCodeAnalysis>False</RunCodeAnalysis>
+    <CodeAnalysisRules>-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1815</CodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -133,7 +135,11 @@
     </Compile>
     <None Include="Images\17392-schiffe-versenken.jpg" />
     <None Include="Images\2496592065_7d6a6cb6a2_o.jpg" />
-    <None Include="Images\aim.png" />
+    <EmbeddedResource Include="Images\aim.png" />
+    <EmbeddedResource Include="Images\aimcursor.cur">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <LogicalName>aimcursor.cur</LogicalName>
+    </EmbeddedResource>
     <None Include="Images\aoe.jpg" />
     <None Include="Images\aoe2.jpg" />
     <None Include="Images\attackcarrier_shinano.jpg" />

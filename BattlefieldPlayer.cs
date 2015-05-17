@@ -133,27 +133,27 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             /// <summary>
             /// No ship.
             /// </summary>
-            nothing = 0,
+            NoShip = 0,
 
             /// <summary>
             /// A galley.
             /// </summary>
-            galley = 1,
+            Galley = 1,
 
             /// <summary>
             /// A battleship.
             /// </summary>
-            battleship = 2,
+            Battleship = 2,
 
             /// <summary>
             /// A cruiser.
             /// </summary>
-            cruiser = 3,
+            Cruiser = 3,
 
             /// <summary>
             /// A boat.
             /// </summary>
-            boat = 4
+            Boat = 4
         }
     #endregion
 
@@ -682,7 +682,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             switch (this.Ships)
             {
                 // galley
-                case ShipModels.galley:
+                case ShipModels.Galley:
                     if (this.horizontal)
                     {
                         // horizontal
@@ -716,7 +716,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x - 3, y].Name = this.galleyReference.ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -764,7 +764,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 3, y].Name = this.galleyReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -816,7 +816,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y - 3].Name = galleyReference.ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -863,7 +863,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y + 3].Name = galleyReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -884,7 +884,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.battleship: // battleship
+                case ShipModels.Battleship: // battleship
                     if (this.horizontal)
                     {
                         // horizontal
@@ -903,7 +903,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.pf[x - 3, y].Tag = 1;
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
 
                                 this.battleshipReference.ShipName = "Battleship";
                                 this.battleshipReference.PosRearX = x;
@@ -966,7 +966,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 3, y].Name = this.battleshipReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1018,7 +1018,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y - 3].Name = battleshipReference.ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1065,7 +1065,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y + 3].Name = battleshipReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1086,7 +1086,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.cruiser: // Cruiser
+                case ShipModels.Cruiser: // Cruiser
                     if (this.horizontal)
                     {
                         // horizontal
@@ -1116,7 +1116,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x - 2, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1158,7 +1158,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 2, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1204,7 +1204,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y - 2].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1245,7 +1245,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y + 2].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1264,7 +1264,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.boat: // boat
+                case ShipModels.Boat: // boat
                     if (this.horizontal)
                     {
                         // horizontal
@@ -1293,7 +1293,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x - 1, y].Name = this.boatReference[this.CounterBoat].ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
-                                this.Ships = ShipModels.nothing;
+                                this.Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1327,7 +1327,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.boatReference[this.CounterBoat].Horizontal = this.horizontal;
                                 this.playfieldStore[x, y].Name = this.boatReference[this.CounterBoat].ShipName + "_" + "Rear";
                                 this.playfieldStore[x + 1, y].Name = this.boatReference[this.CounterBoat].ShipName + "_" + "Front";
-                                this.Ships = ShipModels.nothing; // Schiffsauswahl auf nothing setzen
+                                this.Ships = ShipModels.NoShip; // Schiffsauswahl auf nothing setzen
                             }
                             else
                             {
@@ -1365,7 +1365,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 boatReference[CounterBoat].Horizontal = horizontal;
                                 playfieldStore[x, y].Name = boatReference[CounterBoat].ShipName + "_" + "Front";
                                 playfieldStore[x, y - 1].Name = boatReference[CounterBoat].ShipName + "_" + "Rear";
-                                Ships = ShipModels.nothing; // Schiffsauswahl auf nothing setzen
+                                Ships = ShipModels.NoShip; // Schiffsauswahl auf nothing setzen
                             }
                             else
                             {
@@ -1403,7 +1403,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playfieldStore[x, y + 1].Name = boatReference[CounterBoat].ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
-                                Ships = ShipModels.nothing;
+                                Ships = ShipModels.NoShip;
                             }
                             else
                             {
@@ -1438,7 +1438,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
 
             switch (this.Ships)
             {
-                case ShipModels.galley: // galley
+                case ShipModels.Galley: // galley
                     if (this.horizontal)
                     {
                         // horizontal
@@ -1492,7 +1492,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.battleship: // battleship
+                case ShipModels.Battleship: // battleship
                     if (this.horizontal)
                     {
                         // horizontal
@@ -1546,7 +1546,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.cruiser: // Cruiser
+                case ShipModels.Cruiser: // Cruiser
                     if (this.horizontal)
                     {
                         // horizontal
@@ -1596,7 +1596,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
 
                     break;
-                case ShipModels.boat: // boat
+                case ShipModels.Boat: // boat
                     if (this.horizontal)
                     {
                         // horizontal

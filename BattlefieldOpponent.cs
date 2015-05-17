@@ -22,6 +22,7 @@ namespace Battleships
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -70,7 +71,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 p.Location = new Point(i * 30, j * 30);
                 p.Tag = 0;
                 p.Margin = new Padding(0);
-                p.Name = "pf_" + i.ToString() + ":" + j.ToString();
+                p.Name = "pf_" + i.ToString(CultureInfo.InvariantCulture) + ":" + j.ToString(CultureInfo.InvariantCulture);
                 p.Size = new Size(30, 30);
                 p.BorderStyle = BorderStyle.FixedSingle;
                 p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
@@ -277,8 +278,8 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
-                Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
-
+                // CA1804 declares a variable, 'charLen', of type 'int', which is never used or is only assigned to. Use this variable or remove it.
+                ////Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
                     for (int j = 0; j < this.pb.GetLength(1); j++)
@@ -390,11 +391,32 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// </summary>
     public struct IconInfo
     {
-        public bool ParameterfIcon;
-        public int HotspotX;
-        public int HotspotY;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Using Win32 naming for consistency.")]
+        private bool fIcon;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Using Win32 naming for consistency.")]
+        private int yHotspot;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1305:FieldNamesMustNotUseHungarianNotation", Justification = "Using Win32 naming for consistency.")]
+        private int xHotspot;
         private IntPtr hbmMask;
         private IntPtr hbmColor;
+
+        public bool ParameterfIcon
+        {
+            get { return this.fIcon; }
+            set { this.fIcon = value; }
+        }
+        
+        public int HotspotX
+        {
+            get { return this.xHotspot; }
+            set { this.xHotspot = value; }
+        }
+
+        public int HotspotY
+        {
+            get { return this.yHotspot; }
+            set { this.yHotspot = value; }
+        }
     }
     #endregion
     }

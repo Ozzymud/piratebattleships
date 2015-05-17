@@ -306,11 +306,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
                     {
                         BattlefieldPlayer.CounterGalley = CounterGalley;
                         CounterGalley++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.galley;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Galley;
 
                         if (CounterGalley == MaxNumberGalley)
                         {
@@ -333,11 +333,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
                     {
                         BattlefieldPlayer.CounterBattleship = CounterBattleship;
                         CounterBattleship++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.battleship;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Battleship;
 
                         if (CounterBattleship == MaxNumberBattleship)
                         {
@@ -359,11 +359,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
                     {
                         BattlefieldPlayer.CounterCruiser = CounterCruiser;
                         CounterCruiser++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.cruiser;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Cruiser;
 
                         if (CounterCruiser == MaxNumberCruiser)
                         {
@@ -385,11 +385,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.nothing))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
                     {
                         BattlefieldPlayer.CounterBoat = CounterBoat;
                         CounterBoat++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.boat;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Boat;
 
                         if (CounterBoat == MaxNumberBoat)
                         {
