@@ -142,7 +142,6 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             Thread.Sleep(1000); // Show Splash Screen for 1 sec.
             splash.Close(); // Splash screen close.
             splash.Dispose(); // Release resources.
-            this.UpdateRichText("Hello");
         }
         #endregion
 
