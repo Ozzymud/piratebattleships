@@ -41,12 +41,12 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     public InfoForm()
     {
         this.InitializeComponent();
-        this.Text = string.Format(CultureInfo.InvariantCulture, "About {0}", this.AssemblyTitle);
-        this.labelProductName.Text = this.AssemblyProduct;
-        this.labelVersion.Text = string.Format(CultureInfo.InvariantCulture, "Version {0}", this.AssemblyVersion);
-        this.labelCopyright.Text = this.AssemblyCopyright;
-        this.labelCompanyName.Text = this.AssemblyCompany;
-        this.textBoxDescription.Text = this.AssemblyDescription;
+        this.Text = string.Format(CultureInfo.InvariantCulture, "About {0}", AssemblyTitle);
+        this.labelProductName.Text = AssemblyProduct;
+        this.labelVersion.Text = string.Format(CultureInfo.InvariantCulture, "Version {0}", AssemblyVersion);
+        this.labelCopyright.Text = AssemblyCopyright;
+        this.labelCompanyName.Text = AssemblyCompany;
+        this.textBoxDescription.Text = AssemblyDescription;
     }
     #endregion
 
@@ -76,7 +76,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the version of the program stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyVersion
+    private static string AssemblyVersion
     {
         get
         {
@@ -87,7 +87,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the description of the program stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyDescription
+    private static string AssemblyDescription
     {
         get
         {
@@ -104,7 +104,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the short product name stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyProduct
+    private static string AssemblyProduct
     {
         get
         {
@@ -121,7 +121,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the copyright info stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyCopyright
+    private static string AssemblyCopyright
     {
         get
         {
@@ -138,7 +138,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the company name stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyCompany
+    private static string AssemblyCompany
         {
             get
             {
