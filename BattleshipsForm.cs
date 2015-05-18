@@ -155,12 +155,12 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             /// <summary>
             /// The player.
             /// </summary>
-            player = 0,
+            Player = 0,
 
             /// <summary>
             /// The enemy.
             /// </summary>
-            enemy = 1
+            Enemy = 1
         }
         #endregion
 
@@ -280,11 +280,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterGalley = CounterGalley;
                         CounterGalley++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Galley;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModel.Galley;
 
                         if (CounterGalley == MaxNumberGalley)
                         {
@@ -307,11 +307,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterBattleship = CounterBattleship;
                         CounterBattleship++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Battleship;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModel.Battleship;
 
                         if (CounterBattleship == MaxNumberBattleship)
                         {
@@ -333,11 +333,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
 
                     // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterCruiser = CounterCruiser;
                         CounterCruiser++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Cruiser;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModel.Cruiser;
 
                         if (CounterCruiser == MaxNumberCruiser)
                         {
@@ -359,11 +359,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                     this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
 
                     // Ship may be selected only when a ship is not already selected
-                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModels.NoShip))
+                    if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterBoat = CounterBoat;
                         CounterBoat++;
-                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModels.Boat;
+                        BattlefieldPlayer.Ships = BattlefieldPlayer.ShipModel.Boat;
 
                         if (CounterBoat == MaxNumberBoat)
                         {

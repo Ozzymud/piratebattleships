@@ -102,12 +102,12 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <param name="hotSpotX">X value of the hotspot.</param>
     /// <param name="hotSpotY">Y value of the hotspot.</param>
     /// <returns>The created cursor.</returns>
-    public static Cursor CreateCursor(Bitmap bmp, int hotSpotX, int hotSpotY)
+    public static Cursor CreateCursor(Bitmap bmp, int hotspotX, int hotspotY)
         {
             IconInfo tmp = new IconInfo();
             NativeMethods.GetIconInfo(bmp.GetHicon(), ref tmp);
-            tmp.HotspotX = hotSpotX;
-            tmp.HotspotY = hotSpotY;
+            tmp.HotspotX = hotspotX;
+            tmp.HotspotY = hotspotY;
             tmp.ParameterfIcon = false;
             return new Cursor(NativeMethods.CreateIconIndirect(ref tmp));
         }
@@ -117,14 +117,14 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <summary>
     /// Sets a hit on the specified field.
     /// </summary>
-    /// <param name="x">X Coordinate of the hit.</param>
-    /// <param name="y">Y Coordinate of the hit.</param>
-    public void SetImpact(int x, int y)
+    /// <param name="hitX">X Coordinate of the hit.</param>
+    /// <param name="hitY">Y Coordinate of the hit.</param>
+    public void SetImpact(int hitX, int hitY)
     {
         try
         {
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion2.wav");
-            this.DrawExplosion(x, y);
+            this.DrawExplosion(hitX, hitY);
         }
         catch (Exception ex)
         {
@@ -135,24 +135,24 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <summary>
     /// Sets a missed shot on the specified field.
     /// </summary>
-    /// <param name="x">X coordinate of the missed shot.</param>
-    /// <param name="y">Y coordinate of the missed shot.</param>
-    public void SetMiss(int x, int y)
+    /// <param name="missX">X coordinate of the missed shot.</param>
+    /// <param name="missY">Y coordinate of the missed shot.</param>
+    public void SetMiss(int missX, int missY)
     {
         BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
-        this.DrawMiss(x, y);
+        this.DrawMiss(missX, missY);
     }
 
     /// <summary>
     /// Decide based on the stored image in the panel which explosion should be presented.
     /// </summary>
-    /// <param name="x">X Coordinate of the hit.</param>
-    /// <param name="y">Y Coordinate of the hit.</param>
-    public void DrawExplosion(int x, int y)
+    /// <param name="hitX">X Coordinate of the hit.</param>
+    /// <param name="hitY">Y Coordinate of the hit.</param>
+    public void DrawExplosion(int hitX, int hitY)
     {
         PictureBox explPicture = new PictureBox();
-        explPicture.Name = "expl_" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
-        explPicture.Location = new Point(x * 30, y * 30);
+        explPicture.Name = "expl_" + hitX.ToString(CultureInfo.InvariantCulture) + ":" + hitY.ToString(CultureInfo.InvariantCulture);
+        explPicture.Location = new Point(hitX * 30, hitY * 30);
         explPicture.Size = new Size(30, 30);
         explPicture.Margin = new Padding(0);
         explPicture.Padding = new Padding(0);
@@ -168,17 +168,17 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// Adds a control to the playfield form (miss, hit, etc).
     /// </summary>
     /// <param name="contr">The resource to add.</param>
-    public void AddControl(Control contr)
+    public void AddControl(Control control)
     {
         if (this.InvokeRequired)
         {
             AddControlCallback d = new AddControlCallback(this.AddControl);
-            this.Invoke(d, new object[] { contr });
+            this.Invoke(d, new object[] { control });
         }
         else
         {
-            this.Controls.Add(contr);
-            Control[] s = this.Controls.Find(contr.Name, false);
+            this.Controls.Add(control);
+            Control[] s = this.Controls.Find(control.Name, false);
             s[0].BringToFront();
         }
     }
@@ -191,7 +191,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             if (BattleshipsForm.OpponentReadyToPlay && BattleshipsForm.PlayerReadyToPlay)
             {
                 // can only shoot if it is your turn
-                if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
+                if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.Player)
                 {
                     Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
                     switch (e.Button)
@@ -257,7 +257,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
     private void PlayerMouseEnter(object sender, EventArgs e)
         {
-            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
+            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.Player)
             {
                 Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
@@ -276,7 +276,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
     private void PlayerMouseLeave(object sender, EventArgs e)
         {
-            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
+            if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.Player)
             {
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
