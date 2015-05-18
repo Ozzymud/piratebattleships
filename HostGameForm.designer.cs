@@ -39,7 +39,7 @@ namespace Battleships
             this.btnHostGame = new System.Windows.Forms.Button();
             this.labelStatusMessage = new System.Windows.Forms.Label();
             this.listboxMessage = new System.Windows.Forms.ListBox();
-            this.btnRdy = new System.Windows.Forms.Button();
+            this.buttonReady = new System.Windows.Forms.Button();
             this.btnExtIp = new System.Windows.Forms.Button();
             this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
             this.btnInternIP = new System.Windows.Forms.Button();
@@ -130,21 +130,21 @@ namespace Battleships
             this.listboxMessage.Size = new System.Drawing.Size(376, 148);
             this.listboxMessage.TabIndex = 21;
             // 
-            // btnRdy
+            // buttonReady
             // 
-            this.btnRdy.BackColor = System.Drawing.Color.Blue;
-            this.btnRdy.Enabled = false;
-            this.btnRdy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRdy.ForeColor = System.Drawing.Color.Yellow;
-            this.btnRdy.Location = new System.Drawing.Point(411, 133);
-            this.btnRdy.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRdy.Name = "btnRdy";
-            this.btnRdy.Size = new System.Drawing.Size(117, 49);
-            this.btnRdy.TabIndex = 22;
-            this.btnRdy.Text = "Ready";
-            this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du bereit zum Spielen bist");
-            this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.ButtonReady_Click);
+            this.buttonReady.BackColor = System.Drawing.Color.Blue;
+            this.buttonReady.Enabled = false;
+            this.buttonReady.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReady.ForeColor = System.Drawing.Color.Yellow;
+            this.buttonReady.Location = new System.Drawing.Point(411, 133);
+            this.buttonReady.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonReady.Name = "buttonReady";
+            this.buttonReady.Size = new System.Drawing.Size(117, 49);
+            this.buttonReady.TabIndex = 22;
+            this.buttonReady.Text = "Ready";
+            this.toolTipButtons.SetToolTip(this.buttonReady, "Gib an, dass du bereit zum Spielen bist");
+            this.buttonReady.UseVisualStyleBackColor = false;
+            this.buttonReady.Click += new System.EventHandler(this.ButtonReady_Click);
             // 
             // btnExtIp
             // 
@@ -181,7 +181,7 @@ namespace Battleships
             this.ClientSize = new System.Drawing.Size(544, 292);
             this.Controls.Add(this.btnInternIP);
             this.Controls.Add(this.btnExtIp);
-            this.Controls.Add(this.btnRdy);
+            this.Controls.Add(this.buttonReady);
             this.Controls.Add(this.listboxMessage);
             this.Controls.Add(this.labelStatusMessage);
             this.Controls.Add(this.btnCloseGame);
@@ -212,7 +212,7 @@ namespace Battleships
         private System.Windows.Forms.Button btnHostGame;
         private System.Windows.Forms.Label labelStatusMessage;
         private System.Windows.Forms.ListBox listboxMessage;
-        private System.Windows.Forms.Button btnRdy;
+        private System.Windows.Forms.Button buttonReady;
         private System.Windows.Forms.Button btnExtIp;
         private System.Windows.Forms.ToolTip toolTipButtons;
         private System.Windows.Forms.Button btnInternIP;

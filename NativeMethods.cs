@@ -28,7 +28,7 @@ namespace Battleships
     /// <summary>
     /// Methods marked with $DllImport$.
     /// </summary>
-    public class NativeMethods
+    public static class NativeMethods
         {
         #region private static
         [DllImport("user32.dll")]

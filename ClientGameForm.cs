@@ -414,7 +414,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 }
                 else
                 {
-                    // Wait until player is ready (player is ready if he has clicked on the ready button see btnRdy.clicked event)
+                    // Wait until player is ready (player is ready if he has clicked on the ready button see buttonReady.clicked event)
                 }
             }
             else
@@ -437,7 +437,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                     {
                         BattleshipsForm.PlayerReadyToPlay = true;
                         this.WindowState = FormWindowState.Minimized;
-                        this.btnRdy.Enabled = false;
+                        this.buttonReady.Enabled = false;
 
                         Random rnd = new Random();
                         this.roll = rnd.Next(101);
@@ -499,7 +499,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             {
                 this.btnConnect.Enabled = !status;
                 this.btnDisconnect.Enabled = status;
-                this.btnRdy.Enabled = status;
+                this.buttonReady.Enabled = status;
             }
         }
 

@@ -39,7 +39,7 @@ namespace Battleships
             this.label3 = new System.Windows.Forms.Label();
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.listboxRx = new System.Windows.Forms.ListBox();
-            this.btnRdy = new System.Windows.Forms.Button();
+            this.buttonReady = new System.Windows.Forms.Button();
             this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -130,21 +130,21 @@ namespace Battleships
             this.listboxRx.Size = new System.Drawing.Size(268, 148);
             this.listboxRx.TabIndex = 8;
             // 
-            // btnRdy
+            // buttonReady
             // 
-            this.btnRdy.BackColor = System.Drawing.Color.Blue;
-            this.btnRdy.Enabled = false;
-            this.btnRdy.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnRdy.ForeColor = System.Drawing.Color.Yellow;
-            this.btnRdy.Location = new System.Drawing.Point(299, 144);
-            this.btnRdy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnRdy.Name = "btnRdy";
-            this.btnRdy.Size = new System.Drawing.Size(120, 57);
-            this.btnRdy.TabIndex = 9;
-            this.btnRdy.Text = "Ready";
-            this.toolTipButtons.SetToolTip(this.btnRdy, "Gib an, dass du Bereit zum Spielen bist");
-            this.btnRdy.UseVisualStyleBackColor = false;
-            this.btnRdy.Click += new System.EventHandler(this.ButtonReady_Click);
+            this.buttonReady.BackColor = System.Drawing.Color.Blue;
+            this.buttonReady.Enabled = false;
+            this.buttonReady.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.buttonReady.ForeColor = System.Drawing.Color.Yellow;
+            this.buttonReady.Location = new System.Drawing.Point(299, 144);
+            this.buttonReady.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonReady.Name = "buttonReady";
+            this.buttonReady.Size = new System.Drawing.Size(120, 57);
+            this.buttonReady.TabIndex = 9;
+            this.buttonReady.Text = "Ready";
+            this.toolTipButtons.SetToolTip(this.buttonReady, "Gib an, dass du Bereit zum Spielen bist");
+            this.buttonReady.UseVisualStyleBackColor = false;
+            this.buttonReady.Click += new System.EventHandler(this.ButtonReady_Click);
             // 
             // toolTipButtons
             // 
@@ -155,7 +155,7 @@ namespace Battleships
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 268);
-            this.Controls.Add(this.btnRdy);
+            this.Controls.Add(this.buttonReady);
             this.Controls.Add(this.listboxRx);
             this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.label3);
@@ -187,7 +187,7 @@ namespace Battleships
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.ListBox listboxRx;
-        private System.Windows.Forms.Button btnRdy;
+        private System.Windows.Forms.Button buttonReady;
         private System.Windows.Forms.ToolTip toolTipButtons;
     }
 }

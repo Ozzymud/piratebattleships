@@ -28,7 +28,7 @@ using System.Text;
 /// <summary>
 /// Maintains the position of all ships and their state.
 /// </summary>
-public class Ships
+public static class Ships
     {
     #region struct
     /// <summary>
@@ -38,7 +38,7 @@ public class Ships
         {
             public bool Front;
             public bool Rear;
-            public bool ShipDestryoed;
+            public bool ShipDestroyed;
             public int PosFrontX;
             public int PosFrontY;
             public int PosRearX;
@@ -55,7 +55,7 @@ public class Ships
             public bool Front;
             public bool Rear;
             public bool Middle;
-            public bool ShipDestryoed;
+            public bool ShipDestroyed;
             public int PosRearX;
             public int PosRearY;
             public int PosMiddleX;
@@ -75,7 +75,7 @@ public class Ships
             public bool Rear;
             public bool MiddleFirstPart;
             public bool MiddleSecondPart;
-            public bool ShipDestryoed;
+            public bool ShipDestroyed;
             public int PosRearX;
             public int PosRearY;
             public int PosMiddleFirstX;
@@ -98,7 +98,7 @@ public class Ships
             public bool Rear;
             public bool MiddleFirstPart;
             public bool MiddleSecondPart;
-            public bool ShipDestryoed;
+            public bool ShipDestroyed;
             public int PosRearX;
             public int PosRearY;
             public int PosMiddleFirstX;
