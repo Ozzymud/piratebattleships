@@ -22,6 +22,7 @@ namespace Battleships
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -502,7 +503,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             {
                 // Die Nr. des Bootes herausfinden (von 1-3)
                 string[] shipBoat = this.playfieldStore[x, y].Name.Split('_');
-                int boatNr = int.Parse(shipBoat[1]);
+                int boatNr = int.Parse(shipBoat[1], CultureInfo.InvariantCulture);
                 string boatPart = shipBoat[2];
 
                 // Welchen Teil des Schiffes hat es erwischt?
@@ -545,7 +546,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             {
             // Wurde ein Cruiser getroffen?
                 string[] shipCruiser = this.playfieldStore[x, y].Name.Split('_');
-                int cruiserNr = int.Parse(shipCruiser[1]);
+                int cruiserNr = int.Parse(shipCruiser[1], CultureInfo.InvariantCulture);
                 string cruiserPart = shipCruiser[2];
 
                 // Welchen Teil des Schiffes hat es erwischt?
@@ -672,8 +673,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
             string[] position = positionString.Split(':'); // x und y Position
-            int x = int.Parse(position[0]);
-            int y = int.Parse(position[1]);
+            int x = int.Parse(position[0], CultureInfo.InvariantCulture);
+            int y = int.Parse(position[1], CultureInfo.InvariantCulture);
 
             switch (this.Ships)
             {
@@ -1429,8 +1430,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             string positionString = tmp.Name;
             positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
             string[] position = positionString.Split(':'); // x und y Position
-            int x = int.Parse(position[0]);
-            int y = int.Parse(position[1]);
+            int x = int.Parse(position[0], CultureInfo.InvariantCulture);
+            int y = int.Parse(position[1], CultureInfo.InvariantCulture);
 
             switch (this.Ships)
             {

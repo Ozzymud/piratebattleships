@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -128,12 +129,12 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-    public void OnDataReceived(IAsyncResult asyn)
+    public void OnDataReceived(IAsyncResult result)
         {
             try
             {
-                SocketPacket theSockId = (SocketPacket)asyn.AsyncState;
-                int iRx = theSockId.CurrentSocket.EndReceive(asyn);
+                SocketPacket theSockId = (SocketPacket)result.AsyncState;
+                int iRx = theSockId.CurrentSocket.EndReceive(result);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);
@@ -241,7 +242,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
 
                 // Cet the remote IP address
                 IPAddress ip = IPAddress.Parse(this.textboxIP.Text);
-                int internetPortNumber = System.Convert.ToInt16(this.textboxPort.Text);
+                int internetPortNumber = System.Convert.ToInt16(this.textboxPort.Text, CultureInfo.InvariantCulture);
 
                 // Create the end point
                 IPEndPoint endPoint = new IPEndPoint(ip, internetPortNumber);
@@ -302,8 +303,8 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 // X und Y aus der Nachricht lesen
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
 
                 object objData;
 
@@ -361,8 +362,8 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 // Du hast einen treffer gelandet!
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
                 this.SetText("HIT received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler Anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
@@ -377,9 +378,9 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 // Der Schuss ging leider daneben, versuchs nochmal!
                 string pos = data.Remove(0, 4);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
-                this.SetText("MISS received at x:" + x.ToString() + " y:" + y.ToString());
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
+                this.SetText("MISS received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
                 // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
                 BattleshipsForm.BattlefieldOpponent.SetMiss(x, y);
@@ -398,13 +399,13 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 // if not: then wait until players ready
                 if (BattleshipsForm.PlayerReadyToPlay)
                 {
-                    if (int.Parse(this.oroll) < this.roll)
+                    if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                     {
                         this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                         this.SetTextLblStatus("Du darfst anfangen");
                         BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.player;
                     }
-                    else if (int.Parse(this.oroll) > this.roll)
+                    else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                     {
                         this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                         this.SetTextLblStatus("Gegner darf anfangen");
@@ -453,13 +454,13 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
 
                         if (BattleshipsForm.OpponentReadyToPlay)
                         {
-                            if (int.Parse(this.oroll) < this.roll)
+                            if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                             {
                                 this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                                 this.SetTextLblStatus("Du darfst anfangen");
                                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.player;
                             }
-                            else if (int.Parse(this.oroll) > this.roll)
+                            else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                             {
                                 this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                                 this.SetTextLblStatus("Gegner darf anfangen");

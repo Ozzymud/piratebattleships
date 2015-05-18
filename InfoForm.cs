@@ -55,7 +55,7 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
     /// <summary>
     /// Gets and returns the long program name stored in AssemblyInfo.cs
     /// </summary>
-    private string AssemblyTitle
+    private static string AssemblyTitle
     {
         get
         {

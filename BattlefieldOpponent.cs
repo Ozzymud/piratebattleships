@@ -151,7 +151,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     public void DrawExplosion(int x, int y)
     {
         PictureBox explPicture = new PictureBox();
-        explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
+        explPicture.Name = "expl_" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
         explPicture.Location = new Point(x * 30, y * 30);
         explPicture.Size = new Size(30, 30);
         explPicture.Margin = new Padding(0);
