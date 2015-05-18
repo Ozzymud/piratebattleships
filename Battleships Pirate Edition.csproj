@@ -120,6 +120,9 @@
     <EmbeddedResource Include="BattleshipsForm.resx">
       <DependentUpon>BattleshipsForm.designer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClientGameForm.resx">
+      <DependentUpon>ClientGameForm.designer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HostGameForm.resx">
       <DependentUpon>HostGameForm.designer.cs</DependentUpon>
     </EmbeddedResource>

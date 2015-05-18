@@ -257,8 +257,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     this.WaitForData(tmp_workerSocket);
                     this.SetText("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
                     this.SetText("But Server is already full!");
-                    this.SetTextLabelStatus("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
-                    this.SetTextLabelStatus("But Server is already full!");
+                    this.SetTextLabelStatus("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server\n");
+                    this.SetTextLabelStatus("But Server is already full!\n");
                     object objData = "FULL";
                     byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
                     tmp_workerSocket.Send(byteData);
@@ -373,7 +373,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 {
                     // Player's Turn
                     BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
-                    this.SetTextLabelStatus("It's your turn now!");
+                    this.SetTextLabelStatus("It's your turn now!\n");
                 }
             }
             else if (data.StartsWith("WIN", StringComparison.Ordinal))
@@ -397,7 +397,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                 // Opponent's turn
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
-                this.SetTextLabelStatus("Enemy's turn!");
+                this.SetTextLabelStatus("Enemy's turn!\n");
             }
             else if (data.StartsWith("MISS", StringComparison.Ordinal))
             {
@@ -413,27 +413,27 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                 // Opponent's turn.
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
-                this.SetTextLabelStatus("Enemy's turn!");
+                this.SetTextLabelStatus("Enemy's turn!\n");
             }
             else if (data.StartsWith("RDY_", StringComparison.Ordinal))
             {
                 this.oroll = data.Remove(0, 4);
                 BattleshipsForm.OpponentReadyToPlay = true;
-                this.SetTextLabelStatus("Opponend is ready and rolled: " + this.oroll);
+                this.SetTextLabelStatus("Opponend is ready and rolled: " + this.oroll + "\n");
 
                 // Also check whether player is ready? 
                 if (BattleshipsForm.PlayerReadyToPlay)
                 {
                     if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                     {
-                        this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture));
-                        this.SetTextLabelStatus("You start!");
+                        this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                        this.SetTextLabelStatus("You start!\n");
                         BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
                     }
                     else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                     {
-                        this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture));
-                        this.SetTextLabelStatus("Opponent starts!");
+                        this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                        this.SetTextLabelStatus("Opponent starts!\n");
                         BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
                     }
                 }
@@ -479,7 +479,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             BattleshipsForm.PlayerReadyToPlay = false;
             BattleshipsForm.OpponentReadyToPlay = false;
             this.SetText("Server closed!");
-            this.SetTextLabelStatus("Server closed!");
+            this.SetTextLabelStatus("Server closed!\n");
         }
 
     private void HostGameForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -551,21 +551,21 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                         if (this.WorkerSocket.Connected)
                         {
                             this.WorkerSocket.Send(byteData);
-                            this.SetTextLabelStatus("You rolled: " + this.roll.ToString(CultureInfo.InvariantCulture));
+                            this.SetTextLabelStatus("You rolled: " + this.roll.ToString(CultureInfo.InvariantCulture) + "\n");
                         }
 
                         if (BattleshipsForm.OpponentReadyToPlay)
                         {
                             if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                             {
-                                this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture));
-                                this.SetTextLabelStatus("You start.");
+                                this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                                this.SetTextLabelStatus("You start.\n");
                                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
                             }
                             else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                             {
-                                this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture));
-                                this.SetTextLabelStatus("Opponent starts.");
+                                this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString(CultureInfo.InvariantCulture) + "\n");
+                                this.SetTextLabelStatus("Opponent starts.\n");
                                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
                             }
                         }

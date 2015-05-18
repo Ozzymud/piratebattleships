@@ -99,8 +99,8 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// Creates a cursor from a bitmap (PNG, JPEG is also good).
     /// </summary>
     /// <param name="bmp">The image file to be displayed as the cursor.</param>
-    /// <param name="hotSpotX">X value of the hotspot.</param>
-    /// <param name="hotSpotY">Y value of the hotspot.</param>
+    /// <param name="hotspotX">X value of the hotspot.</param>
+    /// <param name="hotspotY">Y value of the hotspot.</param>
     /// <returns>The created cursor.</returns>
     public static Cursor CreateCursor(Bitmap bmp, int hotspotX, int hotspotY)
         {
@@ -167,7 +167,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <summary>
     /// Adds a control to the playfield form (miss, hit, etc).
     /// </summary>
-    /// <param name="contr">The resource to add.</param>
+    /// <param name="control">The resource to add.</param>
     public void AddControl(Control control)
     {
         if (this.InvokeRequired)

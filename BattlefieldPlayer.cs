@@ -497,35 +497,35 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     /// <param name="y">Y-Coordinate of the hit.</param>
     private void CheckShips(int x, int y)
         {
-            // Herausfinden welches Schiff getroffen wurde
-            // Wurde ein Boot getroffen?
+            // Find out what ship was hit.
+            // Was the boat hit?
             if (this.playfieldStore[x, y].Name.StartsWith("Boat_", StringComparison.Ordinal))
             {
-                // Die Nr. des Bootes herausfinden (von 1-3)
+                // Find out the number of the boat (from 1-3)
                 string[] shipBoat = this.playfieldStore[x, y].Name.Split('_');
                 int boatNr = int.Parse(shipBoat[1], CultureInfo.InvariantCulture);
                 string boatPart = shipBoat[2];
 
-                // Welchen Teil des Schiffes hat es erwischt?
+                // Which part of the boat was hit?
                 switch (boatPart)
                 {
                     case "Rear":
-                        // heck wurde getroffen (horizontal)
+                        // Rear was hit (horizontal)
                         this.boatReference[boatNr].Rear = true;
-                        this.SetTextLabelStatus("Boat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " wurde am heck getroffen!\n");
+                        this.SetTextLabelStatus("Boat  " + boatNr.ToString(CultureInfo.InvariantCulture) + " was hit in the rear!\n");
                         break;
                     case "Front":
-                        // Front wurde getroffen (horizontal)
+                        // Front was hit (horizontal)
                         this.boatReference[boatNr].Front = true;
-                        this.SetTextLabelStatus("Boat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " wurde an der Front getroffen!\n");
+                        this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " was hit in the front!\n");
                         break;
                 }
 
-                // Überprüfen ob das Boot komplett zerstört ist
+                // Was the boat completely destroyed?
                 if (this.boatReference[boatNr].Front && this.boatReference[boatNr].Rear)
                 {
                     this.boatReference[boatNr].ShipDestroyed = true;
-                    this.ShowDestroyedBoat( // Das zerstörte Boot auf dem Spielfeld darstellen
+                    this.ShowDestroyedBoat( // Represent the destroyed boat on the playfield
                         new int[4]
                         {
                         this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
@@ -539,42 +539,42 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
                         },
                         this.boatReference[boatNr].Horizontal);
-                    this.SetTextLabelStatus("\nBoat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!");
+                    this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
                 }
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Cruiser_", StringComparison.Ordinal))
             {
-            // Wurde ein Cruiser getroffen?
+            // Is a cruiser hit?
                 string[] shipCruiser = this.playfieldStore[x, y].Name.Split('_');
                 int cruiserNr = int.Parse(shipCruiser[1], CultureInfo.InvariantCulture);
                 string cruiserPart = shipCruiser[2];
 
-                // Welchen Teil des Schiffes hat es erwischt?
+                // Which part of the cruiser was hit?
                 switch (cruiserPart)
                 {
                     case "Rear":
-                        // heck wurde getroffen (horizontal)
+                        // Rear was hit (horizontal).
                         this.cruiserReference[cruiserNr].Rear = true;
-                        this.SetTextLabelStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde am heck getroffen!\n");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the rear!\n");
                         break;
                     case "Middle":
-                        // Mittelteil wurde getroffen
+                        // Middle was hit.
                         this.cruiserReference[cruiserNr].Middle = true;
-                        this.SetTextLabelStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde am Mittelteil getroffen!\n");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the middle!\n");
                         break;
                     case "Front":
-                        // Front wurde getroffen (horizontal)
+                        // Front was hit (horizontal).
                         this.cruiserReference[cruiserNr].Front = true;
-                        this.SetTextLabelStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde an der Front getroffen!\n");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the front!\n");
                         break;
                 }
 
-                // Überprüfen ob der Cruiser komplett zerstört wurde
+                // Check whether the cruiser has been completely destroyed.
                 if (this.cruiserReference[cruiserNr].Rear && this.cruiserReference[cruiserNr].Middle && this.cruiserReference[cruiserNr].Front)
                 {
                     this.cruiserReference[cruiserNr].ShipDestroyed = true;
                     
-                    this.ShowDestroyedCruiser( // Den zerstörten Cruiser auf dem Spielfeld darstellen
+                    this.ShowDestroyedCruiser( // Represent the destroyed cruiser on the playfield.
                         new int[6]
                         {
                         this.cruiserReference[cruiserNr].PosRearX, this.cruiserReference[cruiserNr].PosRearY,
@@ -590,7 +590,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.cruiserReference[cruiserNr].PosFrontX, this.cruiserReference[cruiserNr].PosFrontY
                         },
                         this.cruiserReference[cruiserNr].Horizontal);
-                    this.SetTextLabelStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
+                    this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
                 }
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Galley_", StringComparison.Ordinal))
@@ -599,28 +599,28 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 string[] shipGalley = this.playfieldStore[x, y].Name.Split('_');
                 string galleyPart = shipGalley[1];
 
-                // Welchen Teil des Schiffes hat es erwischt?
+                // Which part of the galley was hit?
                 switch (galleyPart)
                 {
                     case "Rear":
                         this.galleyReference.Rear = true;
-                        this.SetTextLabelStatus("Galley wurde am heck getroffen!\n");
+                        this.SetTextLabelStatus("Galley was hit in the rear!\n");
                         break;
                     case "Middle1":
                         this.galleyReference.MiddleFirstPart = true;
-                        this.SetTextLabelStatus("Galley wurde am Mittelteil 1 getroffen!\n");
+                        this.SetTextLabelStatus("Galley was hit in the first middle part!\n");
                         break;
                     case "Middle2":
                         this.galleyReference.MiddleSecondPart = true;
-                        this.SetTextLabelStatus("Galley wurde am Mittelteil 2 getroffen!\n");
+                        this.SetTextLabelStatus("Galley was hit in the second middle part!\n");
                         break;
                     case "Front":
                         this.galleyReference.Front = true;
-                        this.SetTextLabelStatus("Galley wurde an der Front getroffen!\n");
+                        this.SetTextLabelStatus("Galley was hit in the front!\n");
                         break;
                 }
 
-                // Überprüfen ob die Galley komplett zerstört wurde
+                // Check if the galley was completely destroyed.
                 if (this.galleyReference.Rear && this.galleyReference.MiddleFirstPart && this.galleyReference.MiddleSecondPart && this.galleyReference.Front)
                 {
                     this.galleyReference.ShipDestroyed = true;
@@ -629,32 +629,32 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Battleship_", StringComparison.Ordinal))
             {
-            // Wurde das Battleship getroffen?
+            // Was the battleship hit?
                 string[] shipBattleship = this.playfieldStore[x, y].Name.Split('_');
                 string battleshipPart = shipBattleship[1];
 
-                // Welchen Teil des Schiffes hat es erwischt?
+                // What part of the battleship was hit?
                 switch (battleshipPart)
                 {
                     case "Rear":
                         this.battleshipReference.Rear = true;
-                        this.SetTextLabelStatus("Battleship wurde am heck getroffen!\n");
+                        this.SetTextLabelStatus("Battleship was hit in the rear!\n");
                         break;
                     case "Middle1":
                         this.battleshipReference.MiddleFirstPart = true;
-                        this.SetTextLabelStatus("Battleship wurde am Mittelteil 1 getroffen!\n");
+                        this.SetTextLabelStatus("Battleship was hit in the first middle part!\n");
                         break;
                     case "Middle2":
                         this.battleshipReference.MiddleSecondPart = true;
-                        this.SetTextLabelStatus("Battleship wurde am Mittelteil 2 getroffen!\n");
+                        this.SetTextLabelStatus("Battleship was hit in the second middle part!\n");
                         break;
                     case "Front":
                         this.battleshipReference.Front = true;
-                        this.SetTextLabelStatus("Battleship wurde an der Front getroffen!\n");
+                        this.SetTextLabelStatus("Battleship was hit in the front!\n");
                         break;
                 }
 
-                // Überprüfen ob das Battleship komplett zerstört wurde
+                // Check if the battleship was completely destroyed.
                 if (this.battleshipReference.Rear && this.battleshipReference.MiddleFirstPart && this.battleshipReference.MiddleSecondPart && this.battleshipReference.Front)
                 {
                     this.battleshipReference.ShipDestroyed = true;
@@ -671,8 +671,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     private void SetShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
-            positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
-            string[] position = positionString.Split(':'); // x und y Position
+            positionString = positionString.Remove(0, 3); // remove "pf_" from the string.
+            string[] position = positionString.Split(':'); // x and y position.
             int x = int.Parse(position[0], CultureInfo.InvariantCulture);
             int y = int.Parse(position[1], CultureInfo.InvariantCulture);
 
@@ -683,7 +683,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // galley ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Galley is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (x >= 7)
                         {
                             if ((int)tmp.Tag != (int)1 && (int)this.playField[x - 1, y].Tag != (int)1 && (int)this.playField[x - 2, y].Tag != (int)1 && (int)this.playField[x - 3, y].Tag != (int)1)
@@ -783,7 +783,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     else
                     {
                         // Vertikal
-                        // galley ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Galley is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (y >= 7)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1)
@@ -885,7 +885,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // battleship ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Battleship is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (x >= 7)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1 && (int)this.playField[x - 3, y].Tag != 1)
@@ -984,8 +984,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
-                        // battleship ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Vertical
+                        // Battleship is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (y >= 7)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1)
@@ -1087,7 +1087,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // Cruiser ist 3 Fleder groß, wenn Feld 8 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Cruiser is 3 fields long, if field 8 is reached, draw the ship in the opposite direction.
                         if (x >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1)
@@ -1175,7 +1175,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     else
                     {
                         // Vertikal
-                        // Cruiser ist 5 Fleder groß, wenn Feld 8 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Cruiser is 3 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (y >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1)
@@ -1265,7 +1265,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // boat ist 1 Fled groß, wenn Feld 9 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Boat is 2 fields long, if field 9 is reached, draw the ship in the opposite direction.
                         if (x >= 9)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1)
@@ -1342,7 +1342,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     else
                     {
                         // Vertikal
-                        // boat ist 2 Fleder groß, wenn Feld 9 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Boat is 2 fields long, if field 9 is reached, draw the ship in the opposite direction.
                         if (y >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1)
@@ -1428,8 +1428,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     private void DrawShips(ref Battleships.DoubleBufferedPanel tmp)
         {
             string positionString = tmp.Name;
-            positionString = positionString.Remove(0, 3); // pf_ aus dem String entfernen
-            string[] position = positionString.Split(':'); // x und y Position
+            positionString = positionString.Remove(0, 3); // Remove "pf_" from the string.
+            string[] position = positionString.Split(':'); // x and y position
             int x = int.Parse(position[0], CultureInfo.InvariantCulture);
             int y = int.Parse(position[1], CultureInfo.InvariantCulture);
 
@@ -1439,7 +1439,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // galley ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Galley is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (x >= 7)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1 && (int)this.playField[x - 3, y].Tag != 1)
@@ -1464,8 +1464,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
-                        // galley ist 4 Fleder groß, wenn Feld 7 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Vertical
+                        // Galley is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (y >= 7)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1)
@@ -1493,7 +1493,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // battleship ist 5 Fleder groß, wenn Feld 6 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Battleship is 4 fields long, if field 6 is reached, draw the ship in the opposite direction.
                         if (x >= 6)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1 && (int)this.playField[x - 3, y].Tag != 1 && (int)this.playField[x - 4, y].Tag != 1)
@@ -1519,7 +1519,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     else
                     {
                         // Vertikal
-                        // battleship ist 5 Fleder groß, wenn Feld 6 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Battleship is 4 fields long, if field 6 is reached, draw the ship in the opposite direction.
                         if (y >= 6)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1 && (int)playField[x, y - 4].Tag != 1)
@@ -1547,7 +1547,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // Cruiser ist 3 Fleder groß, wenn Feld 8 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Cruiser is 3 fields long, if field 8 is reached, draw the ship in the opposite direction.
                         if (x >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1)
@@ -1570,8 +1570,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
-                        // Cruiser ist 5 Fleder groß, wenn Feld 8 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Vertical
+                        // Cruiser is 3 fields long, if field 8 is reached, draw the ship in the opposite direction.
                         if (y >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1)
@@ -1597,7 +1597,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // boat ist 1 Fled groß, wenn Feld 9 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Boat is 2 fields long, if field 9 is reached, draw the ship in the opposite direction.
                         if (x >= 9)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1)
@@ -1618,8 +1618,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
-                        // boat ist 2 Fleder groß, wenn Feld 9 erreicht, dann Schiff in gegengesetzte Richtung aufbauen
+                        // Vertical
+                        // Boat is 2 fields long, if field 9 is reached, draw the ship in the opposite direction.
                         if (y >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1)
