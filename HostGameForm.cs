@@ -84,12 +84,18 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
     #region method
     #region public
+    /// <summary>
+    /// Gets or sets data in workerSocket (publicly accessible)
+    /// </summary>
     public Socket WorkerSocket
         {
             get { return this.workerSocket; }
             set { this.workerSocket = value; }
         }
 
+    /// <summary>
+    /// Gets or sets the number of clients connected to the host (public accessor to clientCount).
+    /// </summary>
     public int ClientCount
         {
             get { return this.clientCount; }

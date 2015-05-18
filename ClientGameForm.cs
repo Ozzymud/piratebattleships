@@ -80,6 +80,9 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
 
     #region method
     #region public method
+    /// <summary>
+    /// Gets or sets data in clientSocket (publicly accessible)
+    /// </summary>
     public Socket ClientSocket
         {
             get { return this.clientSocket; }
