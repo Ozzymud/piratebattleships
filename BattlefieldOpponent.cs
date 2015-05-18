@@ -349,15 +349,15 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
                 this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
                 this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
             }
         }
     }
@@ -387,17 +387,17 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h1;
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v1;
             }
         }
     }
@@ -427,17 +427,17 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h1;
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v1;
             }
         }
     }

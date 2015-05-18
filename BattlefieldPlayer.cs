@@ -389,9 +389,9 @@ public class BattlefieldPlayer : DoubleBufferedPanel
         {
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
-            // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
-            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
-            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
+            // Remove explosion picture at the specified position (remove--> PictureBox control)
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
             if (horizontal)
             {
                 this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
@@ -399,8 +399,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
             }
         }
     }
@@ -419,10 +419,9 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix showing destroyed cruiser.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
-                // At the entered point remove explosion image (remove--> PictureBox control)
+                // Remove explosion picture at the specified position (remove--> PictureBox control)
                 this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
                 this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
                 this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
@@ -592,12 +591,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     case "Rear":
                         // Rear was hit (horizontal)
                         this.boatReference[boatNr].Rear = true;
-                        this.SetTextLabelStatus("Boat  " + boatNr.ToString(CultureInfo.InvariantCulture) + " was hit in the rear!");
+                        this.SetTextLabelStatus("Boat  " + boatNr.ToString(CultureInfo.InvariantCulture) + " rear was hit!\n");
                         break;
                     case "Front":
                         // Front was hit (horizontal)
                         this.boatReference[boatNr].Front = true;
-                        this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " was hit in the front!");
+                        this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " front was hit!\n");
                         break;
                 }
 
@@ -612,22 +611,23 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
                         },
                         this.boatReference[boatNr].IsHorizontal);
-                    this.ShowDestroyedBoat(
-                        new int[4]
-                        {
-                        this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
-                        this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
-                        },
-                        this.boatReference[boatNr].IsHorizontal);
-                    this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!");
+                    ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedBoat(
+                    ////    {
+                    ////    this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
+                    ////    this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
+                    ////    },
+                    ////    this.boatReference[boatNr].IsHorizontal);
+                    this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
                 }
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Cruiser_", StringComparison.Ordinal))
             {
             // Is a cruiser hit?
                 string[] shipCruiser = this.playfieldStore[x, y].Name.Split('_');
-                int cruiserNr = int.Parse(shipCruiser[1], CultureInfo.InvariantCulture);
+                ////MessageBox.Show("X: " + x + " Y: " + y + " shipCruiser: " + shipCruiser + " Store: " + this.playfieldStore[x, y].Name.Split('_'));
+                int cruiserNr = int.Parse(shipCruiser[1]);
                 string cruiserPart = shipCruiser[2];
+                ////MessageBox.Show("cruiserPart: " + cruiserPart + " cruiserNr: " + cruiserNr);
 
                 // Which part of the cruiser was hit?
                 switch (cruiserPart)
@@ -635,17 +635,17 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     case "Rear":
                         // Rear was hit (horizontal).
                         this.cruiserReference[cruiserNr].Rear = true;
-                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the rear!");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString() + " rear was hit!\n");
                         break;
                     case "Middle":
                         // Middle was hit.
                         this.cruiserReference[cruiserNr].Middle = true;
-                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the middle!");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString() + " middle was hit!\n");
                         break;
                     case "Front":
                         // Front was hit (horizontal).
                         this.cruiserReference[cruiserNr].Front = true;
-                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " was hit in the front!");
+                        this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString() + " front was hit!\n");
                         break;
                 }
 
@@ -662,15 +662,15 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.cruiserReference[cruiserNr].PosFrontX, this.cruiserReference[cruiserNr].PosFrontY
                         },
                         this.cruiserReference[cruiserNr].IsHorizontal);
-                    this.ShowDestroyedCruiser(
-                        new int[6]
-                        {
-                        this.cruiserReference[cruiserNr].PosRearX, this.cruiserReference[cruiserNr].PosRearY,
-                        this.cruiserReference[cruiserNr].PosMiddleX, this.cruiserReference[cruiserNr].PosMiddleY,
-                        this.cruiserReference[cruiserNr].PosFrontX, this.cruiserReference[cruiserNr].PosFrontY
-                        },
-                        this.cruiserReference[cruiserNr].IsHorizontal);
-                    this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " destroyed!");
+                    ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedCruiser(
+                    ////    new int[6]
+                    ////    {
+                    ////    this.cruiserReference[cruiserNr].PosRearX, this.cruiserReference[cruiserNr].PosRearY,
+                    ////    this.cruiserReference[cruiserNr].PosMiddleX, this.cruiserReference[cruiserNr].PosMiddleY,
+                    ////    this.cruiserReference[cruiserNr].PosFrontX, this.cruiserReference[cruiserNr].PosFrontY
+                    ////    },
+                    ////    this.cruiserReference[cruiserNr].IsHorizontal);
+                    this.SetTextLabelStatus("Cruiser " + cruiserNr.ToString() + " destroyed!\n");
                 }
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Galley_", StringComparison.Ordinal))
@@ -684,19 +684,19 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 {
                     case "Rear":
                         this.galleyReference.Rear = true;
-                        this.SetTextLabelStatus("Galley was hit in the rear!");
+                        this.SetTextLabelStatus("Galley's rear was hit!\n");
                         break;
                     case "Middle1":
                         this.galleyReference.MiddleFirstPart = true;
-                        this.SetTextLabelStatus("Galley was hit in the first middle part!");
+                        this.SetTextLabelStatus("Galley's rear middle was hit!\n");
                         break;
                     case "Middle2":
                         this.galleyReference.MiddleSecondPart = true;
-                        this.SetTextLabelStatus("Galley was hit in the second middle part!");
+                        this.SetTextLabelStatus("Galley's front middle was hit!\n");
                         break;
                     case "Front":
                         this.galleyReference.Front = true;
-                        this.SetTextLabelStatus("Galley was hit in the front!");
+                        this.SetTextLabelStatus("Galley's front was hit!\n");
                         break;
                 }
 
@@ -713,16 +713,16 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.galleyReference.PosFrontX, this.galleyReference.PosFrontY
                         },
                         this.galleyReference.IsHorizontal);
-                    this.ShowDestroyedGalley(
-                        new int[8]
-                        {
-                        this.galleyReference.PosRearX, this.galleyReference.PosRearY,
-                        this.galleyReference.PosMiddleSecondX, this.galleyReference.PosMiddleFirstY,
-                        this.galleyReference.PosMiddleSecondX, this.galleyReference.PosMiddleSecondY,
-                        this.galleyReference.PosFrontX, this.galleyReference.PosFrontY
-                        },
-                        this.galleyReference.IsHorizontal);
-                    this.SetTextLabelStatus("Galley destroyed!");
+                    ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedGalley(
+                    ////    new int[8]
+                    ////    {
+                    ////    this.galleyReference.PosRearX, this.galleyReference.PosRearY,
+                    ////    this.galleyReference.PosMiddleSecondX, this.galleyReference.PosMiddleFirstY,
+                    ////    this.galleyReference.PosMiddleSecondX, this.galleyReference.PosMiddleSecondY,
+                    ////    this.galleyReference.PosFrontX, this.galleyReference.PosFrontY
+                    ////    },
+                    ////    this.galleyReference.IsHorizontal);
+                    this.SetTextLabelStatus("Galley destroyed!\n");
                 }
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Battleship_", StringComparison.Ordinal))
@@ -736,19 +736,19 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 {
                     case "Rear":
                         this.battleshipReference.Rear = true;
-                        this.SetTextLabelStatus("Battleship was hit in the rear!");
+                        this.SetTextLabelStatus("Battleship was hit in the rear!\n");
                         break;
                     case "Middle1":
                         this.battleshipReference.MiddleFirstPart = true;
-                        this.SetTextLabelStatus("Battleship was hit in the first middle part!");
+                        this.SetTextLabelStatus("Battleship was hit in the rear middle part!\n");
                         break;
                     case "Middle2":
                         this.battleshipReference.MiddleSecondPart = true;
-                        this.SetTextLabelStatus("Battleship was hit in the second middle part!");
+                        this.SetTextLabelStatus("Battleship was hit in the front middle part!\n");
                         break;
                     case "Front":
                         this.battleshipReference.Front = true;
-                        this.SetTextLabelStatus("Battleship was hit in the front!");
+                        this.SetTextLabelStatus("Battleship was hit in the front!\n");
                         break;
                 }
 
@@ -765,16 +765,16 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.battleshipReference.PosFrontX, this.battleshipReference.PosFrontY
                         },
                         this.battleshipReference.IsHorizontal);
-                    this.ShowDestroyedBattleship(
-                        new int[8]
-                        {
-                        this.battleshipReference.PosRearX, this.battleshipReference.PosRearY,
-                        this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleFirstY,
-                        this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleSecondY,
-                        this.battleshipReference.PosFrontX, this.battleshipReference.PosFrontY
-                        },
-                        this.battleshipReference.IsHorizontal);
-                    this.SetTextLabelStatus("Battleship destroyed!");
+                    ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedBattleship(
+                    ////    new int[8]
+                    ////    {
+                    ////    this.battleshipReference.PosRearX, this.battleshipReference.PosRearY,
+                    ////    this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleFirstY,
+                    ////    this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleSecondY,
+                    ////    this.battleshipReference.PosFrontX, this.battleshipReference.PosFrontY
+                    ////    },
+                    ////    this.battleshipReference.IsHorizontal);
+                    this.SetTextLabelStatus("Battleship destroyed!\n");
                 }
             }
         }
@@ -816,6 +816,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.galleyReference.ShipName = "Galley";
                                 this.galleyReference.PosRearX = x;
                                 this.galleyReference.PosRearY = y;
+                                this.galleyReference.PosMiddleFirstX = x - 1;
+                                this.galleyReference.PosMiddleFirstY = y;
+                                this.galleyReference.PosMiddleSecondX = x - 2;
+                                this.galleyReference.PosMiddleSecondY = y;
+                                this.galleyReference.PosFrontX = x - 3;
+                                this.galleyReference.PosFrontY = y;
                                 this.galleyReference.ShipDestroyed = false;
                                 this.galleyReference.Rear = false;
                                 this.galleyReference.Front = false;
@@ -864,6 +870,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.galleyReference.ShipName = "Galley";
                                 this.galleyReference.PosRearX = x;
                                 this.galleyReference.PosRearY = y;
+                                this.galleyReference.PosMiddleFirstX = x + 1;
+                                this.galleyReference.PosMiddleFirstY = y;
+                                this.galleyReference.PosMiddleSecondX = x + 2;
+                                this.galleyReference.PosMiddleSecondY = y;
+                                this.galleyReference.PosFrontX = x + 3;
+                                this.galleyReference.PosFrontY = y;
                                 this.galleyReference.ShipDestroyed = false;
                                 this.galleyReference.Rear = false;
                                 this.galleyReference.Front = false;
@@ -905,28 +917,34 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.galley4v;
-                                playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.galley3v;
-                                playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.galley2v;
-                                playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.galley1v;
+                                this.playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.galley3v;
+                                this.playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.galley2v;
+                                this.playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.galley1v;
                                 tmp.Tag = 1;
-                                playField[x, y - 1].Tag = 1;
-                                playField[x, y - 2].Tag = 1;
-                                playField[x, y - 3].Tag = 1;
+                                this.playField[x, y - 1].Tag = 1;
+                                this.playField[x, y - 2].Tag = 1;
+                                this.playField[x, y - 3].Tag = 1;
 
-                                galleyReference.ShipName = "Galley";
-                                galleyReference.PosRearX = x;
-                                galleyReference.PosRearY = y;
-                                galleyReference.ShipDestroyed = false;
-                                galleyReference.Rear = false;
-                                galleyReference.Front = false;
-                                galleyReference.MiddleFirstPart = false;
-                                galleyReference.MiddleSecondPart = false;
-                                galleyReference.IsHorizontal = horizontal;
+                                this.galleyReference.ShipName = "Galley";
+                                this.galleyReference.PosRearX = x;
+                                this.galleyReference.PosRearY = y;
+                                this.galleyReference.PosMiddleFirstX = x;
+                                this.galleyReference.PosMiddleFirstY = y - 1;
+                                this.galleyReference.PosMiddleSecondX = x;
+                                this.galleyReference.PosMiddleSecondY = y - 2;
+                                this.galleyReference.PosFrontX = x;
+                                this.galleyReference.PosFrontY = y - 3;
+                                this.galleyReference.ShipDestroyed = false;
+                                this.galleyReference.Rear = false;
+                                this.galleyReference.Front = false;
+                                this.galleyReference.MiddleFirstPart = false;
+                                this.galleyReference.MiddleSecondPart = false;
+                                this.galleyReference.IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = galleyReference.ShipName + "_" + "Front";
-                                playfieldStore[x, y - 1].Name = galleyReference.ShipName + "_" + "Middle2";
-                                playfieldStore[x, y - 2].Name = galleyReference.ShipName + "_" + "Middle1";
-                                playfieldStore[x, y - 3].Name = galleyReference.ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y].Name = this.galleyReference.ShipName + "_" + "Front";
+                                this.playfieldStore[x, y - 1].Name = this.galleyReference.ShipName + "_" + "Middle2";
+                                this.playfieldStore[x, y - 2].Name = this.galleyReference.ShipName + "_" + "Middle1";
+                                this.playfieldStore[x, y - 3].Name = this.galleyReference.ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -952,28 +970,34 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.galley1v;
-                                playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.galley2v;
-                                playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.galley3v;
-                                playField[x, y + 3].BackgroundImage = Battleships.Properties.Resources.galley4v;
+                                this.playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.galley2v;
+                                this.playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.galley3v;
+                                this.playField[x, y + 3].BackgroundImage = Battleships.Properties.Resources.galley4v;
                                 tmp.Tag = 1;
-                                playField[x, y + 1].Tag = 1;
-                                playField[x, y + 2].Tag = 1;
-                                playField[x, y + 3].Tag = 1;
+                                this.playField[x, y + 1].Tag = 1;
+                                this.playField[x, y + 2].Tag = 1;
+                                this.playField[x, y + 3].Tag = 1;
 
-                                galleyReference.ShipName = "Galley";
-                                galleyReference.PosRearX = x;
-                                galleyReference.PosRearY = y;
-                                galleyReference.ShipDestroyed = false;
-                                galleyReference.Rear = false;
-                                galleyReference.Front = false;
-                                galleyReference.MiddleFirstPart = false;
-                                galleyReference.MiddleSecondPart = false;
-                                galleyReference.IsHorizontal = horizontal;
+                                this.galleyReference.ShipName = "Galley";
+                                this.galleyReference.PosRearX = x;
+                                this.galleyReference.PosRearY = y;
+                                this.galleyReference.PosMiddleFirstX = x;
+                                this.galleyReference.PosMiddleFirstY = y + 1;
+                                this.galleyReference.PosMiddleSecondX = x;
+                                this.galleyReference.PosMiddleSecondY = y + 2;
+                                this.galleyReference.PosFrontX = x;
+                                this.galleyReference.PosFrontY = y + 3;
+                                this.galleyReference.ShipDestroyed = false;
+                                this.galleyReference.Rear = false;
+                                this.galleyReference.Front = false;
+                                this.galleyReference.MiddleFirstPart = false;
+                                this.galleyReference.MiddleSecondPart = false;
+                                this.galleyReference.IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = galleyReference.ShipName + "_" + "Rear";
-                                playfieldStore[x, y + 1].Name = galleyReference.ShipName + "_" + "Middle1";
-                                playfieldStore[x, y + 2].Name = galleyReference.ShipName + "_" + "Middle2";
-                                playfieldStore[x, y + 3].Name = galleyReference.ShipName + "_" + "Front";
+                                this.playfieldStore[x, y].Name = this.galleyReference.ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y + 1].Name = this.galleyReference.ShipName + "_" + "Middle1";
+                                this.playfieldStore[x, y + 2].Name = this.galleyReference.ShipName + "_" + "Middle2";
+                                this.playfieldStore[x, y + 3].Name = this.galleyReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -982,15 +1006,15 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y + 1].BackColor = collisionColor;
-                                playField[x, y + 2].BackColor = collisionColor;
-                                playField[x, y + 3].BackColor = collisionColor;
+                                this.playField[x, y + 1].BackColor = this.collisionColor;
+                                this.playField[x, y + 2].BackColor = this.collisionColor;
+                                this.playField[x, y + 3].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y + 1].BackColor = Color.Transparent;
-                                playField[x, y + 2].BackColor = Color.Transparent;
-                                playField[x, y + 3].BackColor = Color.Transparent;
+                                this.playField[x, y + 1].BackColor = Color.Transparent;
+                                this.playField[x, y + 2].BackColor = Color.Transparent;
+                                this.playField[x, y + 3].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1021,6 +1045,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.battleshipReference.ShipName = "Battleship";
                                 this.battleshipReference.PosRearX = x;
                                 this.battleshipReference.PosRearY = y;
+                                this.battleshipReference.PosMiddleFirstX = x - 1;
+                                this.battleshipReference.PosMiddleFirstY = y;
+                                this.battleshipReference.PosMiddleSecondX = x - 2;
+                                this.battleshipReference.PosMiddleSecondY = y;
+                                this.battleshipReference.PosFrontX = x - 3;
+                                this.battleshipReference.PosFrontY = y;
                                 this.battleshipReference.ShipDestroyed = false;
                                 this.battleshipReference.Rear = false;
                                 this.battleshipReference.Front = false;
@@ -1066,6 +1096,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.battleshipReference.ShipName = "Battleship";
                                 this.battleshipReference.PosRearX = x;
                                 this.battleshipReference.PosRearY = y;
+                                this.battleshipReference.PosMiddleFirstX = x + 1;
+                                this.battleshipReference.PosMiddleFirstY = y;
+                                this.battleshipReference.PosMiddleSecondX = x + 2;
+                                this.battleshipReference.PosMiddleSecondY = y;
+                                this.battleshipReference.PosFrontX = x + 3;
+                                this.battleshipReference.PosFrontY = y;
                                 this.battleshipReference.ShipDestroyed = false;
                                 this.battleshipReference.Rear = false;
                                 this.battleshipReference.Front = false;
@@ -1107,28 +1143,34 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1 && (int)playField[x, y - 3].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.z4v1;
-                                playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.z3v1;
-                                playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.z2v1;
-                                playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.z1v1;
+                                this.playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.z3v1;
+                                this.playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.z2v1;
+                                this.playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.z1v1;
                                 tmp.Tag = 1;
-                                playField[x, y - 1].Tag = 1;
-                                playField[x, y - 2].Tag = 1;
-                                playField[x, y - 3].Tag = 1;
+                                this.playField[x, y - 1].Tag = 1;
+                                this.playField[x, y - 2].Tag = 1;
+                                this.playField[x, y - 3].Tag = 1;
 
-                                battleshipReference.ShipName = "Battleship";
-                                battleshipReference.PosRearX = x;
-                                battleshipReference.PosRearY = y;
-                                battleshipReference.ShipDestroyed = false;
-                                battleshipReference.Rear = false;
-                                battleshipReference.Front = false;
-                                battleshipReference.MiddleFirstPart = false;
-                                battleshipReference.MiddleSecondPart = false;
-                                battleshipReference.IsHorizontal = horizontal;
+                                this.battleshipReference.ShipName = "Battleship";
+                                this.battleshipReference.PosRearX = x;
+                                this.battleshipReference.PosRearY = y;
+                                this.battleshipReference.PosMiddleFirstX = x;
+                                this.battleshipReference.PosMiddleFirstY = y - 1;
+                                this.battleshipReference.PosMiddleSecondX = x;
+                                this.battleshipReference.PosMiddleSecondY = y - 2;
+                                this.battleshipReference.PosFrontX = x;
+                                this.battleshipReference.PosFrontY = y - 3;
+                                this.battleshipReference.ShipDestroyed = false;
+                                this.battleshipReference.Rear = false;
+                                this.battleshipReference.Front = false;
+                                this.battleshipReference.MiddleFirstPart = false;
+                                this.battleshipReference.MiddleSecondPart = false;
+                                this.battleshipReference.IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = battleshipReference.ShipName + "_" + "Front";
-                                playfieldStore[x, y - 1].Name = battleshipReference.ShipName + "_" + "Middle2";
-                                playfieldStore[x, y - 2].Name = battleshipReference.ShipName + "_" + "Middle1";
-                                playfieldStore[x, y - 3].Name = battleshipReference.ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y].Name = this.battleshipReference.ShipName + "_" + "Front";
+                                this.playfieldStore[x, y - 1].Name = this.battleshipReference.ShipName + "_" + "Middle2";
+                                this.playfieldStore[x, y - 2].Name = this.battleshipReference.ShipName + "_" + "Middle1";
+                                this.playfieldStore[x, y - 3].Name = this.battleshipReference.ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -1137,15 +1179,15 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y - 1].BackColor = collisionColor;
-                                playField[x, y - 2].BackColor = collisionColor;
-                                playField[x, y - 3].BackColor = collisionColor;
+                                this.playField[x, y - 1].BackColor = this.collisionColor;
+                                this.playField[x, y - 2].BackColor = this.collisionColor;
+                                this.playField[x, y - 3].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y - 1].BackColor = Color.Transparent;
-                                playField[x, y - 2].BackColor = Color.Transparent;
-                                playField[x, y - 3].BackColor = Color.Transparent;
+                                this.playField[x, y - 1].BackColor = Color.Transparent;
+                                this.playField[x, y - 2].BackColor = Color.Transparent;
+                                this.playField[x, y - 3].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1154,28 +1196,34 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.z1v1;
-                                playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.z2v1;
-                                playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.z3v1;
-                                playField[x, y + 3].BackgroundImage = Battleships.Properties.Resources.z4v1;
+                                this.playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.z2v1;
+                                this.playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.z3v1;
+                                this.playField[x, y + 3].BackgroundImage = Battleships.Properties.Resources.z4v1;
                                 tmp.Tag = 1;
-                                playField[x, y + 1].Tag = 1;
-                                playField[x, y + 2].Tag = 1;
-                                playField[x, y + 3].Tag = 1;
+                                this.playField[x, y + 1].Tag = 1;
+                                this.playField[x, y + 2].Tag = 1;
+                                this.playField[x, y + 3].Tag = 1;
 
-                                battleshipReference.ShipName = "Battleship";
-                                battleshipReference.PosRearX = x;
-                                battleshipReference.PosRearY = y;
-                                battleshipReference.ShipDestroyed = false;
-                                battleshipReference.Rear = false;
-                                battleshipReference.Front = false;
-                                battleshipReference.MiddleFirstPart = false;
-                                battleshipReference.MiddleSecondPart = false;
-                                battleshipReference.IsHorizontal = horizontal;
+                                this.battleshipReference.ShipName = "Battleship";
+                                this.battleshipReference.PosRearX = x;
+                                this.battleshipReference.PosRearY = y;
+                                this.battleshipReference.PosMiddleFirstX = x;
+                                this.battleshipReference.PosMiddleFirstY = y + 1;
+                                this.battleshipReference.PosMiddleSecondX = x;
+                                this.battleshipReference.PosMiddleSecondY = y + 2;
+                                this.battleshipReference.PosFrontX = x;
+                                this.battleshipReference.PosFrontY = y + 3;
+                                this.battleshipReference.ShipDestroyed = false;
+                                this.battleshipReference.Rear = false;
+                                this.battleshipReference.Front = false;
+                                this.battleshipReference.MiddleFirstPart = false;
+                                this.battleshipReference.MiddleSecondPart = false;
+                                this.battleshipReference.IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = battleshipReference.ShipName + "_" + "Rear";
-                                playfieldStore[x, y + 1].Name = battleshipReference.ShipName + "_" + "Middle1";
-                                playfieldStore[x, y + 2].Name = battleshipReference.ShipName + "_" + "Middle2";
-                                playfieldStore[x, y + 3].Name = battleshipReference.ShipName + "_" + "Front";
+                                this.playfieldStore[x, y].Name = this.battleshipReference.ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y + 1].Name = this.battleshipReference.ShipName + "_" + "Middle1";
+                                this.playfieldStore[x, y + 2].Name = this.battleshipReference.ShipName + "_" + "Middle2";
+                                this.playfieldStore[x, y + 3].Name = this.battleshipReference.ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -1184,15 +1232,15 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y + 1].BackColor = collisionColor;
-                                playField[x, y + 2].BackColor = collisionColor;
-                                playField[x, y + 3].BackColor = collisionColor;
+                                this.playField[x, y + 1].BackColor = this.collisionColor;
+                                this.playField[x, y + 2].BackColor = this.collisionColor;
+                                this.playField[x, y + 3].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y + 1].BackColor = Color.Transparent;
-                                playField[x, y + 2].BackColor = Color.Transparent;
-                                playField[x, y + 3].BackColor = Color.Transparent;
+                                this.playField[x, y + 1].BackColor = Color.Transparent;
+                                this.playField[x, y + 2].BackColor = Color.Transparent;
+                                this.playField[x, y + 3].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1218,6 +1266,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 this.cruiserReference[this.CounterCruiser].PosRearX = x;
                                 this.cruiserReference[this.CounterCruiser].PosRearY = y;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleX = x - 1;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleY = y;
+                                this.cruiserReference[this.CounterCruiser].PosFrontX = x - 2;
+                                this.cruiserReference[this.CounterCruiser].PosFrontY = y;
                                 this.cruiserReference[this.CounterCruiser].ShipDestroyed = false;
                                 this.cruiserReference[this.CounterCruiser].Front = false;
                                 this.cruiserReference[this.CounterCruiser].Rear = false;
@@ -1260,6 +1312,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 this.cruiserReference[this.CounterCruiser].PosRearX = x;
                                 this.cruiserReference[this.CounterCruiser].PosRearY = y;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleX = x + 1;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleY = y;
+                                this.cruiserReference[this.CounterCruiser].PosFrontX = x + 2;
+                                this.cruiserReference[this.CounterCruiser].PosFrontY = y;
                                 this.cruiserReference[this.CounterCruiser].ShipDestroyed = false;
                                 this.cruiserReference[this.CounterCruiser].Front = false;
                                 this.cruiserReference[this.CounterCruiser].Rear = false;
@@ -1297,24 +1353,28 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.cruiser3v;
-                                playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.cruiser2v;
-                                playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.cruiser1v;
+                                this.playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.cruiser2v;
+                                this.playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.cruiser1v;
                                 tmp.Tag = 1;
-                                playField[x, y - 1].Tag = 1;
-                                playField[x, y - 2].Tag = 1;
+                                this.playField[x, y - 1].Tag = 1;
+                                this.playField[x, y - 2].Tag = 1;
 
-                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
-                                cruiserReference[CounterCruiser].PosRearX = x;
-                                cruiserReference[CounterCruiser].PosRearY = y;
-                                cruiserReference[CounterCruiser].ShipDestroyed = false;
-                                cruiserReference[CounterCruiser].Front = false;
-                                cruiserReference[CounterCruiser].Rear = false;
-                                cruiserReference[CounterCruiser].Middle = false;
-                                cruiserReference[CounterCruiser].IsHorizontal = horizontal;
+                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
+                                this.cruiserReference[this.CounterCruiser].PosRearX = x;
+                                this.cruiserReference[this.CounterCruiser].PosRearY = y;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleX = x;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleY = y - 1;
+                                this.cruiserReference[this.CounterCruiser].PosFrontX = x;
+                                this.cruiserReference[this.CounterCruiser].PosFrontY = y - 2;
+                                this.cruiserReference[this.CounterCruiser].ShipDestroyed = false;
+                                this.cruiserReference[this.CounterCruiser].Front = false;
+                                this.cruiserReference[this.CounterCruiser].Rear = false;
+                                this.cruiserReference[this.CounterCruiser].Middle = false;
+                                this.cruiserReference[this.CounterCruiser].IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Front";
-                                playfieldStore[x, y - 1].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
-                                playfieldStore[x, y - 2].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Front";
+                                this.playfieldStore[x, y - 1].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
+                                this.playfieldStore[x, y - 2].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -1322,14 +1382,14 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             else
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
-                                tmp.BackColor = collisionColor;
-                                playField[x, y - 1].BackColor = collisionColor;
-                                playField[x, y - 2].BackColor = collisionColor;
+                                tmp.BackColor = this.collisionColor;
+                                this.playField[x, y - 1].BackColor = this.collisionColor;
+                                this.playField[x, y - 2].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y - 1].BackColor = Color.Transparent;
-                                playField[x, y - 2].BackColor = Color.Transparent;
+                                this.playField[x, y - 1].BackColor = Color.Transparent;
+                                this.playField[x, y - 2].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1338,24 +1398,28 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.cruiser1v;
-                                playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.cruiser2v;
-                                playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.cruiser3v;
+                                this.playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.cruiser2v;
+                                this.playField[x, y + 2].BackgroundImage = Battleships.Properties.Resources.cruiser3v;
                                 tmp.Tag = 1;
-                                playField[x, y + 1].Tag = 1;
-                                playField[x, y + 2].Tag = 1;
+                                this.playField[x, y + 1].Tag = 1;
+                                this.playField[x, y + 2].Tag = 1;
 
-                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
-                                cruiserReference[CounterCruiser].PosRearX = x;
-                                cruiserReference[CounterCruiser].PosRearY = y;
-                                cruiserReference[CounterCruiser].ShipDestroyed = false;
-                                cruiserReference[CounterCruiser].Front = false;
-                                cruiserReference[CounterCruiser].Rear = false;
-                                cruiserReference[CounterCruiser].Middle = false;
-                                cruiserReference[CounterCruiser].IsHorizontal = horizontal;
+                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
+                                this.cruiserReference[this.CounterCruiser].PosRearX = x;
+                                this.cruiserReference[this.CounterCruiser].PosRearY = y;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleX = x;
+                                this.cruiserReference[this.CounterCruiser].PosMiddleY = y + 1;
+                                this.cruiserReference[this.CounterCruiser].PosFrontX = x;
+                                this.cruiserReference[this.CounterCruiser].PosFrontY = y + 2;
+                                this.cruiserReference[this.CounterCruiser].ShipDestroyed = false;
+                                this.cruiserReference[this.CounterCruiser].Front = false;
+                                this.cruiserReference[this.CounterCruiser].Rear = false;
+                                this.cruiserReference[this.CounterCruiser].Middle = false;
+                                this.cruiserReference[this.CounterCruiser].IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
-                                playfieldStore[x, y + 1].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
-                                playfieldStore[x, y + 2].Name = cruiserReference[CounterCruiser].ShipName + "_" + "Front";
+                                this.playfieldStore[x, y].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y + 1].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
+                                this.playfieldStore[x, y + 2].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -1364,13 +1428,13 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y + 1].BackColor = collisionColor;
-                                playField[x, y + 2].BackColor = collisionColor;
+                                this.playField[x, y + 1].BackColor = this.collisionColor;
+                                this.playField[x, y + 2].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y + 1].BackColor = Color.Transparent;
-                                playField[x, y + 2].BackColor = Color.Transparent;
+                                this.playField[x, y + 1].BackColor = Color.Transparent;
+                                this.playField[x, y + 2].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1464,31 +1528,31 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.boat2v;
-                                playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.boat1v;
+                                this.playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.boat1v;
                                 tmp.Tag = 1;
-                                playField[x, y - 1].Tag = 1;
-                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture); // Position sowie name des schiffes speichern
-                                boatReference[CounterBoat].PosRearX = x;
-                                boatReference[CounterBoat].PosRearY = y;
-                                boatReference[CounterBoat].PosFrontX = x;
-                                boatReference[CounterBoat].PosFrontY = y - 1;
-                                boatReference[CounterBoat].ShipDestroyed = false;
-                                boatReference[CounterBoat].Front = false;
-                                boatReference[CounterBoat].Rear = false;
-                                boatReference[CounterBoat].IsHorizontal = horizontal;
-                                playfieldStore[x, y].Name = boatReference[CounterBoat].ShipName + "_" + "Front";
-                                playfieldStore[x, y - 1].Name = boatReference[CounterBoat].ShipName + "_" + "Rear";
-                                Ships = ShipModel.NoShip; // Schiffsauswahl auf nothing setzen
+                                this.playField[x, y - 1].Tag = 1;
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture); // Position sowie name des schiffes speichern
+                                this.boatReference[this.CounterBoat].PosRearX = x;
+                                this.boatReference[this.CounterBoat].PosRearY = y;
+                                this.boatReference[this.CounterBoat].PosFrontX = x;
+                                this.boatReference[this.CounterBoat].PosFrontY = y - 1;
+                                this.boatReference[this.CounterBoat].ShipDestroyed = false;
+                                this.boatReference[this.CounterBoat].Front = false;
+                                this.boatReference[this.CounterBoat].Rear = false;
+                                this.boatReference[this.CounterBoat].IsHorizontal = horizontal;
+                                this.playfieldStore[x, y].Name = this.boatReference[CounterBoat].ShipName + "_" + "Front";
+                                this.playfieldStore[x, y - 1].Name = this.boatReference[CounterBoat].ShipName + "_" + "Rear";
+                                this.Ships = ShipModel.NoShip; // Schiffsauswahl auf nothing setzen
                             }
                             else
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y - 1].BackColor = collisionColor;
+                                this.playField[x, y - 1].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y - 1].BackColor = Color.Transparent;
+                                this.playField[x, y - 1].BackColor = Color.Transparent;
                                 return;
                             }
                         }
@@ -1497,23 +1561,23 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.boat1v;
-                                playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.boat2v;
+                                this.playField[x, y + 1].BackgroundImage = Battleships.Properties.Resources.boat2v;
                                 tmp.Tag = 1;
-                                playField[x, y + 1].Tag = 1;
+                                this.playField[x, y + 1].Tag = 1;
 
                                 // Position sowie name des schiffes speichern
-                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture);
-                                boatReference[CounterBoat].PosRearX = x;
-                                boatReference[CounterBoat].PosRearY = y;
-                                boatReference[CounterBoat].PosFrontX = x;
-                                boatReference[CounterBoat].PosFrontY = y + 1;
-                                boatReference[CounterBoat].ShipDestroyed = false;
-                                boatReference[CounterBoat].Front = false;
-                                boatReference[CounterBoat].Rear = false;
-                                boatReference[CounterBoat].IsHorizontal = horizontal;
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture);
+                                this.boatReference[this.CounterBoat].PosRearX = x;
+                                this.boatReference[this.CounterBoat].PosRearY = y;
+                                this.boatReference[this.CounterBoat].PosFrontX = x;
+                                this.boatReference[this.CounterBoat].PosFrontY = y + 1;
+                                this.boatReference[this.CounterBoat].ShipDestroyed = false;
+                                this.boatReference[this.CounterBoat].Front = false;
+                                this.boatReference[this.CounterBoat].Rear = false;
+                                this.boatReference[this.CounterBoat].IsHorizontal = horizontal;
 
-                                playfieldStore[x, y].Name = boatReference[CounterBoat].ShipName + "_" + "Rear";
-                                playfieldStore[x, y + 1].Name = boatReference[CounterBoat].ShipName + "_" + "Front";
+                                this.playfieldStore[x, y].Name = this.boatReference[CounterBoat].ShipName + "_" + "Rear";
+                                this.playfieldStore[x, y + 1].Name = this.boatReference[CounterBoat].ShipName + "_" + "Front";
 
                                 // Schiffsauswahl auf nothing setzen
                                 Ships = ShipModel.NoShip;
@@ -1522,11 +1586,11 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             {
                                 // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
                                 tmp.BackColor = collisionColor;
-                                playField[x, y + 1].BackColor = collisionColor;
+                                this.playField[x, y + 1].BackColor = this.collisionColor;
                                 Application.DoEvents();
                                 System.Threading.Thread.Sleep(500);
                                 tmp.BackColor = Color.Transparent;
-                                playField[x, y + 1].BackColor = Color.Transparent;
+                                this.playField[x, y + 1].BackColor = Color.Transparent;
                                 return;
                             }
                         }
