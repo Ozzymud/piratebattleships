@@ -23,7 +23,8 @@
     <AssemblyOriginatorKeyFile>Battleships Pirate Edition.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <RunCodeAnalysis>False</RunCodeAnalysis>
-    <CodeAnalysisRules>-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1815</CodeAnalysisRules>
+    <CodeAnalysisRules>-Microsoft.Globalization#CA1300;-Microsoft.Globalization#CA1301;-Microsoft.Globalization#CA1302;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA1306;-Microsoft.Globalization#CA1307;-Microsoft.Globalization#CA1308;-Microsoft.Globalization#CA1309;-Microsoft.Globalization#CA2101;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1815</CodeAnalysisRules>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\Oz\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
