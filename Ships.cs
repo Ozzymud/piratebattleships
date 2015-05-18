@@ -44,7 +44,7 @@ public static class Ships
             public int PosRearX;
             public int PosRearY;
             public string ShipName;
-            public bool Horizontal;
+            public bool IsHorizontal;
         }
 
     /// <summary>
@@ -53,17 +53,17 @@ public static class Ships
     public struct Cruiser
         {
             public bool Front;
-            public bool Rear;
             public bool Middle;
+            public bool Rear;
             public bool ShipDestroyed;
-            public int PosRearX;
-            public int PosRearY;
-            public int PosMiddleX;
-            public int PosMiddleY;
             public int PosFrontX;
             public int PosFrontY;
+            public int PosMiddleX;
+            public int PosMiddleY;
+            public int PosRearX;
+            public int PosRearY;
             public string ShipName;
-            public bool Horizontal;
+            public bool IsHorizontal;
         }
 
     /// <summary>
@@ -72,20 +72,20 @@ public static class Ships
     public struct Galley
         {
             public bool Front;
-            public bool Rear;
             public bool MiddleFirstPart;
             public bool MiddleSecondPart;
+            public bool Rear;
             public bool ShipDestroyed;
-            public int PosRearX;
-            public int PosRearY;
+            public int PosFrontX;
+            public int PosFrontY;
             public int PosMiddleFirstX;
             public int PosMiddleFirstY;
             public int PosMiddleSecondX;
             public int PosMiddleSecondY;
-            public int PosFrontX;
-            public int PosFrontY;
+            public int PosRearX;
+            public int PosRearY;
             public string ShipName;
-            public bool Horizontal;
+            public bool IsHorizontal;
         }
 
     /// <summary>
@@ -95,20 +95,20 @@ public static class Ships
     public struct Battleship
         {
             public bool Front;
-            public bool Rear;
             public bool MiddleFirstPart;
             public bool MiddleSecondPart;
+            public bool Rear;
             public bool ShipDestroyed;
-            public int PosRearX;
-            public int PosRearY;
+            public int PosFrontX;
+            public int PosFrontY;
             public int PosMiddleFirstX;
             public int PosMiddleFirstY;
             public int PosMiddleSecondX;
             public int PosMiddleSecondY;
-            public int PosFrontX;
-            public int PosFrontY;
+            public int PosRearX;
+            public int PosRearY;
             public string ShipName;
-            public bool Horizontal;
+            public bool IsHorizontal;
         }
     #endregion
     }

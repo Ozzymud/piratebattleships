@@ -71,7 +71,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 p.Location = new Point(i * 30, j * 30);
                 p.Tag = 0;
                 p.Margin = new Padding(0);
-                p.Name = "pf_" + i.ToString(CultureInfo.InvariantCulture) + ":" + j.ToString(CultureInfo.InvariantCulture);
+                p.Name = "pf_" + i.ToString() + ":" + j.ToString();
                 p.Size = new Size(30, 30);
                 p.BorderStyle = BorderStyle.FixedSingle;
                 p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
@@ -151,7 +151,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     public void DrawExplosion(int hitX, int hitY)
     {
         PictureBox explPicture = new PictureBox();
-        explPicture.Name = "expl_" + hitX.ToString(CultureInfo.InvariantCulture) + ":" + hitY.ToString(CultureInfo.InvariantCulture);
+        explPicture.Name = "expl_" + hitX.ToString() + ":" + hitY.ToString();
         explPicture.Location = new Point(hitX * 30, hitY * 30);
         explPicture.Size = new Size(30, 30);
         explPicture.Margin = new Padding(0);
@@ -310,8 +310,8 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // Remove explosion picture at the specified position (remove--> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
             if (horizontal)
             {
                 this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
@@ -343,9 +343,9 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove --> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
-            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString(CultureInfo.InvariantCulture) + ":" + args[5].ToString(CultureInfo.InvariantCulture));
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
 
             if (horizontal)
             {
@@ -363,6 +363,46 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     }
     
     /// <summary>
+    /// Display a destroyed galley on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    private void ShowDestroyedGalley(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
+        {
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedGalley);
+            this.Invoke(d, new object[] { args, horizontal });
+        }
+        else
+        {
+            // TODO: Show destroyed galley.
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // At the entered point remove explosion image (remove--> PictureBox control)
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.pb[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
+
+            if (horizontal)
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+            }
+            else
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+            }
+        }
+    }
+
+    /// <summary>
     /// Draws a missed shot on the opponent's battlefield
     /// </summary>
     /// <param name="x">X parameter of the missed shot.</param>
@@ -370,7 +410,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     private void DrawMiss(int x, int y)
     {
         PictureBox missPicture = new PictureBox();
-        missPicture.Name = "miss_" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
+        missPicture.Name = "miss_" + x.ToString() + ":" + y.ToString();
         missPicture.Location = new Point(x * 30, y * 30);
         missPicture.Size = new Size(30, 30);
         missPicture.Margin = new Padding(0);

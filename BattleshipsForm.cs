@@ -121,7 +121,6 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             PanelStatus.AutoScroll = true;
             PanelStatus.BackColor = Color.Transparent;
             PanelStatus.VerticalScroll.SmallChange = 50;
-            PanelStatus.HorizontalScroll.Enabled = true;
             LabelStatus = new Label();
 
             // LabelStatus.Dock = DockStyle.Fill;
