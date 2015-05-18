@@ -240,6 +240,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                     // Since the main Socket is now free, it can go back and wait for
                     // other clients who are attempting to connect
+                    // TODO: this partially works, informs new clients that the server is full
+                    // but it also disconnects those other clients
                     ////this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
                 }
                 else
