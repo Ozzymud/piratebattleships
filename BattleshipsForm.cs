@@ -248,6 +248,10 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             set { counterBoat = value; }
         }
 
+        /// <summary>
+        /// Gets or sets networkFormOpen value.
+        /// 0 for neither, 1 for join window, 2 for host window.
+        /// </summary>
         public static int NetworkFormOpen
         {
             get { return networkFormOpen; }
