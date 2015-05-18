@@ -201,7 +201,6 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
             PictureBox explPicture = new PictureBox();
             explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
-            //// explPicture.Location = new Point(x * 30, y * 30);
             explPicture.Size = new Size(30, 30);
             explPicture.Margin = new Padding(0);
             explPicture.Padding = new Padding(0);
@@ -292,9 +291,6 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             {
                 // Die Explosion dem Panel zuordnen, in dem der Treffer war (Die Explosion wird somit vor dem Panelbild angezeigt)
                 this.pf[x, y].Controls.Add(contr);
-                //// Control[] s = this.Controls.Find(contr.ShipName, false);
-                //// Die PictureBox in den Fordergrund bringen
-                //// s[0].BringToFront();
             }
         }
     #endregion

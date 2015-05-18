@@ -278,8 +278,6 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.player)
             {
-                // CA1804 declares a variable, 'charLen', of type 'int', which is never used or is only assigned to. Use this variable or remove it.
-                ////Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
                 for (int i = 0; i < this.pb.GetLength(0); i++)
                 {
                     for (int j = 0; j < this.pb.GetLength(1); j++)

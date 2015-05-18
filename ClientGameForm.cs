@@ -151,7 +151,6 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                     this.SetTextLblStatus("Server closed!");
                     this.UpdateControls(false);
                 }
-                ////MessageBox.Show(se.Message);
             }
             catch (Exception ex)
             {
@@ -260,8 +259,6 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 string str;
                 str = "\nConnection failed, is the server running?\n" + se.Message;
                 this.SetText(str);
-
-                ////MessageBox.Show(str);
                 this.UpdateControls(false);
             }
         }

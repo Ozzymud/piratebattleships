@@ -171,8 +171,6 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 Decoder d = Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
                 string data = new string(chars);
-                //// richTextBoxReceivedMsg.AppendText(data);
-                //// SetTextRichTextBox(data);
 
                 // Empfangene Daten verarbeiten und entsperchenden Service auswählen
                 this.Services(data);
@@ -223,7 +221,6 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                     // Display this client connection as a status message on the GUI
                     string str = string.Format("Client at {0} connected", this.WorkerSocket.RemoteEndPoint.ToString());
-                    //// textBoxMsg.Text = str;
                     this.SetText(str);
                     this.SetTextLblStatus(str);
 
@@ -243,7 +240,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                     // Since the main Socket is now free, it can go back and wait for
                     // other clients who are attempting to connect
-                    //// mainSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
+                    ////this.mainSocket.BeginAccept(new AsyncCallback(this.OnClientConnect), null);
                 }
                 else
                 {
@@ -281,7 +278,6 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
             // Find host by name
             IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-            //// Dns.GetHostByName(strHostName);
 
             // Grab the first IP addresses
             string stringCurrentIP = string.Empty;
