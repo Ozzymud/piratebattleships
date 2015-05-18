@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -290,7 +291,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnGalley.Enabled = false;
                         }
                         
-                        this.lblGalley.Text = "Number: " + (MaxNumberGalley - CounterGalley).ToString();
+                        this.lblGalley.Text = "Number: " + (MaxNumberGalley - CounterGalley).ToString(CultureInfo.InvariantCulture);
                     }
 
                     break;
@@ -317,7 +318,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnBattleship.Enabled = false;
                         }
                         
-                        this.lblBattleship.Text = "Number: " + (MaxNumberBattleship - CounterBattleship).ToString();
+                        this.lblBattleship.Text = "Number: " + (MaxNumberBattleship - CounterBattleship).ToString(CultureInfo.InvariantCulture);
                     }
 
                     break;
@@ -343,7 +344,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnCruiser.Enabled = false;
                         }
                         
-                        this.lblCruiser.Text = "Number: " + (MaxNumberCruiser - CounterCruiser).ToString();
+                        this.lblCruiser.Text = "Number: " + (MaxNumberCruiser - CounterCruiser).ToString(CultureInfo.InvariantCulture);
                     }
 
                     break;
@@ -369,7 +370,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                             this.btnBoat.Enabled = false;
                         }
 
-                        this.lblBoat.Text = "Number: " + (MaxNumberBoat - CounterBoat).ToString();
+                        this.lblBoat.Text = "Number: " + (MaxNumberBoat - CounterBoat).ToString(CultureInfo.InvariantCulture);
                     }
 
                     break;

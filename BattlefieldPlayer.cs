@@ -102,7 +102,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     p.Tag = 0;
                     p.Margin = new Padding(0);
                     p.Padding = new Padding(0);
-                    p.Name = "pf_" + i.ToString() + ":" + j.ToString();
+                    p.Name = "pf_" + i.ToString(CultureInfo.InvariantCulture) + ":" + j.ToString(CultureInfo.InvariantCulture);
                     p.Size = new Size(30, 30);
                     p.MouseClick += new MouseEventHandler(this.PlayerMouse_Click);
                     p.MouseEnter += new EventHandler(this.PlayerMouseEnter);
@@ -201,7 +201,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
         {
             // PictureBox_DoubleBuffered explPicture = new PictureBox_DoubleBuffered();
             PictureBox explPicture = new PictureBox();
-            explPicture.Name = "expl_" + x.ToString() + ":" + y.ToString();
+            explPicture.Name = "expl_" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
             explPicture.Size = new Size(30, 30);
             explPicture.Margin = new Padding(0);
             explPicture.Padding = new Padding(0);
@@ -390,8 +390,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
-                this.pf[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.pf[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.pf[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
+                this.pf[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
                 if (horizontal)
                 {
                     this.pf[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
@@ -423,9 +423,9 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // Explosionsbild an der angegebeben Stelle entfernen (Control entfernen --> PictureBox)
-                this.pf[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.pf[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.pf[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.pf[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
+                this.pf[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
+                this.pf[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString(CultureInfo.InvariantCulture) + ":" + args[5].ToString(CultureInfo.InvariantCulture));
 
                 if (horizontal)
                 {
@@ -499,7 +499,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
         {
             // Herausfinden welches Schiff getroffen wurde
             // Wurde ein Boot getroffen?
-            if (this.playfieldStore[x, y].Name.StartsWith("Boat_"))
+            if (this.playfieldStore[x, y].Name.StartsWith("Boat_", StringComparison.Ordinal))
             {
                 // Die Nr. des Bootes herausfinden (von 1-3)
                 string[] shipBoat = this.playfieldStore[x, y].Name.Split('_');
@@ -512,12 +512,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     case "Rear":
                         // heck wurde getroffen (horizontal)
                         this.boatReference[boatNr].Rear = true;
-                        this.SetTextLblStatus("Boat Nr. " + boatNr.ToString() + " wurde am heck getroffen!\n");
+                        this.SetTextLblStatus("Boat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " wurde am heck getroffen!\n");
                         break;
                     case "Front":
                         // Front wurde getroffen (horizontal)
                         this.boatReference[boatNr].Front = true;
-                        this.SetTextLblStatus("Boat Nr. " + boatNr.ToString() + " wurde an der Front getroffen!\n");
+                        this.SetTextLblStatus("Boat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " wurde an der Front getroffen!\n");
                         break;
                 }
 
@@ -539,10 +539,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
                         },
                         this.boatReference[boatNr].Horizontal);
-                    this.SetTextLblStatus("\nBoat Nr. " + boatNr.ToString() + " destroyed!");
+                    this.SetTextLblStatus("\nBoat Nr. " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!");
                 }
             }
-            else if (this.playfieldStore[x, y].Name.StartsWith("Cruiser_"))
+            else if (this.playfieldStore[x, y].Name.StartsWith("Cruiser_", StringComparison.Ordinal))
             {
             // Wurde ein Cruiser getroffen?
                 string[] shipCruiser = this.playfieldStore[x, y].Name.Split('_');
@@ -555,17 +555,17 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     case "Rear":
                         // heck wurde getroffen (horizontal)
                         this.cruiserReference[cruiserNr].Rear = true;
-                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde am heck getroffen!\n");
+                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde am heck getroffen!\n");
                         break;
                     case "Middle":
                         // Mittelteil wurde getroffen
                         this.cruiserReference[cruiserNr].Middle = true;
-                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde am Mittelteil getroffen!\n");
+                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde am Mittelteil getroffen!\n");
                         break;
                     case "Front":
                         // Front wurde getroffen (horizontal)
                         this.cruiserReference[cruiserNr].Front = true;
-                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " wurde an der Front getroffen!\n");
+                        this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " wurde an der Front getroffen!\n");
                         break;
                 }
 
@@ -590,10 +590,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.cruiserReference[cruiserNr].PosFrontX, this.cruiserReference[cruiserNr].PosFrontY
                         },
                         this.cruiserReference[cruiserNr].Horizontal);
-                    this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString() + " destroyed!\n");
+                    this.SetTextLblStatus("Cruiser Nr. " + cruiserNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
                 }
             }
-            else if (this.playfieldStore[x, y].Name.StartsWith("Galley_"))
+            else if (this.playfieldStore[x, y].Name.StartsWith("Galley_", StringComparison.Ordinal))
             {
                 // Was the galley hit?
                 string[] shipGalley = this.playfieldStore[x, y].Name.Split('_');
@@ -627,7 +627,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     this.SetTextLblStatus("Galley destroyed!\n");
                 }
             }
-            else if (this.playfieldStore[x, y].Name.StartsWith("Battleship_"))
+            else if (this.playfieldStore[x, y].Name.StartsWith("Battleship_", StringComparison.Ordinal))
             {
             // Wurde das Battleship getroffen?
                 string[] shipBattleship = this.playfieldStore[x, y].Name.Split('_');
@@ -1099,7 +1099,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.pf[x - 1, y].Tag = 1;
                                 this.pf[x - 2, y].Tag = 1;
 
-                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString();
+                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 this.cruiserReference[this.CounterCruiser].PosRearX = x;
                                 this.cruiserReference[this.CounterCruiser].PosRearY = y;
                                 this.cruiserReference[this.CounterCruiser].ShipDestryoed = false;
@@ -1141,7 +1141,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.pf[x + 1, y].Tag = 1;
                                 this.pf[x + 2, y].Tag = 1;
 
-                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString();
+                                this.cruiserReference[this.CounterCruiser].ShipName = "Cruiser_" + this.CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 this.cruiserReference[this.CounterCruiser].PosRearX = x;
                                 this.cruiserReference[this.CounterCruiser].PosRearY = y;
                                 this.cruiserReference[this.CounterCruiser].ShipDestryoed = false;
@@ -1187,7 +1187,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 pf[x, y - 1].Tag = 1;
                                 pf[x, y - 2].Tag = 1;
 
-                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString();
+                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 cruiserReference[CounterCruiser].PosRearX = x;
                                 cruiserReference[CounterCruiser].PosRearY = y;
                                 cruiserReference[CounterCruiser].ShipDestryoed = false;
@@ -1228,7 +1228,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 pf[x, y + 1].Tag = 1;
                                 pf[x, y + 2].Tag = 1;
 
-                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString();
+                                cruiserReference[CounterCruiser].ShipName = "Cruiser_" + CounterCruiser.ToString(CultureInfo.InvariantCulture);
                                 cruiserReference[CounterCruiser].PosRearX = x;
                                 cruiserReference[CounterCruiser].PosRearY = y;
                                 cruiserReference[CounterCruiser].ShipDestryoed = false;
@@ -1276,7 +1276,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.pf[x - 1, y].Tag = 1;
 
                                 // Position sowie name des Schiffes speichern
-                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString();
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(CultureInfo.InvariantCulture);
                                 this.boatReference[this.CounterBoat].PosRearX = x;
                                 this.boatReference[this.CounterBoat].PosRearY = y;
                                 this.boatReference[this.CounterBoat].PosFrontX = x - 1;
@@ -1313,7 +1313,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.pf[x + 1, y].BackgroundImage = Battleships.Properties.Resources.boat2h;
                                 tmp.Tag = 1;
                                 this.pf[x + 1, y].Tag = 1;
-                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(); // Position sowie name des schiffes speichern
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(CultureInfo.InvariantCulture); // Position sowie name des schiffes speichern
                                 this.boatReference[this.CounterBoat].PosRearX = x;
                                 this.boatReference[this.CounterBoat].PosRearY = y;
                                 this.boatReference[this.CounterBoat].PosFrontX = x + 1;
@@ -1351,7 +1351,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 pf[x, y - 1].BackgroundImage = Battleships.Properties.Resources.boat1v;
                                 tmp.Tag = 1;
                                 pf[x, y - 1].Tag = 1;
-                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(); // Position sowie name des schiffes speichern
+                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture); // Position sowie name des schiffes speichern
                                 boatReference[CounterBoat].PosRearX = x;
                                 boatReference[CounterBoat].PosRearY = y;
                                 boatReference[CounterBoat].PosFrontX = x;
@@ -1386,7 +1386,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 pf[x, y + 1].Tag = 1;
 
                                 // Position sowie name des schiffes speichern
-                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString();
+                                boatReference[CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(CultureInfo.InvariantCulture);
                                 boatReference[CounterBoat].PosRearX = x;
                                 boatReference[CounterBoat].PosRearY = y;
                                 boatReference[CounterBoat].PosFrontX = x;
