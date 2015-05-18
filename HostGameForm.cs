@@ -185,7 +185,6 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 if (se.SocketErrorCode == SocketError.ConnectionReset)
                 {
                     this.SetText("Client at " + this.WorkerSocket.RemoteEndPoint.ToString() + " disconnected!\n");
-                    this.Activate();
                     try
                     {
                         this.WorkerSocket.Close();
