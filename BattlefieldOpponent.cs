@@ -62,7 +62,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         this.Size = new Size(300, 300);
         this.BackColor = Color.Transparent;
 
-        // enemies grid
+        // Enemies grid.
         for (int i = 0; i < this.pb.GetLength(0); i++)
         {
             for (int j = 0; j < this.pb.GetLength(1); j++)
@@ -197,7 +197,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                     switch (e.Button)
                     {
                         case System.Windows.Forms.MouseButtons.Left:
-                            // has a game been joined?
+                            // Has a game been joined?
                             if (BattleshipsForm.ClientGameForm != null)
                             {
                                 if (BattleshipsForm.ClientGameForm.ClientSocket != null)
@@ -234,7 +234,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                                             // Send coordinates of the current field to Server
                                             BattleshipsForm.HostGameForm.WorkerSocket.Send(byteData);
 
-                                            // wait for an answer (HIT\MISS\WIN\LOSE)
+                                            // Wait for an answer (HIT\MISS\WIN\LOSE)
                                             BattleshipsForm.HostGameForm.WaitForData(BattleshipsForm.HostGameForm.WorkerSocket);
                                         }
                                         catch (Exception ex)
@@ -311,7 +311,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         {
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
-            // remove explosion picture at the specified position (remove--> PictureBox control)
+            // Remove explosion picture at the specified position (remove--> PictureBox control)
             this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
             this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
             if (horizontal)
