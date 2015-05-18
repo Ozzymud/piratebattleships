@@ -40,7 +40,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// </summary>
     private Color positionColor;
 
-    private Battleships.DoubleBufferedPanel[,] pb = new Battleships.DoubleBufferedPanel[10, 10];
+    private Battleships.DoubleBufferedPanel[,] playField = new Battleships.DoubleBufferedPanel[10, 10];
     #endregion
 
     #region constructor
@@ -63,9 +63,9 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         this.BackColor = Color.Transparent;
 
         // Enemies grid.
-        for (int i = 0; i < this.pb.GetLength(0); i++)
+        for (int i = 0; i < this.playField.GetLength(0); i++)
         {
-            for (int j = 0; j < this.pb.GetLength(1); j++)
+            for (int j = 0; j < this.playField.GetLength(1); j++)
             {
                 Battleships.DoubleBufferedPanel p = new Battleships.DoubleBufferedPanel();
                 p.Location = new Point(i * 30, j * 30);
@@ -80,7 +80,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 p.Cursor = CreateCursor(bitmap, 16, 16);
                 p.BackColor = Color.Transparent;
                 p.BorderStyle = BorderStyle.None;
-                this.pb[i, j] = p;
+                this.playField[i, j] = p;
                 this.Controls.Add(p);
             }
         }
@@ -144,7 +144,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     }
 
     /// <summary>
-    /// Decide based on the stored image in the panel which explosion should be presented.
+    /// Create an image with a name based on the coordinates of the explosion.
     /// </summary>
     /// <param name="hitX">X Coordinate of the hit.</param>
     /// <param name="hitY">Y Coordinate of the hit.</param>
@@ -261,13 +261,13 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             {
                 Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
-                for (int i = 0; i < this.pb.GetLength(0); i++)
+                for (int i = 0; i < this.playField.GetLength(0); i++)
                 {
-                    for (int j = 0; j < this.pb.GetLength(1); j++)
+                    for (int j = 0; j < this.playField.GetLength(1); j++)
                     {
-                        if (tmp.Name.ToString() == this.pb[i, j].Name.ToString())
+                        if (tmp.Name.ToString() == this.playField[i, j].Name.ToString())
                         {
-                            this.pb[i, j].BackColor = this.positionColor;
+                            this.playField[i, j].BackColor = this.positionColor;
                         }
                     }
                 }
@@ -278,13 +278,13 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.Player)
             {
-                for (int i = 0; i < this.pb.GetLength(0); i++)
+                for (int i = 0; i < this.playField.GetLength(0); i++)
                 {
-                    for (int j = 0; j < this.pb.GetLength(1); j++)
+                    for (int j = 0; j < this.playField.GetLength(1); j++)
                     {
-                        if ((int)this.pb[i, j].Tag != (int)1)
+                        if ((int)this.playField[i, j].Tag != (int)1)
                         {
-                            this.pb[i, j].BackColor = Color.Transparent;
+                            this.playField[i, j].BackColor = Color.Transparent;
                         }
                     }
                 }
@@ -310,17 +310,17 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // Remove explosion picture at the specified position (remove--> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
             if (horizontal)
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
             }
             else
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v1;
             }
         }
     }
@@ -339,25 +339,25 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         }
         else
         {
-            // TODO: show destroyed cruiser
+            // TODO: Fix showing destroyed cruiser.
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove --> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
 
             if (horizontal)
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
             }
             else
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
             }
         }
     }
@@ -376,28 +376,28 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         }
         else
         {
-            // TODO: Show destroyed galley.
+            // TODO: Fix showing destroyed galley.
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove--> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-            this.pb[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
 
             if (horizontal)
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
-                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
             }
             else
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
-                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
             }
         }
     }
@@ -416,28 +416,28 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         }
         else
         {
-            // TODO: Fix destroyed battleship display.
+            // TODO: Fix showing destroyed battleship.
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove--> PictureBox control)
-            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-            this.pb[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
 
             if (horizontal)
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
-                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
             }
             else
             {
-                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
-                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
-                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
-                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
             }
         }
     }

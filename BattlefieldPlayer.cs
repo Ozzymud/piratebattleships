@@ -379,31 +379,31 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     /// <param name="args">Contains the coordinates of the vessel.</param>
     /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
     private void ShowDestroyedBoat(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
         {
-            if (this.InvokeRequired)
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
+            this.Invoke(d, new object[] { args, horizontal });
+        }
+        else
+        {
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
+            if (horizontal)
             {
-                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
-                this.Invoke(d, new object[] { args, horizontal });
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
             }
             else
             {
-                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-                // Explosionsbild an der angegeben Stelle entfernen (Control entfernen --> PictureBox)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString(CultureInfo.InvariantCulture) + ":" + args[1].ToString(CultureInfo.InvariantCulture));
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString(CultureInfo.InvariantCulture) + ":" + args[3].ToString(CultureInfo.InvariantCulture));
-                if (horizontal)
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h2;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h1;
-                }
-                else
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
-                }
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
             }
         }
+    }
 
     /// <summary>
     /// Display on the enemy field a ruined cruiser.
@@ -419,7 +419,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix destroyed cruiser display.
+                // TODO: Fix showing destroyed cruiser.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
@@ -456,7 +456,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix destroyed galley display.
+                // TODO: Fix showing destroyed galley.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
@@ -496,7 +496,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix destroyed battleship display.
+                // TODO: Fix showing destroyed battleship.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
