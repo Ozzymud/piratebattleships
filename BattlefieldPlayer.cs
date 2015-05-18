@@ -419,7 +419,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Show destroyed cruiser.
+                // TODO: Fix destroyed cruiser display.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
@@ -456,7 +456,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Show destroyed galley.
+                // TODO: Fix destroyed galley display.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
@@ -478,6 +478,46 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v3;
                     this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v2;
                     this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                }
+            }
+        }
+
+    /// <summary>
+    /// Display a destroyed galley on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    private void ShowDestroyedBattleship(int[] args, bool horizontal)
+        {
+            if (this.InvokeRequired)
+            {
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBattleship);
+                this.Invoke(d, new object[] { args, horizontal });
+            }
+            else
+            {
+                // TODO: Fix destroyed battleship display.
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+                // At the entered point remove explosion image (remove--> PictureBox control)
+                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+
+                if (horizontal)
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h1;
+                }
+                else
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v1;
                 }
             }
         }
@@ -565,7 +605,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 if (this.boatReference[boatNr].Front && this.boatReference[boatNr].Rear)
                 {
                     this.boatReference[boatNr].ShipDestroyed = true;
-                    this.ShowDestroyedBoat( // Represent the destroyed boat on the playfield
+                    this.ShowDestroyedBoat( // Show the destroyed boat on the playfield
                         new int[4]
                         {
                         this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
@@ -614,7 +654,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 {
                     this.cruiserReference[cruiserNr].ShipDestroyed = true;
                     
-                    this.ShowDestroyedCruiser( // Represent the destroyed cruiser on the playfield.
+                    this.ShowDestroyedCruiser( // Show the destroyed cruiser on the playfield.
                         new int[6]
                         {
                         this.cruiserReference[cruiserNr].PosRearX, this.cruiserReference[cruiserNr].PosRearY,
@@ -664,7 +704,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 if (this.galleyReference.Rear && this.galleyReference.MiddleFirstPart && this.galleyReference.MiddleSecondPart && this.galleyReference.Front)
                 {
                     this.galleyReference.ShipDestroyed = true;
-                    this.ShowDestroyedGalley( // Represent the destroyed galley on the playfield.
+                    this.ShowDestroyedGalley( // Show the destroyed galley on the playfield.
                         new int[8]
                         {
                         this.galleyReference.PosRearX, this.galleyReference.PosRearY,
@@ -716,6 +756,24 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 if (this.battleshipReference.Rear && this.battleshipReference.MiddleFirstPart && this.battleshipReference.MiddleSecondPart && this.battleshipReference.Front)
                 {
                     this.battleshipReference.ShipDestroyed = true;
+                    this.ShowDestroyedBattleship( // Show the destroyed battleship on the playfield.
+                        new int[8]
+                        {
+                        this.battleshipReference.PosRearX, this.battleshipReference.PosRearY,
+                        this.battleshipReference.PosMiddleFirstX, this.battleshipReference.PosMiddleFirstY,
+                        this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleSecondY,
+                        this.battleshipReference.PosFrontX, this.battleshipReference.PosFrontY
+                        },
+                        this.battleshipReference.IsHorizontal);
+                    this.ShowDestroyedBattleship(
+                        new int[8]
+                        {
+                        this.battleshipReference.PosRearX, this.battleshipReference.PosRearY,
+                        this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleFirstY,
+                        this.battleshipReference.PosMiddleSecondX, this.battleshipReference.PosMiddleSecondY,
+                        this.battleshipReference.PosFrontX, this.battleshipReference.PosFrontY
+                        },
+                        this.battleshipReference.IsHorizontal);
                     this.SetTextLabelStatus("Battleship destroyed!");
                 }
             }

@@ -403,6 +403,46 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     }
 
     /// <summary>
+    /// Display a destroyed battleship on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    private void ShowDestroyedBattleship(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
+        {
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBattleship);
+            this.Invoke(d, new object[] { args, horizontal });
+        }
+        else
+        {
+            // TODO: Fix destroyed battleship display.
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // At the entered point remove explosion image (remove--> PictureBox control)
+            this.pb[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.pb[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.pb[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.pb[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
+
+            if (horizontal)
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
+            }
+            else
+            {
+                this.pb[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
+                this.pb[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                this.pb[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                this.pb[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
+            }
+        }
+    }
+
+    /// <summary>
     /// Draws a missed shot on the opponent's battlefield
     /// </summary>
     /// <param name="x">X parameter of the missed shot.</param>
