@@ -39,7 +39,6 @@ namespace Battleships
             this.lblBattleship = new System.Windows.Forms.Label();
             this.lblCruiser = new System.Windows.Forms.Label();
             this.lblBoat = new System.Windows.Forms.Label();
-            this.toolTipMouse = new System.Windows.Forms.ToolTip(this.components);
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -363,12 +362,8 @@ namespace Battleships
         private System.Windows.Forms.Label lblBattleship;
         private System.Windows.Forms.Label lblCruiser;
         private System.Windows.Forms.Label lblBoat;
-        private System.Windows.Forms.ToolTip toolTipMouse;
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-
-        // unused?
-        // private DoubleBuffered.Panel_DoubleBuffered panel_Status;
     }
 }
