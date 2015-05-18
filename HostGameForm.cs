@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -161,18 +162,18 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
     // This the call back function which will be invoked when the socket
     // detects any client writing of data on the stream
-    public void OnDataReceived(IAsyncResult asyn)
+    public void OnDataReceived(IAsyncResult result)
         {
             try
             {
-                SocketPacket socketData = (SocketPacket)asyn.AsyncState;
+                SocketPacket socketData = (SocketPacket)result.AsyncState;
 
                 int iRx = 0;
 
                 // Complete the BeginReceive() asynchronous call by EndReceive() method
                 // which will return the number of characters written to the stream 
                 // by the client
-                iRx = socketData.CurrentSocket.EndReceive(asyn);
+                iRx = socketData.CurrentSocket.EndReceive(result);
                 char[] chars = new char[iRx + 1];
                 Decoder d = Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(socketData.DataBuffer, 0, iRx, chars, 0);
@@ -210,7 +211,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             }
         }
 
-    public void OnClientConnect(IAsyncResult asyn)
+    public void OnClientConnect(IAsyncResult result)
         {
             try
             {
@@ -219,7 +220,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     // Here we complete/end the BeginAccept() asynchronous call
                     // by calling EndAccept() - which returns the reference to
                     // a new Socket object
-                    this.WorkerSocket = this.mainSocket.EndAccept(asyn);
+                    this.WorkerSocket = this.mainSocket.EndAccept(result);
 
                     // Let the worker Socket do the further processing for the
                     // just connected client
@@ -252,7 +253,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 }
                 else
                 {
-                    Socket tmp_workerSocket = this.mainSocket.EndAccept(asyn);
+                    Socket tmp_workerSocket = this.mainSocket.EndAccept(result);
                     this.WaitForData(tmp_workerSocket);
                     this.SetText("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
                     this.SetText("But Server is already full!");
@@ -329,8 +330,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 // X und Y aus der Nachricht lesen
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
 
                 object objData;
 
@@ -387,8 +388,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             // Du hast einen treffer gelandet!
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
                 this.SetText("HIT received at x:" + x.ToString() + " y:" + y.ToString());
 
                 // Dem Spieler anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
@@ -403,9 +404,9 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             // Der Schuss ging leider daneben, versuchs nochmal!
                 string pos = data.Remove(0, 4);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0]);
-                int y = int.Parse(posData[1]);
-                this.SetText("MISS received at x:" + x.ToString() + " y:" + y.ToString());
+                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
+                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
+                this.SetText("MISS received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
                 // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
                 BattleshipsForm.BattlefieldOpponent.SetMiss(x, y);
@@ -423,13 +424,13 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 // Prüfen ob Spieler auch bereit ist?
                 if (BattleshipsForm.PlayerReadyToPlay)
                 {
-                    if (int.Parse(this.oroll) < this.roll)
+                    if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                     {
                         this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                         this.SetTextLblStatus("Du darfst anfangen!");
                         BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.player;
                     }
-                    else if (int.Parse(this.oroll) > this.roll)
+                    else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                     {
                         this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                         this.SetTextLblStatus("Gegner darf anfangen!");
@@ -500,7 +501,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 }
 
                 string portStr = this.textBoxPort.Text;
-                    int port = System.Convert.ToInt32(portStr);
+                    int port = System.Convert.ToInt32(portStr, CultureInfo.InvariantCulture);
 
                     // Create the listening socket...
                     this.mainSocket = new Socket(
@@ -555,13 +556,13 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
 
                         if (BattleshipsForm.OpponentReadyToPlay)
                         {
-                            if (int.Parse(this.oroll) < this.roll)
+                            if (int.Parse(this.oroll, CultureInfo.InvariantCulture) < this.roll)
                             {
                                 this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                                 this.SetTextLblStatus("Du darfst anfangen");
                                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.player;
                             }
-                            else if (int.Parse(this.oroll) > this.roll)
+                            else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
                             {
                                 this.SetTextLblStatus("Opponend rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                                 this.SetTextLblStatus("Gegner darf anfangen");
