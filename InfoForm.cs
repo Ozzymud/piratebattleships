@@ -52,6 +52,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
 
     #region Assembly attribute accessors
 
+    /// <summary>
+    /// Gets and returns the long program name stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyTitle
     {
         get
@@ -70,6 +73,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         }
     }
 
+    /// <summary>
+    /// Gets and returns the version of the program stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyVersion
     {
         get
@@ -78,6 +84,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         }
     }
 
+    /// <summary>
+    /// Gets and returns the description of the program stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyDescription
     {
         get
@@ -92,6 +101,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         }
     }
 
+    /// <summary>
+    /// Gets and returns the short product name stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyProduct
     {
         get
@@ -106,6 +118,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         }
     }
 
+    /// <summary>
+    /// Gets and returns the copyright info stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyCopyright
     {
         get
@@ -120,6 +135,9 @@ public partial class InfoForm : Battleships.DoubleBufferedForm
         }
     }
 
+    /// <summary>
+    /// Gets and returns the company name stored in AssemblyInfo.cs
+    /// </summary>
     private string AssemblyCompany
         {
             get
