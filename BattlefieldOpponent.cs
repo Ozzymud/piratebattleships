@@ -349,9 +349,9 @@ public class BattlefieldOpponent : DoubleBufferedPanel
 
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
                 this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
             }
             else
             {
@@ -368,39 +368,59 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// <param name="args">The co-ordinates of the vessel.</param>
     /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
     private void ShowDestroyedGalley(int[] args, bool horizontal)
-    {
-        if (this.InvokeRequired)
         {
-            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedGalley);
-            this.Invoke(d, new object[] { args, horizontal });
-        }
-        else
-        {
-            // TODO: Fix showing destroyed galley.
-            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-            // At the entered point remove explosion image (remove--> PictureBox control)
-            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-            this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[8].ToString());
-
-            if (horizontal)
+            if (this.InvokeRequired)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h4;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h3;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h2;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedGalley);
+                this.Invoke(d, new object[] { args, horizontal });
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v4;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v3;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v2;
-                this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                // TODO: Fix showing destroyed galley.
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+                // At the entered point remove explosion image (remove--> PictureBox control)
+                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+
+                if (horizontal)
+                {
+                    if (args[0] >= 6)
+                    {
+                        this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                        this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                        this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                        this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                    }
+                    else
+                    {
+                        this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                        this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                        this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                        this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                    }
+                }
+                else
+                {
+                    if (args[0] >= 6)
+                    {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                    }
+                    else
+                    {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                    }
+                }
             }
         }
-    }
 
     /// <summary>
     /// Display a destroyed battleship on the enemy field.
