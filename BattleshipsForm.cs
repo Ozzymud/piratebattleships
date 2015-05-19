@@ -45,9 +45,9 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         private const int BattlefieldPlayerY = 180;
         private const int BattlefieldOpponentX = 460;
         private const int BattlefieldOpponentY = 180;
-        #endregion
+        #endregion Class constants
 
-        #region fields
+        #region Fields
         /// <summary>
         /// Client Form.
         /// </summary> 
@@ -103,7 +103,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         private static InfoForm infoForm;
         #endregion
 
-        #region constructors
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the BattleshipsForm class.
         /// The game's interface constructor.
@@ -143,9 +143,9 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             splash.Close(); // Splash screen close.
             splash.Dispose(); // Release resources.
         }
-        #endregion
+        #endregion Constructor
 
-        #region enum
+        #region Enums
         /// <summary>
         /// List of players.
         /// </summary>
@@ -161,9 +161,9 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             /// </summary>
             Enemy = 1
         }
-        #endregion
+        #endregion Enums
 
-        #region properties
+        #region Properties
         public static ClientGameForm ClientGameForm
         {
             get { return clientGameForm; }
@@ -257,7 +257,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
             get { return networkFormOpen; }
             set { networkFormOpen = value; }
         }
-        #endregion
+        #endregion Properties
 
         #region Form-Events
         private void BattleshipsForm_FormClosing(object sender, FormClosingEventArgs e)
