@@ -37,10 +37,10 @@ using System.Windows.Forms;
 public partial class BattleshipsForm : Battleships.DoubleBufferedForm
     {
         #region Class constants
-        private const short MaxNumberBattleship = 1; // 1 Schlachtschiff
+        private const short MaxNumberBattleship = 1; // 1 Battleship
         private const short MaxNumberGalley = 1; // 1 Galley
-        private const short MaxNumberCruiser = 3; // 3 Cruiser
-        private const short MaxNumberBoat = 3; // 3 Boote
+        private const short MaxNumberCruiser = 3; // 3 Cruisers
+        private const short MaxNumberBoat = 3; // 3 Boats
         private const int BattlefieldPlayerX = 40;
         private const int BattlefieldPlayerY = 180;
         private const int BattlefieldOpponentX = 460;
@@ -274,11 +274,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         {
             switch (e.Button)
             {
-                // Left click
+                // Left click.
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnGalley.BackgroundImage = Battleships.Properties.Resources.btn_galley_click;
 
-                    // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
+                    // Ship may only be selected if a ship is not set yet.
                     if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterGalley = CounterGalley;
@@ -301,11 +301,11 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
         {
             switch (e.Button)
             {
-                // Linksklick
+                // Left click.
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnBattleship.BackgroundImage = Battleships.Properties.Resources.btn_z_click;
 
-                    // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
+                    // Ship may only be selected if a ship is not set yet.
                     if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterBattleship = CounterBattleship;
@@ -331,7 +331,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnCruiser.BackgroundImage = Battleships.Properties.Resources.btn_cruiser_click;
 
-                    // Schiff darf nur ausgewählt werden, wenn nicht gerade ein schiff gesetzt wird
+                    // Ship may only be selected if a ship is not set yet.
                     if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterCruiser = CounterCruiser;
@@ -357,7 +357,7 @@ public partial class BattleshipsForm : Battleships.DoubleBufferedForm
                 case System.Windows.Forms.MouseButtons.Left:
                     this.btnBoat.BackgroundImage = Battleships.Properties.Resources.btn_boat_click;
 
-                    // Ship may be selected only when a ship is not already selected
+                    // Ship may only be selected if a ship is not set yet.
                     if (!(BattlefieldPlayer.Ships != BattlefieldPlayer.ShipModel.NoShip))
                     {
                         BattlefieldPlayer.CounterBoat = CounterBoat;

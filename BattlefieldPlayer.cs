@@ -67,10 +67,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     /// <summary>
     /// Manages the position of the boats and the state.
     /// </summary>
-    private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boote
+    private Ships.Boat[] boatReference = new Ships.Boat[3];                        // 3 Boat
     private Ships.Cruiser[] cruiserReference = new Ships.Cruiser[3];               // 3 Cruiser
     private Ships.Galley galleyReference = new Ships.Galley();                     // 1 Galley
-    private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Schlachtschiff
+    private Ships.Battleship battleshipReference = new Ships.Battleship();         // 1 Battleship
     #endregion
 
     #region constructor
@@ -389,13 +389,13 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 this.DrawExplosion(hitX, hitY); // Draw an explosion on the field
                 this.CheckShips(hitX, hitY); // Check which ship was hit where
 
-                // Spielstatus prüfen
+                // Check the status of the game.
                 if (this.CheckGameStatus())
                 {
                     return true; // Opponents won, because all ships were destroyed
                 }
 
-                return false; // No one has won up here...
+                return false; // No one has won up there...
             }
             catch (Exception ex)
             {
@@ -407,7 +407,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     public void SetMiss(int missX, int missY)
     {
         BattleshipsForm.SoundPlayer.PlaySoundAsync("splash.wav");
-        this.DrawMiss(missX, missY); // Fehlschuss auf dem Spielfeld darstellen
+        this.DrawMiss(missX, missY); // Draw a miss on the playing field
     }
     #endregion
 
@@ -478,15 +478,15 @@ public class BattlefieldPlayer : DoubleBufferedPanel
 
     private void PlayerMouseEnter(object sender, EventArgs e)
         {
-            // Event wurde von einer Panel_DoubleBuffered ausgelöst...
-            // Senderobjekt erhalten --> Panel welches das Event ausgelöst hat
+            // Event was triggered by a DoubleBufferedPanel.
+            // Get sender object--> Panel which triggered the event.
             Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
-            this.DrawShips(ref tmp); // Schiff zeichnen
+            this.DrawShips(ref tmp); // Draw ship.
         }
 
     private void PlayerMouseLeave(object sender, EventArgs e)
         {
-            // Alle Panels durchlaufen
+            // Cycle through all the panels.
             for (int x = 0; x < this.playField.GetLength(0); x++)
             {
                 for (int y = 0; y < this.playField.GetLength(1); y++)
@@ -494,8 +494,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     // If no image is saved set current panel
                     if ((int)this.playField[x, y].Tag != (int)1)
                     {
-                        this.playField[x, y].BackgroundImage = null; // Dann Bild löschen
-                        this.playField[x, y].Tag = 0; // Bildflag auf false
+                        this.playField[x, y].BackgroundImage = null; // Then delete the image
+                        this.playField[x, y].Tag = 0; // Image flag to false
                     }
                 }
             }
@@ -528,43 +528,43 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     /// </returns>
     private bool CheckGameStatus()
         {
-            // Alle boote überprüfen
+            // Check all boats.
             for (int i = 0; i < this.boatReference.Length; i++)
             {
-                // Überprüfen ob alle Boote zerstört sind
+                // Check if all boats are destroyed.
                 if (!this.boatReference[i].ShipDestroyed)
                 {
-                    // Wenn auch nur noch ein Boot existiert, dann ist das Spiel nocht nicht vorbei
+                    // If only a single boat remains, then the game is not over.
                     return false;
                 }
             }
             
-            // Alle Cruiser überprüfen
+            // Check cruisers.
             for (int i = 0; i < this.cruiserReference.Length; i++)
             {
-                // Überprüfen ob alle Cruiser zerstört sind
+                // Check if all cruisers are destroyed
                 if (!this.cruiserReference[i].ShipDestroyed)
                 { 
-                    // Wenn auch nur noch ein Cruiser existiert, dann ist das Spiel noch nicht vorbei
+                    // If there is a cruiser left, then the game is not over.
                     return false;
                 }
             }
 
-             // Die Galley überprüfen
+             // Check galleys.
             if (!this.galleyReference.ShipDestroyed)
             {
-                // Existiert die Galley noch, dann ist das Spiel nocht nicht vorbei
+                // If there is a galley left, then the game is not over.
                 return false;
             }
 
-            // Das Battleship überprüfen
+            // Check battleships.
             if (!this.battleshipReference.ShipDestroyed)
             {
-                // Exisitiert das Battleship noch, dann ist das Spiel noch nicht vorbei
+                // If there is a battleship left, then the game is not over.
                 return false;
             }
 
-            return true; // Wurden ALLE Schiffe zerstört, dann ist das Spiel vorbei und DU hast verloren!!
+            return true; // Are all ships destroyed? If so, then the game is over and you lose!!
         }
 
     /// <summary>
@@ -831,12 +831,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x - 2, y].Name = this.galleyReference.ShipName + "_" + "Middle2";
                                 this.playfieldStore[x - 3, y].Name = this.galleyReference.ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Show that no ship can be placed here (blink red the corresponding fields)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x - 1, y].BackColor = this.collisionColor;
                                 this.playField[x - 2, y].BackColor = this.collisionColor;
@@ -852,7 +852,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten galley in normaler Richtung zusammenbauen (4 Felder)
+                        // Otherwise draw the galley in the normal direction (4 fields).
                             if ((int)tmp.Tag != (int)1 && (int)this.playField[x + 1, y].Tag != (int)1 && (int)this.playField[x + 2, y].Tag != (int)1 && (int)this.playField[x + 3, y].Tag != (int)1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.galley1h;
@@ -885,12 +885,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 2, y].Name = this.galleyReference.ShipName + "_" + "Middle1";
                                 this.playfieldStore[x + 3, y].Name = this.galleyReference.ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x + 1, y].BackColor = this.collisionColor;
                                 this.playField[x + 2, y].BackColor = this.collisionColor;
@@ -907,7 +907,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
+                        // Vertical
                         // Galley is 4 fields long, if field 7 is reached, draw the ship in the opposite direction.
                         if (y >= 7)
                         {
@@ -943,12 +943,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y - 2].Name = this.galleyReference.ShipName + "_" + "Middle2";
                                 this.playfieldStore[x, y - 3].Name = this.galleyReference.ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 playField[x, y - 1].BackColor = collisionColor;
                                 playField[x, y - 2].BackColor = collisionColor;
@@ -962,7 +962,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 return;
                             }
                         }
-                        else // Ansonsten galley in normaler Richtung zusammenbauen (4 Felder)
+                        else // Otherwise draw the galley in the normal direction (4 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1)
                             {
@@ -996,12 +996,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y + 2].Name = this.galleyReference.ShipName + "_" + "Middle1";
                                 this.playfieldStore[x, y + 3].Name = this.galleyReference.ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 this.playField[x, y + 1].BackColor = this.collisionColor;
                                 this.playField[x, y + 2].BackColor = this.collisionColor;
@@ -1036,7 +1036,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playField[x - 2, y].Tag = 1;
                                 this.playField[x - 3, y].Tag = 1;
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
 
                                 this.battleshipReference.ShipName = "Battleship";
@@ -1062,7 +1062,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x - 1, y].BackColor = this.collisionColor;
                                 this.playField[x - 2, y].BackColor = this.collisionColor;
@@ -1078,7 +1078,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten battleship in normaler Richtung zusammenbauen (5 Felder)
+                        // Otherwise draw the battleship in the normal direction (5 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1 && (int)this.playField[x + 2, y].Tag != 1 && (int)this.playField[x + 3, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.z11;
@@ -1111,12 +1111,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 2, y].Name = this.battleshipReference.ShipName + "_" + "Middle1";
                                 this.playfieldStore[x + 3, y].Name = this.battleshipReference.ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x + 1, y].BackColor = this.collisionColor;
                                 this.playField[x + 2, y].BackColor = this.collisionColor;
@@ -1169,12 +1169,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y - 2].Name = this.battleshipReference.ShipName + "_" + "Middle2";
                                 this.playfieldStore[x, y - 3].Name = this.battleshipReference.ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 this.playField[x, y - 1].BackColor = this.collisionColor;
                                 this.playField[x, y - 2].BackColor = this.collisionColor;
@@ -1188,7 +1188,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 return;
                             }
                         }
-                        else // Ansonsten battleship in normaler Richtung zusammenbauen (5 Felder)
+                        else // Otherwise draw the battleship in the normal direction (5 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1)
                             {
@@ -1222,12 +1222,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y + 2].Name = this.battleshipReference.ShipName + "_" + "Middle1";
                                 this.playfieldStore[x, y + 3].Name = this.battleshipReference.ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 this.playField[x, y + 1].BackColor = this.collisionColor;
                                 this.playField[x, y + 2].BackColor = this.collisionColor;
@@ -1248,7 +1248,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     if (this.horizontal)
                     {
                         // horizontal
-                        // Cruiser is 3 fields long, if field 7 is reached, draw the ship in the opposite direction.
+                        // Cruiser is 3 fields long, if field 8 is reached, draw the ship in the opposite direction.
                         if (x >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)this.playField[x - 1, y].Tag != 1 && (int)this.playField[x - 2, y].Tag != 1)
@@ -1277,12 +1277,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x - 1, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Middle";
                                 this.playfieldStore[x - 2, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x - 1, y].BackColor = this.collisionColor;
                                 this.playField[x - 2, y].BackColor = this.collisionColor;
@@ -1296,7 +1296,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten Cruiser in normaler Richtung zusammenbauen (3 Felder)
+                        // Otherwise draw the cruiser in the normal direction (3 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1 && (int)this.playField[x + 2, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.cruiser1h;
@@ -1323,12 +1323,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x + 1, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Middle";
                                 this.playfieldStore[x + 2, y].Name = this.cruiserReference[this.CounterCruiser].ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x + 1, y].BackColor = this.collisionColor;
                                 this.playField[x + 2, y].BackColor = this.collisionColor;
@@ -1343,8 +1343,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
-                        // Cruiser is 3 fields long, if field 7 is reached, draw the ship in the opposite direction.
+                        // Vertical
+                        // Cruiser is 3 fields long, if field 8 is reached, draw the ship in the opposite direction.
                         if (y >= 8)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y - 1].Tag != 1 && (int)playField[x, y - 2].Tag != 1)
@@ -1373,12 +1373,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y - 1].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
                                 this.playfieldStore[x, y - 2].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x, y - 1].BackColor = this.collisionColor;
                                 this.playField[x, y - 2].BackColor = this.collisionColor;
@@ -1390,7 +1390,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 return;
                             }
                         }
-                        else // Ansonsten Cruiser in normaler Richtung zusammenbauen (3 Felder)
+                        else // Otherwise draw the cruiser in the normal direction. (3 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1)
                             {
@@ -1418,12 +1418,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y + 1].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Middle";
                                 this.playfieldStore[x, y + 2].Name = this.cruiserReference[CounterCruiser].ShipName + "_" + "Front";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 this.playField[x, y + 1].BackColor = this.collisionColor;
                                 this.playField[x, y + 2].BackColor = this.collisionColor;
@@ -1452,7 +1452,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 tmp.Tag = 1;
                                 this.playField[x - 1, y].Tag = 1;
 
-                                // Position sowie name des Schiffes speichern
+                                // Save position and name of the ship
                                 this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(CultureInfo.InvariantCulture);
                                 this.boatReference[this.CounterBoat].PosFrontX = x;
                                 this.boatReference[this.CounterBoat].PosFrontY = y;
@@ -1466,12 +1466,12 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playfieldStore[x, y].Name = this.boatReference[this.CounterBoat].ShipName + "_" + "Front";
                                 this.playfieldStore[x - 1, y].Name = this.boatReference[this.CounterBoat].ShipName + "_" + "Rear";
 
-                                // Schiffsauswahl auf nothing setzen
+                                // Set the ship selection to nothing.
                                 this.Ships = ShipModel.NoShip;
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x - 1, y].BackColor = this.collisionColor;
                                 Application.DoEvents();
@@ -1505,7 +1505,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = this.collisionColor;
                                 this.playField[x + 1, y].BackColor = this.collisionColor;
                                 Application.DoEvents();
@@ -1543,7 +1543,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                             }
                             else
                             {
-                                // Anzeigen, dass hier kein Schiff plaziert werden kann (entsprechende Felder rot blinken lassen)
+                                // Show that no ship can be placed here (flash red the corresponding fields)
                                 tmp.BackColor = collisionColor;
                                 this.playField[x, y - 1].BackColor = this.collisionColor;
                                 Application.DoEvents();
@@ -1629,7 +1629,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten galley in normaler Richtung zusammenbauen (4 Felder)
+                        // Otherwise assemble the galley in the normal direction (4 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1 && (int)this.playField[x + 2, y].Tag != 1 && (int)this.playField[x + 3, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.galley1h;
@@ -1653,7 +1653,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.galley1v;
                             }
                         }
-                        else // Ansonsten galley in normaler Richtung zusammenbauen (4 Felder)
+                        else // Otherwise assemble the galley in the normal direction (4 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1)
                             {
@@ -1683,7 +1683,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten battleship in normaler Richtung zusammenbauen (5 Felder)
+                        // Otherwise assemble the battleship in the normal direction (5 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1 && (int)this.playField[x + 2, y].Tag != 1 && (int)this.playField[x + 3, y].Tag != 1 && (int)this.playField[x + 4, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.z11;
@@ -1695,7 +1695,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                     }
                     else
                     {
-                        // Vertikal
+                        // Vertical
                         // Battleship is 4 fields long, if field 6 is reached, draw the ship in the opposite direction.
                         if (y >= 6)
                         {
@@ -1707,7 +1707,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playField[x, y - 3].BackgroundImage = Battleships.Properties.Resources.z1v1;
                             }
                         }
-                        else // Ansonsten battleship in normaler Richtung zusammenbauen (5 Felder)
+                        else // Otherwise assemble the battleship in the normal direction (5 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1 && (int)playField[x, y + 3].Tag != 1 && (int)playField[x, y + 4].Tag != 1)
                             {
@@ -1736,7 +1736,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten Cruiser in normaler Richtung zusammenbauen (3 Felder)
+                        // Otherwise assemble the cruiser in the normal direction (3 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1 && (int)this.playField[x + 2, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.cruiser1h;
@@ -1758,7 +1758,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playField[x, y - 2].BackgroundImage = Battleships.Properties.Resources.cruiser1v;
                             }
                         }
-                        else // Ansonsten Cruiser in normaler Richtung zusammenbauen (3 Felder)
+                        else // Otherwise assemble the cruiser in the normal direction (3 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1 && (int)playField[x, y + 2].Tag != 1)
                             {
@@ -1785,7 +1785,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         }
                         else
                         {
-                        // Ansonsten boat in normaler Richtung zusammenbauen (2 Felder)
+                        // Otherwise assemble the boat in the normal direction (2 fields)
                             if ((int)tmp.Tag != 1 && (int)this.playField[x + 1, y].Tag != 1)
                             {
                                 tmp.BackgroundImage = Battleships.Properties.Resources.boat1h;
@@ -1805,7 +1805,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.boat1v;
                             }
                         }
-                        else // Ansonsten boat in normaler Richtung zusammenbauen (2 Felder)
+                        else // Otherwise assemble the boat in the normal direction (2 fields)
                         {
                             if ((int)tmp.Tag != 1 && (int)playField[x, y + 1].Tag != 1)
                             {

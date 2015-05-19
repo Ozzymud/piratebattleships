@@ -140,10 +140,10 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 int charLen = d.GetChars(theSockId.DataBuffer, 0, iRx, chars, 0);
                 string data = new string(chars);
 
-                // Ankommende Daten verarbeiten und Service auswählen
+                // Process incoming data and select service.
                 if (this.Services(data))
                 {
-                    // Auf ankommende Daten warten
+                    // Wait for data.
                     this.WaitForData();
                 }
             }
@@ -297,10 +297,10 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             }
             else if (data.Contains("pf_"))
             {
-                // Erhaltene koordinaten ausgeben
+                // Output coordinates received.
                 this.SetText("Coords received: " + data);
 
-                // X und Y aus der Nachricht lesen
+                // X and Y read from the message
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
                 int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
@@ -308,29 +308,29 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
 
                 object objData;
 
-                // Auswerten ob der Gegner getroffen hat oder nicht
+                // Evaluate whether the opponent has hit or not
                 if (!BattleshipsForm.BattlefieldPlayer.HitOrMiss(x, y))
                 {
-                    // Gegner mitteilen, dass er nicht getroffen hat
+                    // Evaluate whether the opponent has missed.
                     objData = "MISS" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
                     BattleshipsForm.BattlefieldPlayer.SetMiss(x, y);
                 }
                 else
                 {
-                    // Gegner mitteilen, dass er getroffen hat
+                    // Evaluate Whether the opponent has hit.
                     objData = "HIT" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
 
-                    // Einschlag darstellen (Auf eigenem Feld --> Gegner hat getroffen)
+                    // Show impact (made on private field --> opponent)
                     if (BattleshipsForm.BattlefieldPlayer.SetImpact(x, y))
                     {
-                        // Gegner hat gewonnen (Alle Schiffe wurden zerstört)
+                        // Opponent won (all ships were destroyed)
                         objData = "WIN";
                     }
                 }
 
                 byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
-                // Antwort an Gegner schicken
+                // Send answer to opponent.
                 if (this.ClientSocket.Connected)
                 {
                     this.ClientSocket.Send(byteData);
@@ -345,47 +345,47 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 }
                 else
                 {
-                    // Spieler ist an der Reihe
+                    // Player's turn
                     BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
                     this.SetTextLabelStatus("It's your turn!");
                 }
             }
             else if (data.StartsWith("WIN", StringComparison.Ordinal))
             {
-                // Du hast gewonnen!!
+                // You have won!
                 // TODO: Play sound - Winner...
                 MessageBox.Show(this, "You have won!", "Winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
             else if (data.StartsWith("HIT", StringComparison.Ordinal))
             {
-                // Du hast einen treffer gelandet!
+                // You've landed a hit!
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
                 int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
                 int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
                 this.SetText("HIT received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
-                // Dem Spieler Anzeigen, dass er getroffen hat (Auf dem Gegnerfeld)
+                // Announce to the player that he has hit (on the opponent's field)
                 BattleshipsForm.BattlefieldOpponent.SetImpact(x, y);
 
-                // Gegner ist an der Reihe
+                // Opponent's turn.
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
                 this.SetTextLabelStatus("Enemy's turn!");
             }
             else if (data.StartsWith("MISS", StringComparison.Ordinal))
             {
-                // Der Schuss ging leider daneben, versuchs nochmal!
+                // Unfortunately, the shot missed, try again!
                 string pos = data.Remove(0, 4);
                 string[] posData = pos.Split(':');
                 int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
                 int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
                 this.SetText("MISS received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
-                // Dem Spieler anzeigen, dass er nicht getroffen hat (Auf dem Gegnerfeld)
+                // Show the player that he missed (on the opponent's field)
                 BattleshipsForm.BattlefieldOpponent.SetMiss(x, y);
 
-                // Gegner ist an der Reihe
+                // Opponent's turn
                 BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Enemy;
                 this.SetTextLabelStatus("Enemy's turn!");
             }
@@ -428,7 +428,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
 
     private void ButtonReady_Click(object sender, EventArgs e)
         {
-            // Überprüfen ob alle Schiffe verteilt wurden
+            // Check whether all the ships were distributed.
             if (BattleshipsForm.CounterBattleship >= 1 && BattleshipsForm.CounterGalley >= 1 && BattleshipsForm.CounterCruiser >= 3 && BattleshipsForm.CounterBoat >= 3)
             {
                 if (this.ClientSocket != null)
@@ -444,7 +444,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                         object objData = "RDY_" + this.roll.ToString();
                         byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
 
-                        // Antwort an Gegner schicken
+                        // Send answer to opponent.
                         if (this.ClientSocket.Connected)
                         {
                             this.ClientSocket.Send(byteData);
@@ -469,7 +469,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                         }
                         else
                         {
-                            // Warten bis Gegner bereit ist (Gegner ist Bereit wenn "RDY"-Flag ankommt)
+                            // Wait until the opponent is ready (opponent is ready when the 'RDY' flag comes)
                         }
                     }
                     else
