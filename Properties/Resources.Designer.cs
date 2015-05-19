@@ -483,9 +483,9 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap explosion_img {
+        internal static System.Drawing.Bitmap explosion_opponent {
             get {
-                object obj = ResourceManager.GetObject("explosion_img", resourceCulture);
+                object obj = ResourceManager.GetObject("explosion_opponent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -493,9 +493,9 @@ namespace Battleships.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap explosion2_img {
+        internal static System.Drawing.Bitmap explosion_player {
             get {
-                object obj = ResourceManager.GetObject("explosion2_img", resourceCulture);
+                object obj = ResourceManager.GetObject("explosion_player", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
