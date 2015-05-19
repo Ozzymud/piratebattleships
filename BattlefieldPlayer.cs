@@ -193,6 +193,152 @@ public class BattlefieldPlayer : DoubleBufferedPanel
     #region methods
     #region public
     /// <summary>
+    /// Shows a destroyed boat on the enemies playing field.
+    /// </summary>
+    /// <param name="args">Contains the coordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
+    public void ShowDestroyedBoat(int[] args, bool horizontal)
+    {
+        if (this.InvokeRequired)
+        {
+            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
+            this.Invoke(d, new object[] { args, horizontal });
+        }
+        else
+        {
+            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+            // Remove explosion picture at the specified position (remove--> PictureBox control)
+            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            if (horizontal)
+            {
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+            }
+            else
+            {
+                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Display on the enemy field a ruined cruiser.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    public void ShowDestroyedCruiser(int[] args, bool horizontal)
+        {
+            if (this.InvokeRequired)
+            {
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedCruiser);
+                this.Invoke(d, new object[] { args, horizontal });
+            }
+            else
+            {
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+                // Remove explosion picture at the specified position (remove--> PictureBox control)
+                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+
+                if (horizontal)
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                }
+                else
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+                }
+            }
+        }
+
+    /// <summary>
+    /// Display a destroyed galley on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    public void ShowDestroyedGalley(int[] args, bool horizontal)
+        {
+            if (this.InvokeRequired)
+            {
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedGalley);
+                this.Invoke(d, new object[] { args, horizontal });
+            }
+            else
+            {
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+                // At the entered point remove explosion image (remove--> PictureBox control)
+                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+
+                if (horizontal)
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                }
+                else
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                }
+            }
+        }
+
+    /// <summary>
+    /// Display a destroyed galley on the enemy field.
+    /// </summary>
+    /// <param name="args">The co-ordinates of the vessel.</param>
+    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
+    public void ShowDestroyedBattleship(int[] args, bool horizontal)
+        {
+            if (this.InvokeRequired)
+            {
+                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBattleship);
+                this.Invoke(d, new object[] { args, horizontal });
+            }
+            else
+            {
+                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
+
+                // At the entered point remove explosion image (remove--> PictureBox control)
+                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+
+                if (horizontal)
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                }
+                else
+                {
+                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
+                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                }
+            }
+        }
+
+    /// <summary>
     /// Decides which explosion is to be displayed in the panel.
     /// </summary>
     /// <param name="explosionX">X coordinate of the hit.</param>
@@ -371,151 +517,6 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             // AddControl(missPicture, x, y);
             this.playField[x, y].BackgroundImage = Properties.Resources.splash2;
             this.playField[x, y].Tag = 1;
-        }
-
-    /// <summary>
-    /// Shows a destroyed boat on the enemies playing field.
-    /// </summary>
-    /// <param name="args">Contains the coordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was used horizontally or vertically.</param>
-    private void ShowDestroyedBoat(int[] args, bool horizontal)
-    {
-        if (this.InvokeRequired)
-        {
-            ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBoat);
-            this.Invoke(d, new object[] { args, horizontal });
-        }
-        else
-        {
-            BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-            // Remove explosion picture at the specified position (remove--> PictureBox control)
-            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            if (horizontal)
-            {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h2;
-            }
-            else
-            {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
-            }
-        }
-    }
-    /// <summary>
-    /// Display on the enemy field a ruined cruiser.
-    /// </summary>
-    /// <param name="args">The co-ordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-    private void ShowDestroyedCruiser(int[] args, bool horizontal)
-        {
-            if (this.InvokeRequired)
-            {
-                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedCruiser);
-                this.Invoke(d, new object[] { args, horizontal });
-            }
-            else
-            {
-                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-                // Remove explosion picture at the specified position (remove--> PictureBox control)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-
-                if (horizontal)
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
-                }
-                else
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
-                }
-            }
-        }
-
-    /// <summary>
-    /// Display a destroyed galley on the enemy field.
-    /// </summary>
-    /// <param name="args">The co-ordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-    private void ShowDestroyedGalley(int[] args, bool horizontal)
-        {
-            if (this.InvokeRequired)
-            {
-                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedGalley);
-                this.Invoke(d, new object[] { args, horizontal });
-            }
-            else
-            {
-                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-                // At the entered point remove explosion image (remove--> PictureBox control)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
-
-                if (horizontal)
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
-                }
-                else
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
-                }
-            }
-        }
-
-    /// <summary>
-    /// Display a destroyed galley on the enemy field.
-    /// </summary>
-    /// <param name="args">The co-ordinates of the vessel.</param>
-    /// <param name="horizontal">Specifies whether the ship was placed horizontally or vertically.</param>
-    private void ShowDestroyedBattleship(int[] args, bool horizontal)
-        {
-            if (this.InvokeRequired)
-            {
-                ShowDestroyedShipsCallback d = new ShowDestroyedShipsCallback(this.ShowDestroyedBattleship);
-                this.Invoke(d, new object[] { args, horizontal });
-            }
-            else
-            {
-                BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
-
-                // At the entered point remove explosion image (remove--> PictureBox control)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
-
-                if (horizontal)
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
-                }
-                else
-                {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
-                }
-            }
         }
 
     /// <summary>
