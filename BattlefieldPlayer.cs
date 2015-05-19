@@ -207,7 +207,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             explPicture.Padding = new Padding(0);
             explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
             explPicture.BackColor = Color.Transparent;
-            explPicture.Image = Properties.Resources.explosion_img;
+            explPicture.Image = Properties.Resources.explosion2_img;
             this.AddControl(explPicture, explosionX, explosionY); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
         }
 

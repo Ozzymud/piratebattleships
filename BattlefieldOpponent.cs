@@ -163,7 +163,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         // Explosion PictureBox - Add to the panel where the impact is
         this.AddControl(explPicture);
     }
-        
+
     /// <summary>
     /// Adds a control to the playfield form (miss, hit, etc).
     /// </summary>
