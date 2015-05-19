@@ -158,7 +158,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         explPicture.Padding = new Padding(0);
         explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
         explPicture.BackColor = Color.Transparent;
-        explPicture.Image = Properties.Resources.explo6;
+        explPicture.Image = Properties.Resources.explosion_img;
         
         // Explosion PictureBox - Add to the panel where the impact is
         this.AddControl(explPicture);
@@ -456,7 +456,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         missPicture.Padding = new Padding(0);
         missPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
         missPicture.BackColor = Color.Transparent;
-        missPicture.Image = Properties.Resources.splash;
+        missPicture.Image = Properties.Resources.splash2;
         this.AddControl(missPicture);
     }
     #endregion

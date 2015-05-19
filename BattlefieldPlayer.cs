@@ -207,7 +207,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             explPicture.Padding = new Padding(0);
             explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
             explPicture.BackColor = Color.Transparent;
-            explPicture.Image = Properties.Resources.explo6;
+            explPicture.Image = Properties.Resources.explosion_img;
             this.AddControl(explPicture, explosionX, explosionY); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
         }
 
@@ -369,7 +369,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             // missPicture.Image = Properties.Resources.platsch;
 
             // AddControl(missPicture, x, y);
-            this.playField[x, y].BackgroundImage = Properties.Resources.splash;
+            this.playField[x, y].BackgroundImage = Properties.Resources.splash2;
             this.playField[x, y].Tag = 1;
         }
 

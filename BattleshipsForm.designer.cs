@@ -30,7 +30,6 @@ namespace Battleships
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnCruiser = new System.Windows.Forms.Button();
             this.btnBattleship = new System.Windows.Forms.Button();
             this.btnBoat = new System.Windows.Forms.Button();
@@ -315,7 +314,7 @@ namespace Battleships
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::Battleships.Properties.Resources.Battleships_v10;
+            this.BackgroundImage = global::Battleships.Properties.Resources.Battleships_v11;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 632);
             this.Controls.Add(this.enemyLabel);
