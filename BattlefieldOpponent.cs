@@ -339,7 +339,6 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         }
         else
         {
-            // TODO: Fix showing destroyed cruiser.
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove --> PictureBox control)
@@ -415,7 +414,6 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix showing destroyed battleship.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)

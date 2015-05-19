@@ -404,7 +404,6 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
         }
     }
-
     /// <summary>
     /// Display on the enemy field a ruined cruiser.
     /// </summary>
@@ -494,7 +493,6 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else
             {
-                // TODO: Fix showing destroyed battleship.
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
@@ -611,6 +609,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         },
                         this.boatReference[boatNr].IsHorizontal);
                     ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedBoat(
+                    ////    new int[4]
                     ////    {
                     ////    this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
                     ////    this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
@@ -621,12 +620,10 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             }
             else if (this.playfieldStore[x, y].Name.StartsWith("Cruiser_", StringComparison.Ordinal))
             {
-            // Is a cruiser hit?
+                // Is a cruiser hit?
                 string[] shipCruiser = this.playfieldStore[x, y].Name.Split('_');
-                ////MessageBox.Show("X: " + x + " Y: " + y + " shipCruiser: " + shipCruiser + " Store: " + this.playfieldStore[x, y].Name.Split('_'));
                 int cruiserNr = int.Parse(shipCruiser[1]);
                 string cruiserPart = shipCruiser[2];
-                ////MessageBox.Show("cruiserPart: " + cruiserPart + " cruiserNr: " + cruiserNr);
 
                 // Which part of the cruiser was hit?
                 switch (cruiserPart)
