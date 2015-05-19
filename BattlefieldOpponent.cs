@@ -304,7 +304,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         explPicture.Padding = new Padding(0);
         explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
         explPicture.BackColor = Color.Transparent;
-        explPicture.Image = Properties.Resources.explosion_player;
+        explPicture.Image = Properties.Resources.explosion_opponent;
         
         // Explosion PictureBox - Add to the panel where the impact is
         this.AddControl(explPicture);

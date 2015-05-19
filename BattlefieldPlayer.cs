@@ -353,8 +353,8 @@ public class BattlefieldPlayer : DoubleBufferedPanel
             explPicture.Padding = new Padding(0);
             explPicture.BorderStyle = System.Windows.Forms.BorderStyle.None;
             explPicture.BackColor = Color.Transparent;
-            explPicture.Image = Properties.Resources.explosion_opponent;
-            this.AddControl(explPicture, explosionX, explosionY); // PictureBox-Explosion dem Panel hinzufügen in welchem der Einschlag ist
+            explPicture.Image = Properties.Resources.explosion_player;
+            this.AddControl(explPicture, explosionX, explosionY); // Add a PictureBox explosion in the panel in which the impact is.
         }
 
     /// <summary>
@@ -602,6 +602,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                 if (this.boatReference[boatNr].Front && this.boatReference[boatNr].Rear)
                 {
                     this.boatReference[boatNr].ShipDestroyed = true;
+
                     this.ShowDestroyedBoat( // Show the destroyed boat on the playfield
                         new int[4]
                         {
