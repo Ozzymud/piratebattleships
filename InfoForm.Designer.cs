@@ -93,7 +93,7 @@ namespace Battleships
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(340, 21);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "Produktname";
+            this.labelProductName.Text = "Productname";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion
@@ -129,7 +129,7 @@ namespace Battleships
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(340, 21);
             this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "Firmenname";
+            this.labelCompanyName.Text = "Companyname";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription
@@ -144,7 +144,7 @@ namespace Battleships
             this.textBoxDescription.Size = new System.Drawing.Size(340, 141);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "Beschreibung";
+            this.textBoxDescription.Text = "Description";
             // 
             // buttonOk
             // 

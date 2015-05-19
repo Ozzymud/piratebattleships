@@ -256,10 +256,10 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 {
                     Socket tmp_workerSocket = this.mainSocket.EndAccept(result);
                     this.WaitForData(tmp_workerSocket);
-                    this.SetText("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
-                    this.SetText("But Server is already full!");
-                    this.SetTextLabelStatus("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect to Server");
-                    this.SetTextLabelStatus("But Server is already full!");
+                    this.SetText("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect");
+                    this.SetText("But the server is full!");
+                    this.SetTextLabelStatus("Client at: " + tmp_workerSocket.RemoteEndPoint.ToString() + " tried to connect");
+                    this.SetTextLabelStatus("But the server is full!");
                     object objData = "FULL";
                     byte[] byteData = System.Text.Encoding.ASCII.GetBytes(objData.ToString());
                     tmp_workerSocket.Send(byteData);
@@ -368,7 +368,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 if (objData.ToString().StartsWith("WIN", StringComparison.Ordinal))
                 {
                     // TODO: Play sound - Loser...
-                    MessageBox.Show(this, "You have lost!", "Loser!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "You have lost!", "Loser", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -381,7 +381,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             {
             // You win!
             // TODO: Play sound - Winner...
-            MessageBox.Show(this, "You have won!", "Winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(this, "You have won!", "Winner", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             Application.Exit();
             }
             else if (data.StartsWith("HIT", StringComparison.Ordinal))
@@ -577,17 +577,17 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                     }
                     else
                     {
-                        MessageBox.Show(this, "An opponent must be connected first!", "Opponents needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "An opponent must be connected first!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(this, "An opponent must be connected first!", "Opponents needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, "An opponent must be connected first!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
-                MessageBox.Show(this, "All ships must be distributed first!", "Not ready yet!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "All ships must be distributed first!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

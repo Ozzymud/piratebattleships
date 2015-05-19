@@ -280,7 +280,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             // else if: get coordinates (pf_) from an opponent (evaluate whether a ship is set to the coords or not) 
             if (data.StartsWith("ACK", StringComparison.Ordinal))
             {
-                this.SetTextLabelStatus("Server has confirmed connection (ACK)");
+                this.SetTextLabelStatus("Connected to server");
             }
             else if (data.StartsWith("FULL", StringComparison.Ordinal))
             {
@@ -340,21 +340,21 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                 if (objData.ToString().StartsWith("WIN", StringComparison.Ordinal))
                 {
                     // TODO: Play sound - Loser...
-                    MessageBox.Show(this, "Loser!", "lose", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(this, "You have lost!", "Loser", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Application.Exit();
                 }
                 else
                 {
                     // Spieler ist an der Reihe
                     BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
-                    this.SetTextLabelStatus("It's your turn now!");
+                    this.SetTextLabelStatus("It's your turn!");
                 }
             }
             else if (data.StartsWith("WIN", StringComparison.Ordinal))
             {
                 // Du hast gewonnen!!
                 // TODO: Play sound - Winner...
-                MessageBox.Show(this, "Du hast gewonnen!", "Sieg!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "You have won!", "Winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
             else if (data.StartsWith("HIT", StringComparison.Ordinal))
@@ -393,7 +393,7 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
             {
                 this.oroll = data.Remove(0, 4);
                 BattleshipsForm.OpponentReadyToPlay = true;
-                this.SetTextLabelStatus("Opponent is ready and rolled: " + this.oroll);
+                this.SetTextLabelStatus("Opponent is ready!");
 
                 // Check if player is ready
                 // if not: then wait until players ready
@@ -474,17 +474,17 @@ public partial class ClientGameForm : Battleships.DoubleBufferedForm
                     }
                     else
                     {
-                        MessageBox.Show(this, "Es muss erst ein Gegenspieler verbunden sein!", "Gegenspieler benötigt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "An opponent must be connected!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(this, "Es muss erst ein Gegenspieler verbunden sein!", "Gegenspieler benötigt", MessageBoxButtons.OK, MessageBoxIcon.Information);                    
+                    MessageBox.Show(this, "An opponent must be connected!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);                    
                 }
             }
             else
             {
-                MessageBox.Show(this, "Es müssen erst alle Schiffe verteilt werden!", "Nocht nicht bereit!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "All ships must be distributed first!", "Not ready", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
