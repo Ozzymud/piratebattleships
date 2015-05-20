@@ -331,8 +331,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 // Read X and Y from the message
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
-                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
+                int x = int.Parse(posData[0]);
+                int y = int.Parse(posData[1]);
 
                 object objData;
 
@@ -340,13 +340,13 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                 if (!BattleshipsForm.BattlefieldPlayer.HitOrMiss(x, y))
                 {
                     // Inform the enemy that he missed
-                    objData = "MISS" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
+                    objData = "MISS" + x.ToString() + ":" + y.ToString();
                     BattleshipsForm.BattlefieldPlayer.SetMiss(x, y);
                 }
                 else
                 {
                     // Inform the enemy that he landed a hit
-                    objData = "HIT" + x.ToString(CultureInfo.InvariantCulture) + ":" + y.ToString(CultureInfo.InvariantCulture);
+                    objData = "HIT" + x.ToString() + ":" + y.ToString();
 
                     // Set hit (On own field --> Enemy hit)
                     if (BattleshipsForm.BattlefieldPlayer.SetImpact(x, y))
@@ -389,8 +389,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             // You have landed a hit! 
                 string pos = data.Remove(0, 3);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
-                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
+                int x = int.Parse(posData[0]);
+                int y = int.Parse(posData[1]);
                 this.SetText("HIT received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
                 // Register that the player has hit (on the opponent's field)
@@ -405,8 +405,8 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
             // Unfortunately the shot missed, try again!
                 string pos = data.Remove(0, 4);
                 string[] posData = pos.Split(':');
-                int x = int.Parse(posData[0], CultureInfo.InvariantCulture);
-                int y = int.Parse(posData[1], CultureInfo.InvariantCulture);
+                int x = int.Parse(posData[0]);
+                int y = int.Parse(posData[1]);
                 this.SetText("MISS received at x:" + x.ToString(CultureInfo.InvariantCulture) + " y:" + y.ToString(CultureInfo.InvariantCulture));
 
                 // Register that the player has missed (on the opponent's field)
@@ -431,7 +431,7 @@ public partial class HostGameForm : Battleships.DoubleBufferedForm
                         this.SetTextLabelStatus("You start!");
                         BattleshipsForm.WhosTurn = BattleshipsForm.TurnIdentifier.Player;
                     }
-                    else if (int.Parse(this.oroll, CultureInfo.InvariantCulture) > this.roll)
+                    else if (int.Parse(this.oroll) > this.roll)
                     {
                         this.SetTextLabelStatus("Opponent rolled: " + this.oroll + " you rolled: " + this.roll.ToString());
                         this.SetTextLabelStatus("Opponent starts!");
