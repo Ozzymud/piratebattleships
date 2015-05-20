@@ -1492,7 +1492,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playField[x + 1, y].BackgroundImage = Battleships.Properties.Resources.boat2h;
                                 tmp.Tag = 1;
                                 this.playField[x + 1, y].Tag = 1;
-                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(); // Position sowie name des schiffes speichern
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + this.CounterBoat.ToString(); // Save position and name of the ship. 
                                 this.boatReference[this.CounterBoat].PosRearX = x;
                                 this.boatReference[this.CounterBoat].PosRearY = y;
                                 this.boatReference[this.CounterBoat].PosFrontX = x + 1;
@@ -1530,7 +1530,7 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                                 this.playField[x, y - 1].BackgroundImage = Battleships.Properties.Resources.boat1v;
                                 tmp.Tag = 1;
                                 this.playField[x, y - 1].Tag = 1;
-                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(); // Position sowie name des schiffes speichern
+                                this.boatReference[this.CounterBoat].ShipName = "Boat_" + CounterBoat.ToString(); // Save position and name of the ship
                                 this.boatReference[this.CounterBoat].PosFrontX = x;
                                 this.boatReference[this.CounterBoat].PosFrontY = y;
                                 this.boatReference[this.CounterBoat].PosRearX = x;
