@@ -610,13 +610,14 @@ public class BattlefieldPlayer : DoubleBufferedPanel
                         this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
                         },
                         this.boatReference[boatNr].IsHorizontal);
-                    ////BattleshipsForm.BattlefieldOpponent.ShowDestroyedBoat(
-                    ////    new int[4]
-                    ////    {
-                    ////    this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
-                    ////    this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
-                    ////    },
-                    ////    this.boatReference[boatNr].IsHorizontal);
+                    /*BattleshipsForm.BattlefieldOpponent.ShowDestroyedBoat(
+                        new int[4]
+                        {
+                        this.boatReference[boatNr].PosRearX, this.boatReference[boatNr].PosRearY,
+                        this.boatReference[boatNr].PosFrontX, this.boatReference[boatNr].PosFrontY
+                        },
+                        this.boatReference[boatNr].IsHorizontal);
+                    */
                     this.SetTextLabelStatus("Boat " + boatNr.ToString(CultureInfo.InvariantCulture) + " destroyed!\n");
                 }
             }
