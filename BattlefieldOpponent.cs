@@ -40,15 +40,15 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     /// </summary>
     private Color positionColor;
 
-    private Battleships.DoubleBufferedPanel[,] playField = new Battleships.DoubleBufferedPanel[10, 10];
+    private Battleships.DoubleBufferedPanel[,] opponentField = new Battleships.DoubleBufferedPanel[10, 10];
     #endregion
 
     #region constructor
     /// <summary>
     /// Initializes a new instance of the <see cref="BattlefieldOpponent" /> class.
     /// </summary>
-    /// <param name="x">X parameter on the opponent playfield.</param>
-    /// <param name="y">Y parameter on the opponent playfield.</param>
+    /// <param name="x">X parameter on the opponent opponentField.</param>
+    /// <param name="y">Y parameter on the opponent opponentField.</param>
     public BattlefieldOpponent(int x, int y)
     {
         this.positionColor = new Color();
@@ -63,9 +63,9 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         this.BackColor = Color.Transparent;
 
         // Enemies grid.
-        for (int i = 0; i < this.playField.GetLength(0); i++)
+        for (int i = 0; i < this.opponentField.GetLength(0); i++)
         {
-            for (int j = 0; j < this.playField.GetLength(1); j++)
+            for (int j = 0; j < this.opponentField.GetLength(1); j++)
             {
                 Battleships.DoubleBufferedPanel p = new Battleships.DoubleBufferedPanel();
                 p.Location = new Point(i * 30, j * 30);
@@ -80,7 +80,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 p.Cursor = CreateCursor(bitmap, 16, 16);
                 p.BackColor = Color.Transparent;
                 p.BorderStyle = BorderStyle.None;
-                this.playField[i, j] = p;
+                this.opponentField[i, j] = p;
                 this.Controls.Add(p);
             }
         }
@@ -131,17 +131,17 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // Remove explosion picture at the specified position (remove--> PictureBox control)
-            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.opponentField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.opponentField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h2;
+                this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_h1;
+                this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_h2;
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
+                this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.boat_dmg_v1;
+                this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.boat_dmg_v2;
             }
         }
     }
@@ -163,21 +163,21 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
             // At the entered point remove explosion image (remove --> PictureBox control)
-            this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-            this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-            this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+            this.opponentField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+            this.opponentField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+            this.opponentField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
 
             if (horizontal)
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
+                this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_h1;
+                this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_h2;
+                this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_h3;
             }
             else
             {
-                this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
-                this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
-                this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
+                this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.cruiser_dmg_v1;
+                this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.cruiser_dmg_v2;
+                this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.cruiser_dmg_v3;
             }
         }
     }
@@ -199,24 +199,24 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+                this.opponentField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.opponentField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.opponentField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.opponentField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
 
                 if (horizontal)
                 {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
+                    this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_h1;
+                    this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_h2;
+                    this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_h3;
+                    this.opponentField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_h4;
                 }
                 else
                 {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
+                    this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.galley_dmg_v1;
+                    this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.galley_dmg_v2;
+                    this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.galley_dmg_v3;
+                    this.opponentField[args[6], args[7]].BackgroundImage = Properties.Resources.galley_dmg_v4;
                 }
             }
         }
@@ -238,24 +238,24 @@ public class BattlefieldOpponent : DoubleBufferedPanel
                 BattleshipsForm.SoundPlayer.PlaySoundAsync("explosion1.wav");
 
                 // At the entered point remove explosion image (remove--> PictureBox control)
-                this.playField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
-                this.playField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
-                this.playField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
-                this.playField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
+                this.opponentField[args[0], args[1]].Controls.RemoveByKey("expl_" + args[0].ToString() + ":" + args[1].ToString());
+                this.opponentField[args[2], args[3]].Controls.RemoveByKey("expl_" + args[2].ToString() + ":" + args[3].ToString());
+                this.opponentField[args[4], args[5]].Controls.RemoveByKey("expl_" + args[4].ToString() + ":" + args[5].ToString());
+                this.opponentField[args[6], args[7]].Controls.RemoveByKey("expl_" + args[6].ToString() + ":" + args[7].ToString());
 
                 if (horizontal)
                 {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
+                    this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_h1;
+                    this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_h2;
+                    this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_h3;
+                    this.opponentField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_h4;
                 }
                 else
                 {
-                    this.playField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
-                    this.playField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
-                    this.playField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
-                    this.playField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
+                    this.opponentField[args[0], args[1]].BackgroundImage = Properties.Resources.z_dmg_v1;
+                    this.opponentField[args[2], args[3]].BackgroundImage = Properties.Resources.z_dmg_v2;
+                    this.opponentField[args[4], args[5]].BackgroundImage = Properties.Resources.z_dmg_v3;
+                    this.opponentField[args[6], args[7]].BackgroundImage = Properties.Resources.z_dmg_v4;
                 }
             }
         }
@@ -311,7 +311,7 @@ public class BattlefieldOpponent : DoubleBufferedPanel
     }
 
     /// <summary>
-    /// Adds a control to the playfield form (miss, hit, etc).
+    /// Adds a control to the opponentField form (miss, hit, etc).
     /// </summary>
     /// <param name="control">The resource to add.</param>
     public void AddControl(Control control)
@@ -407,13 +407,13 @@ public class BattlefieldOpponent : DoubleBufferedPanel
             {
                 Battleships.DoubleBufferedPanel tmp = (Battleships.DoubleBufferedPanel)sender;
 
-                for (int i = 0; i < this.playField.GetLength(0); i++)
+                for (int i = 0; i < this.opponentField.GetLength(0); i++)
                 {
-                    for (int j = 0; j < this.playField.GetLength(1); j++)
+                    for (int j = 0; j < this.opponentField.GetLength(1); j++)
                     {
-                        if (tmp.Name.ToString() == this.playField[i, j].Name.ToString())
+                        if (tmp.Name.ToString() == this.opponentField[i, j].Name.ToString())
                         {
-                            this.playField[i, j].BackColor = this.positionColor;
+                            this.opponentField[i, j].BackColor = this.positionColor;
                         }
                     }
                 }
@@ -424,13 +424,13 @@ public class BattlefieldOpponent : DoubleBufferedPanel
         {
             if (BattleshipsForm.WhosTurn == BattleshipsForm.TurnIdentifier.Player)
             {
-                for (int i = 0; i < this.playField.GetLength(0); i++)
+                for (int i = 0; i < this.opponentField.GetLength(0); i++)
                 {
-                    for (int j = 0; j < this.playField.GetLength(1); j++)
+                    for (int j = 0; j < this.opponentField.GetLength(1); j++)
                     {
-                        if ((int)this.playField[i, j].Tag != (int)1)
+                        if ((int)this.opponentField[i, j].Tag != (int)1)
                         {
-                            this.playField[i, j].BackColor = Color.Transparent;
+                            this.opponentField[i, j].BackColor = Color.Transparent;
                         }
                     }
                 }
